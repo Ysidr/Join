@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Stylesheets -->     
     <link rel="stylesheet" href="startseite.css">
-    <script src="startseite.js"></script>
+    <link rel="stylesheet" href="styles/assets.css">
+    <link rel="stylesheet" href="styles/standart.css">
+    <link rel="stylesheet" href="media.css">
+
+    <!-- Scripts -->
+    <script src="startseite.js" defer></script>
+    <script src="template.js" defer></script>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="#" data-page="startseite">Startseite</a></li>
-            <li><a href="#" data-page="aufgaben">Aufgaben</a></li>
-            <li><a href="#" data-page="kontakt">Kontakt</a></li>
-        </ul>
-    </nav>
-    <main id="content">
-    </main>
+<body onload="init()">
+
+        <nav id="navbar" class="navbar">
+            <div>
+                <img src="img/Capa 1.png" alt="">
+            </div>
+            <div class="flex flex-col cursor-pointer">
+                <span class="nav-item mt-6 flex gap-8" data-page="summary"><img src="img/Icons.png" alt="">Summary</span>
+                <span class="nav-item mt-6 flex gap-8" data-page="add-task"><img src="img/Icons (1).png" alt="">Add Task</span>
+                <span class="nav-item mt-6 flex gap-8" data-page="board"><img src="img/Icons (2).png" alt="">Board</span>
+                <span class="nav-item mt-6 flex gap-8" data-page="contacts"><img src="img/Icons (3).png" alt="">Contacts</span> 
+            </div>
+            <div class="flex flex-col cursor-pointer">
+                <p data-page="privacy-policy" class=" mt-6">Privacy Policy</p>
+                <p data-page="legal-notice" class=" mt-6">Legal Notice</p>
+            </div>       
+        </nav>
+        <div>
+            <header>
+                <p>Kanban Project Management Tool</p>
+                <div id="user-info">
+                    <img src="" alt="Hilfe-Icon">
+                    <span id="user-initials">G</span>
+                </div>
+            </header>
+
+            <main id="content">
+            </main>
+        </div>
 </body>
 </html>
