@@ -1,0 +1,51 @@
+.btnUserStory {
+    background-color: #0038FF;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px;
+    gap: 10px;
+}
+
+.btnTechnicalTask{
+    background-color: #1FD7C1;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px;
+    gap: 10px;
+}
+
+.btnGray {
+    background-color: #2A3647;
+    border-radius: 10px;
+    font-size: 21px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    padding: 16px;
+}
+
+.btnGray:hover{
+    cursor: pointer;
+    background-color: lightblue;
+    transition: 100ms;
+    height: 57px;
+}
+
+.btnClear {
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 21px;
+    font-weight: 700;
+    background-color: white;
+    color: #2A3647;
+    border-width: 1px;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.btnClear:hover {
+    cursor: pointer;
+    border: solid 1px;
+    border-color: #29ABE2;
+    transition: 100ms;
+    color: #29ABE2;
+    height: 57px;
+}
