@@ -23,7 +23,7 @@
 
 .btnGray:hover{
     cursor: pointer;
-    background-color: lightblue;
+    background-color: #29ABE2;
     transition: 100ms;
 }
 
