@@ -13,7 +13,7 @@ async function addAccountData() {
     checkForMailAdress(data);
 }
 async function setUsersAmount() {
-    let response = await fetch(BASE_URL + `/UserAmount/.json`);
+    let response = await fetch(BASE_URL + "UserAmount.json");
     responseToJson = await response.json();
         UsersAmountViaId = responseToJson;
         return UsersAmountViaId

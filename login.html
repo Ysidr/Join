@@ -29,23 +29,24 @@
                 <h1>Log in</h1>
                 <div class="underlineBlue"></div>
             </div>
-            
-            <form action="Login">
-                <div class="loginData">
+
+
+            <div class="loginData">
+                <form>
                     <div class="input-container">
                         <input type="email" placeholder="Email" required name="" id="emailLogin">
                         <img src="assets/icons/mail.svg" alt="">
                     </div>
                     <div class="input-container">
-                        <input type="password" placeholder="Password" name="" id="passordLogin">
+                        <input type="password" placeholder="Password" name="" id="passwordLogin">
                         <img src="assets/icons/mail.svg" alt="">
                     </div>
-                </div>
-                <div class="loginButtons">
-                    <input type="submit" class="btnGray" value="Log in" onclick="loginWithAccount()">
-                    <button class="btnClear" onclick="loginAsGuest()">Guest Log in</button>
                 </form>
-                </div>
+            </div>
+            <div class="loginButtons">
+                <input type="submit" class="btnGray" value="Log in" onclick="loginWithAccount()">
+                <button class="btnClear" onclick="loginAsGuest()">Guest Log in</button>
+            </div>
         </div>
     </section>
 

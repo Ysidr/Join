@@ -1,13 +1,15 @@
 
 async function loginWithAccount() {
     await setUsersAmount();
-    await checkForExistingAccount()
+    checkForExistingAccount()
 }
 
 async function checkForExistingAccount() {
-    for (let indexAcconts = 0; indexAcconts <= UsersAmountViaId; indexAcconts++) {
-        console.log("success");
-        
-        
+    for (let indexAcconts = 1; indexAcconts <= UsersAmountViaId; indexAcconts++) {
+    let response = await fetch(BASE_URL + `User/${indexAcconts}.json`);
+    responseToJson = await response.json();
+        if (responseToJson.mail == document.getElementById("emailLogin").value && responseToJson.password == document.getElementById("passwordLogin").value) {
+            openAccount()   
+        }   
     }
 }
