@@ -12,11 +12,12 @@ async function addAccountData() {
     mailIsUsed = false;
     checkForMailAdress(data);
 }
+
 async function setUsersAmount() {
     let response = await fetch(BASE_URL + "UserAmount.json");
     responseToJson = await response.json();
-        UsersAmountViaId = responseToJson;
-        return UsersAmountViaId
+    UsersAmountViaId = responseToJson;
+    return UsersAmountViaId
 }
 
 async function checkForMailAdress(data) {
@@ -27,7 +28,7 @@ async function checkForMailAdress(data) {
             if (responseToJson.mail == document.getElementById("mailInput").value) {
                 mailIsUsed = true;
             }
-        }     
+        }
     }
     postAccoundData(data);
 }
@@ -36,14 +37,24 @@ async function postAccoundData(data) {
     if (mailIsUsed == true) {
         loginToAccountMessage()
         mailIsUsed = false;
-    }else{
-        putToServer(data)
+    } else {
+        checkAndputToServer(data)
         mailIsUsed = false;
     }
 }
 
+async function checkAndputToServer(data) {
+    if (document.getElementById("passwordInput").value == document.getElementById("confirmInput")) {
+        UsersAmountViaId++;
+        putToServer(data);
+        putUserAmonutToServer()
+        return responseToJson = await response.json();
+    } else {
+        passwordsAreDifferent();
+    }
+}
+
 async function putToServer(data) {
-    UsersAmountViaId++;
     let response = await fetch(BASE_URL + `User/${UsersAmountViaId}.json`,
         {
             method: "put",
@@ -52,9 +63,8 @@ async function putToServer(data) {
             },
             body: JSON.stringify(data)
         });
-        putUserAmonutToServer()
-    return responseToJson = await response.json();
 }
+
 async function putUserAmonutToServer() {
     let response = await fetch(BASE_URL + `UserAmount/.json`,
         {
