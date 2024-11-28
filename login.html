@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/standart.css">
+    <link rel="stylesheet" href="./styles/login.css">
+    <script src="./scripts/login.js"></script>
+
+
+
+</head>
+
+<body>
+    <header>
+        <img src="./assets/icons/Capa 2.svg" alt="">
+        <div class="createAccountDiv">
+            <p>Not a Join user?</p>
+            <button class="signUpBtn btnGray" onclick="createNewAccount()">Sign up</button>
+        </div>
+
+    </header>
+    <section class="loginBox">
+        <div class="loginDiv">
+            <div class="header1">
+                <h1>Log in</h1>
+                <div class="underlineBlue"></div>
+            </div>
+            
+            <form action="Login">
+                <div class="loginData">
+                    <input type="email" placeholder="Email" required name="" id="emailLogin">
+                    <input type="password" placeholder="Password" name="" id="passordLogin">
+                </div>
+                <div class="loginButtons">
+                    <input type="submit" class="btnGray" value="Log in" onclick="loginWithAccount()">
+                    <button class="btnClear" onclick="loginAsGuest()">Guest Log in</button>
+                </form>
+                </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

@@ -15,7 +15,6 @@
 .btnGray {
     background-color: #2A3647;
     border-radius: 10px;
-    font-size: 21px;
     font-weight: 700;
     color: white;
     border: none;
@@ -26,13 +25,11 @@
     cursor: pointer;
     background-color: lightblue;
     transition: 100ms;
-    height: 57px;
 }
 
 .btnClear {
     padding: 16px;
     border-radius: 10px;
-    font-size: 21px;
     font-weight: 700;
     background-color: white;
     color: #2A3647;
@@ -47,5 +44,4 @@
     border-color: #29ABE2;
     transition: 100ms;
     color: #29ABE2;
-    height: 57px;
 }
