@@ -1,6 +1,6 @@
 
-function addAccountData() {
-    setUsersAmount()
+async function addAccountData() {
+    await setUsersAmount()
     let nameOfNewUser = document.getElementById("nameInput").value;
     let mailOfNewUser = document.getElementById("mailInput").value;
     let passwordOfNewUser = document.getElementById("passwordInput").value;
@@ -13,9 +13,10 @@ function addAccountData() {
     checkForMailAdress(data);
 }
 async function setUsersAmount() {
-    let response = await fetch(BASE_URL + `UserAmount/.json`);
-        responseToJson = await response.json();
+    let response = await fetch(BASE_URL + `/UserAmount/.json`);
+    responseToJson = await response.json();
         UsersAmountViaId = responseToJson;
+        return UsersAmountViaId
 }
 
 async function checkForMailAdress(data) {

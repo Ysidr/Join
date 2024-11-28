@@ -1,12 +1,7 @@
-function loginWithAccount() {
-    fetchAccountAmounts()
-    checkForExistingAccount()
-}
 
-async function fetchAccountAmounts() {
-    let response = await fetch("https://join-7cb80-default-rtdb.europe-west1.firebasedatabase.app/UserAmount/.json");
-    responseToJson = await response.json();
-    UsersAmountViaId = responseToJson;
+async function loginWithAccount() {
+    await setUsersAmount();
+    await checkForExistingAccount()
 }
 
 async function checkForExistingAccount() {
