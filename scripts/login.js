@@ -1,1 +1,5 @@
 createNewAccount()
+
+async function loginWithAccount() {
+    
+}

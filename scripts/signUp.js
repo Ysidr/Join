@@ -1,3 +1,5 @@
+let NameOfAddedUser = "";
+
 async function addAccountData() {
     let nameOfNewUser = document.getElementById("nameInput").value;
     let mailOfNewUser = document.getElementById("mailInput").value;
@@ -7,14 +9,23 @@ async function addAccountData() {
         "mail": mailOfNewUser,
         "password": passwordOfNewUser
     };
-    postAccoundData(data, nameOfNewUser);
+    checkForMailAdress(data, nameOfNewUser);
 }
-
+async function checkForMailAdress(data, nameOfNewUser) {
+    let response = await fetch(BASE_URL +"User"+ ".json");
+    responseToJson = await response.json();
+    NameOfAddedUser = nameOfNewUser;
+    console.log(responseToJson.NameOfAddedUser);
+    
+    if (responseToJson.nameOfNewUser == undefined) {
+        postAccoundData(data, nameOfNewUser)
+    }
+}
 
 async function postAccoundData(data, nameOfNewUser) {
     let response = await fetch(BASE_URL +"User/" + nameOfNewUser + ".json",
         {
-            method: "Post",
+            method: "put",
             header: {
                 "Content-Type": "application/json",
             },
@@ -22,3 +33,4 @@ async function postAccoundData(data, nameOfNewUser) {
         });
     return responseToJson = await response.json();
 }
+
