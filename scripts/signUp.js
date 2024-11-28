@@ -1,4 +1,5 @@
 let NameOfAddedUser = "";
+let mailIsUsed = false;
 
 async function addAccountData() {
     let nameOfNewUser = document.getElementById("nameInput").value;
@@ -9,21 +10,33 @@ async function addAccountData() {
         "mail": mailOfNewUser,
         "password": passwordOfNewUser
     };
+    mailIsUsed = false;
     checkForMailAdress(data, nameOfNewUser);
 }
-async function checkForMailAdress(data, nameOfNewUser) {
-    let response = await fetch(BASE_URL +"User"+ ".json");
-    responseToJson = await response.json();
-    NameOfAddedUser = nameOfNewUser;
-    console.log(responseToJson.NameOfAddedUser);
-    
-    if (responseToJson.nameOfNewUser == undefined) {
-        postAccoundData(data, nameOfNewUser)
+async function checkForMailAdress(data,mailOfNewUser) {
+    for (let indexUserCount = 1; indexUserCount <= UsersAmountViaId; indexUserCount++) {
+        let response = await fetch(BASE_URL + `User/${indexUserCount}.json`);
+        responseToJson = await response.json();
+        if (responseToJson.mail == document.getElementById("mailInput").value) {
+            mailIsUsed = true;
+        }
+    }
+    postAccoundData(data);
+}
+
+async function postAccoundData(data) {
+    if (mailIsUsed == true) {
+        loginToAccountMessage()
+        mailIsUsed = false;
+    }else{
+        putToServer(data)
+        mailIsUsed = false;
     }
 }
 
-async function postAccoundData(data, nameOfNewUser) {
-    let response = await fetch(BASE_URL +"User/" + nameOfNewUser + ".json",
+async function putToServer(data) {
+    UsersAmountViaId++;
+    let response = await fetch(BASE_URL + `User/${UsersAmountViaId}.json`,
         {
             method: "put",
             header: {
@@ -33,4 +46,3 @@ async function postAccoundData(data, nameOfNewUser) {
         });
     return responseToJson = await response.json();
 }
-
