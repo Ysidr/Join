@@ -1,0 +1,92 @@
+body {
+    background-color: #f5f6f7;
+}
+header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}
+header img {
+    width: 100px;
+    margin: 80px 0 0 77px;
+}
+.signUpBtn {
+    width: 91px;
+    height: 49px;
+    font-size: 16px;
+    height: 49px;
+}
+.createAccountDiv {
+    display: flex;
+    gap: 35px;
+    margin: 67px 77px 0 0;
+}
+.loginBox{
+    z-index: 0;
+    background:transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginDiv {
+    width: 652px;
+    height: 449px;
+    background-color: white;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 48px 115px 48px 115px;
+    gap: 32px;
+    filter: drop-shadow( 0px 0px 5px rgba(164, 163, 163, 0.265));
+}
+.header1 {
+    height: 89px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+.underlineBlue {
+    height: 3px;
+    background-color: #29ABE2;
+    width: 150px;
+}
+.loginData {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.loginData img{
+    height: 20px;
+}
+.loginData input {
+    width: 422px;
+    height: 48px;
+    border-radius: 10px;
+    border-color: #D1D1D1;
+    border-style: solid;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.loginButtons {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 21px;
+}
+.loginButtons input {
+    font-size: 20px;
+}
