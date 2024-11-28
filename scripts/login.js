@@ -1,5 +1,0 @@
-createNewAccount()
-
-async function loginWithAccount() {
-    
-}

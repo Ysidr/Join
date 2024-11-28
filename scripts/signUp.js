@@ -1,7 +1,6 @@
-let NameOfAddedUser = "";
-let mailIsUsed = false;
 
-async function addAccountData() {
+function addAccountData() {
+    setUsersAmount()
     let nameOfNewUser = document.getElementById("nameInput").value;
     let mailOfNewUser = document.getElementById("mailInput").value;
     let passwordOfNewUser = document.getElementById("passwordInput").value;
@@ -11,15 +10,23 @@ async function addAccountData() {
         "password": passwordOfNewUser
     };
     mailIsUsed = false;
-    checkForMailAdress(data, nameOfNewUser);
+    checkForMailAdress(data);
 }
-async function checkForMailAdress(data,mailOfNewUser) {
+async function setUsersAmount() {
+    let response = await fetch(BASE_URL + `UserAmount/.json`);
+        responseToJson = await response.json();
+        UsersAmountViaId = responseToJson;
+}
+
+async function checkForMailAdress(data) {
     for (let indexUserCount = 1; indexUserCount <= UsersAmountViaId; indexUserCount++) {
         let response = await fetch(BASE_URL + `User/${indexUserCount}.json`);
         responseToJson = await response.json();
-        if (responseToJson.mail == document.getElementById("mailInput").value) {
-            mailIsUsed = true;
-        }
+        if (UsersAmountViaId != 0) {
+            if (responseToJson.mail == document.getElementById("mailInput").value) {
+                mailIsUsed = true;
+            }
+        }     
     }
     postAccoundData(data);
 }
@@ -43,6 +50,18 @@ async function putToServer(data) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data)
+        });
+        putUserAmonutToServer()
+    return responseToJson = await response.json();
+}
+async function putUserAmonutToServer() {
+    let response = await fetch(BASE_URL + `UserAmount/.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(UsersAmountViaId)
         });
     return responseToJson = await response.json();
 }
