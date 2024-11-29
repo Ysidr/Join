@@ -1,4 +1,3 @@
-
 .cloumn1 {
     display: flex;
     flex-direction: column;
@@ -65,4 +64,25 @@
 
 .selectPrio input[type="radio"] {
     display: none;
+}
+
+.clearBtn {
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addTasksBtn {
+    position: relative;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+    top: 80px;
+}
+
+.h1AddTask {
+    margin-bottom: 24px;
 }
