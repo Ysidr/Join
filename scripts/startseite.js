@@ -1,37 +1,49 @@
-async function loadUserInitials() {
+const BASE_URL = "https://join-7cb80-default-rtdb.europe-west1.firebasedatabase.app/";
+
+async function loadUserData() {
+    const userId = sessionStorage.getItem('loggedInUserId');
+    if (!userId) return;
+
     try {
-        const user = await fetchUserFromFirebase();
-        const initials = getInitials(user.firstName, user.lastName);
-        document.getElementById('user-initials').innerHTML = initials;
+        const userData = await fetchUserFromFirebase(userId);
+        const initials = getInitials(userData.name);
+        document.getElementById('user-initials').textContent = initials;
     } catch (error) {
         console.error('Fehler beim Laden der Benutzerdaten:', error);
-        document.getElementById('user-initials').innerHTML = 'G';
+        document.getElementById('user-initials').textContent = 'G';
     }
 }
 
-function getInitials(firstName, lastName) {
-    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+async function fetchUserFromFirebase(userId) {
+    const response = await fetch(`${BASE_URL}User/${userId}.json`);
+    if (!response.ok) {
+        throw new Error('Benutzerdaten konnten nicht abgerufen werden');
+    }
+    const userData = await response.json();
+    return userData;
 }
 
-async function fetchUserFromFirebase() {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve({ firstName: 'Max', lastName: 'Mustermann' }), 500);
-    });
+function getInitials(name) {
+    if (!name) return 'G';
+    const nameParts = name.split(' ');
+    const firstInitial = nameParts[0]?.charAt(0).toUpperCase();
+    const lastInitial = nameParts[1]?.charAt(0).toUpperCase();
+    return firstInitial + (lastInitial || '');
 }
 
-// Benutzerinitialen bei Start laden
-loadUserInitials();
+window.onload = loadUserData;
+
 
 // Hauptbereich der Seite und Links laden
 const content = document.getElementById("content");
 const navbarLinks = [
     document.getElementById("summaryLink"),
-    document.getElementById("addTaskLink"),
+    document.getElementById("addTask"),
     document.getElementById("boardLink"),
     document.getElementById("contactsLink"),
     document.getElementById("privacyPolicy"),
     document.getElementById("legalNotice"),
-    document.getElementById("help")
+    document.getElementById("help"),
 ];
 
 // Funktion zum Laden von HTML, CSS und JS
