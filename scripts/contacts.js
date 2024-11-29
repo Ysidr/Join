@@ -20,48 +20,59 @@ function renderContacts() {
             </div>
         </div>
     </div>
-    <div id="newContact" class="newContact-hidden"></div>
+    <div id="newContactForm" class="">
+        <div>
+            <h3>Create New Contact</h3>
+            <input type="text" id="newContactName" placeholder="Name">
+            <input type="email" id="newContactEmail" placeholder="Email">
+            <input type="tel" id="newContactPhone" placeholder="Phone">
+            <button onclick="createContact()">Create</button>
+            <button onclick="cancelCreateContact()">Cancel</button>
+        </div>
+    </div>
     `;
 }
 
-async function initializeContacts() {
+function renderAddContactForm() {
+    const newContactForm = document.getElementById("newContactForm");
+    newContactForm.classList.remove("newContact-hidden");
+}
+
+function cancelCreateContact() {
+    const newContactForm = document.getElementById("newContactForm");
+    newContactForm.classList.add("newContact-hidden");
+}
+
+async function createContact() {
+    const name = document.getElementById("newContactName").value;
+    const email = document.getElementById("newContactEmail").value;
+    const phone = document.getElementById("newContactPhone").value;
+    if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    const contact = { name, email, phone };
+    const firstLetter = name.charAt(0).toUpperCase();
     try {
         const response = await fetch(BASE_URL + "Contacts.json");
         const contacts = await response.json();
         if (!contacts) {
-            console.log("Keine Kontakte gefunden. Initialisiere Standardkontakte...");
-            await seedContacts();
+            console.log("Keine Kontakte in Firebase.");
         }
+        if (!contacts[firstLetter]) {
+            contacts[firstLetter] = [];
+        }
+        contacts[firstLetter].push(contact);
+        await fetch(BASE_URL + "Contacts.json", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(contacts),
+        });
+        await loadContacts();
+        cancelCreateContact();
     } catch (error) {
-        console.error("Fehler bei der Initialisierung der Kontakte:", error);
+        console.error("Fehler beim Hinzufügen des Kontakts:", error);
     }
-}
-
-async function seedContacts() {
-    const initialContacts = {
-        A: [
-            { name: "Alice Johnson", email: "alice@example.com", phone: "+491234567890" },
-            { name: "Aaron Smith", email: "aaron@example.com", phone: "+491234567891" }
-        ],
-        B: [
-            { name: "Brian Davis", email: "brian@example.com", phone: "+491234567892" }
-        ],
-        C: [
-            { name: "Claire Wilson", email: "claire@example.com", phone: "+491234567893" },
-            { name: "Carl Becker", email: "carl@example.com", phone: "+491234567894" }
-        ],
-        D: [
-            { name: "Diana Lopez", email: "diana@example.com", phone: "+491234567895" }
-        ],
-        E: [
-            { name: "Edward Carter", email: "edward@example.com", phone: "+491234567896" }
-        ]
-    };
-    await fetch(BASE_URL + "Contacts.json", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(initialContacts),
-    });
 }
 
 async function loadContacts() {
@@ -80,8 +91,7 @@ async function loadContacts() {
             letterSection.classList.add("contact-letter-section");
             letterSection.innerHTML = `<h2>${letter}</h2>`;
             contactContainer.appendChild(letterSection);
-
-            contactGroup.forEach((contact, index) => {
+            contactGroup.forEach((contact) => {
                 const contactItem = document.createElement("div");
                 contactItem.classList.add("contact-item");
                 contactItem.onclick = () => displayContactInfo(contact);
@@ -124,6 +134,5 @@ function displayContactInfo(contact) {
 
 (async function main() {
     renderContacts();
-    await initializeContacts();
     await loadContacts();
 })();
