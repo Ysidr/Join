@@ -38,16 +38,17 @@ async function postAccoundData(data) {
         loginToAccountMessage()
         mailIsUsed = false;
     } else {
-        checkAndputToServer(data)
+     checkAndputToServer(data)
         mailIsUsed = false;
     }
 }
 
-function checkAndputToServer(data) {
+async function checkAndputToServer(data) {
     if (document.getElementById("passwordInput").value == document.getElementById("confirmInput").value) {
         UsersAmountViaId++;
-        putToServer(data);
-        putUserAmonutToServer()
+        await putToServer(data);
+        await putUserAmonutToServer()
+        window.location.href = "succesfulNewAccount.html";
     } else {
         passwordsAreDifferent();
     }

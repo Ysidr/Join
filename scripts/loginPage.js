@@ -14,4 +14,8 @@ async function checkForExistingAccount() {
     }
 }
 
+function goToSignUp() {
+    window.location.href = "signUp.html";
+}
+
 

@@ -6,6 +6,8 @@ let mailIsUsed = false;
 
 let isGuestAccount = false;
 
+accountExists = false;
+
 function openAccount(indexAcconts) {
     window.location.href = "startseite.html";
 }
