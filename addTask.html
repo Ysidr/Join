@@ -34,8 +34,10 @@
 
 
             <label for="selectCategory">Category</label>
-            <select name="selectCategory" class="smallInputField" id="contactSelector" required>
+            <select name="selectCategory" class="smallInputField" id="categorytSelector" required>
                 <option value="basicText">Select task category</option>
+                <option value="technicalTask">Technical Task</option>
+                <option value="userStory">User Story</option>
             </select>
 
             <label for="subtaskInput">Subtasks</label>
@@ -43,7 +45,7 @@
 
             <div class="addTasksBtn">
                 <button class="btnClear clearBtn">Clear</button>
-                <button class="btnGray">Create Task</button>
+                <button class="btnGray" onclick="createTask()">Create Task</button>
             </div>
 
         </div>
