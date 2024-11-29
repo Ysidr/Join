@@ -43,12 +43,11 @@ async function postAccoundData(data) {
     }
 }
 
-async function checkAndputToServer(data) {
-    if (document.getElementById("passwordInput").value == document.getElementById("confirmInput")) {
+function checkAndputToServer(data) {
+    if (document.getElementById("passwordInput").value == document.getElementById("confirmInput").value) {
         UsersAmountViaId++;
         putToServer(data);
         putUserAmonutToServer()
-        return responseToJson = await response.json();
     } else {
         passwordsAreDifferent();
     }
