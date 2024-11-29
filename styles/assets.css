@@ -45,3 +45,7 @@
     transition: 100ms;
     color: #29ABE2;
 }
+
+.selectPrio [type="radio"]:checked +label {
+    background-color: #FFA800;
+}

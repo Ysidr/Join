@@ -1,22 +1,47 @@
-
-    <div class="contentAddTask">
-        <h1>Add Task</h1>
+<div class="contentAddTask">
+    <h1>Add Task</h1>
+    <div class="coloumns">
         <div class="cloumn1">
             <label for="titleInput">Title</label>
-            <input id="titleInput" class="smallInputField" type="text">
+            <input id="titleInput" class="smallInputField" type="text" placeholder="Enter a title" required>
 
             <label for="descriptionInput">Description</label>
-            <input id="descriptionInput" type="text">
+            <input id="descriptionInput" class="descriptionInput" type="text" placeholder="Enter a Description" re>
 
             <label for="selectContacts">Assignet to</label>
-            <select name="selectContacts" class="smallInputField" id="contactSelector" aria-placeholder="">
-                <option value="volvo">...</option>
+            <select name="selectContacts" class="smallInputField" id="contactSelector">
+                <option value="basicText">Select contacts to assign</option>
             </select>
 
         </div>
-        <div class="coloumn2">
+        <div class="sepererator"></div>
+        <div class="cloumn2">
+            <label for="dateInput">Due date</label>
+            <input id="dateIput" class="smallInputField" type="date" required>
+            <label for="selectPrio">Priority</label>
+            <div class="selectPrio">
+                <form id="formPrio">
+                    <input type="radio" id="high" name="priority" value="HTML">
+                    <label for="high">High</label>
+                    
+                    <input type="radio" id="medium" name="priority" value="HTML">
+                    <label for="medium">Medium</label>
+
+                    <input type="radio" id="low" name="priority" value="HTML">
+                    <label for="low">Low</label>
+            </form>
+            </div>
+
+
+            <label for="selectCategory">Category</label>
+            <select name="selectCategory" class="smallInputField" id="contactSelector" required>
+                <option value="basicText">Select task category</option>
+            </select>
+
+            <label for="subtaskInput">Subtasks</label>
+            <input id="subtaskInput" class="smallInputField" type="text" required>
 
         </div>
-
     </div>
-    
+
+</div>
