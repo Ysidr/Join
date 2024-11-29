@@ -33,17 +33,16 @@ function getInitials(name) {
 
 window.onload = loadUserData;
 
-
 // Hauptbereich der Seite und Links laden
 const content = document.getElementById("content");
 const navbarLinks = [
     document.getElementById("summaryLink"),
-    document.getElementById("addTask"),
+    document.getElementById("addTaskLink"),
     document.getElementById("boardLink"),
     document.getElementById("contactsLink"),
     document.getElementById("privacyPolicy"),
     document.getElementById("legalNotice"),
-    document.getElementById("help"),
+    document.getElementById("help")
 ];
 
 // Funktion zum Laden von HTML, CSS und JS
