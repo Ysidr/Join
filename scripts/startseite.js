@@ -30,7 +30,8 @@ const navbarLinks = [
     document.getElementById("boardLink"),
     document.getElementById("contactsLink"),
     document.getElementById("privacyPolicy"),
-    document.getElementById("legalNotice")
+    document.getElementById("legalNotice"),
+    document.getElementById("help")
 ];
 
 // Funktion zum Laden von HTML, CSS und JS
