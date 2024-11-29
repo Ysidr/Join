@@ -1,4 +1,14 @@
 
+async function getUserCount() {
+    let response = await fetch(BASE_URL + `User.json`);
+    let localUserCount = 0;
+    responseToJson = await response.json();
+    for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
+        localUserCount++;
+    }
+    UsersAmountViaId = localUserCount;
+}
+
 async function loginWithAccount() {
     await setUsersAmount();
     checkForExistingAccount()

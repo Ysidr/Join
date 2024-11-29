@@ -39,11 +39,17 @@ header img {
 }
 .header1 {
     height: 89px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
+}
+.backBtn {
+    position: absolute;
+    top: 80px;
+    left: 80px;
 }
 .underlineBlue {
     height: 3px;
