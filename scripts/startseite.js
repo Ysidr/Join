@@ -28,7 +28,9 @@ const navbarLinks = [
     document.getElementById("summaryLink"),
     document.getElementById("addTaskLink"),
     document.getElementById("boardLink"),
-    document.getElementById("contactsLink")
+    document.getElementById("contactsLink"),
+    document.getElementById("privacyPolicy"),
+    document.getElementById("legalNotice")
 ];
 
 // Funktion zum Laden von HTML, CSS und JS

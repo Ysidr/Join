@@ -15,5 +15,4 @@ function renderContacts() {
 `;
 }
 
-// Automatisch laden
 renderContacts();
