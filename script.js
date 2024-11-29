@@ -9,13 +9,13 @@ let isGuestAccount = false;
 accountExists = false;
 
 function openAccount(indexAcconts) {
-    // Speichern der Benutzer-ID im sessionStorage
     sessionStorage.setItem('loggedInUserId', indexAcconts);
+    sessionStorage.setItem('isGuestAccount', 'false');
     window.location.href = "startseite.html";
 }
 
-
 function openGuestAccount() {
     isGuestAccount = true;
+    sessionStorage.setItem('isGuestAccount', 'true');
     window.location.href = "startseite.html";
 }

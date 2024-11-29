@@ -1,9 +1,12 @@
-const BASE_URL = "https://join-7cb80-default-rtdb.europe-west1.firebasedatabase.app/";
-
 async function loadUserData() {
+    const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
+
+    if (isGuest) {
+        document.getElementById('user-initials').textContent = 'G';
+        return;
+    }
     const userId = sessionStorage.getItem('loggedInUserId');
     if (!userId) return;
-
     try {
         const userData = await fetchUserFromFirebase(userId);
         const initials = getInitials(userData.name);
