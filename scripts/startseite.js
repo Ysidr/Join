@@ -19,48 +19,61 @@ async function fetchUserFromFirebase() {
     });
 }
 
+// Benutzerinitialen bei Start laden
 loadUserInitials();
 
+// Hauptbereich der Seite und Links laden
 const content = document.getElementById("content");
-const navbarLinks = document.querySelectorAll("[data-page]");
+const navbarLinks = [
+    document.getElementById("summaryLink"),
+    document.getElementById("addTaskLink"),
+    document.getElementById("boardLink"),
+    document.getElementById("contactsLink")
+];
 
-navbarLinks.forEach(link => {
-    link.onclick = async (event) => {
-        event.preventDefault();
-        const page = link.dataset.page;
-        await loadPage(page);
-    };
-});
-
+// Funktion zum Laden von HTML, CSS und JS
 async function loadPage(page) {
     try {
-        const response = await fetch(`./${page}.html`);
+        // HTML laden
+        const response = await fetch(`${page}.html`);
         if (response.ok) {
             const html = await response.text();
             content.innerHTML = html;
-            await loadScript(`./scripts/${page}.js`);
-            console.log(`Seite ${page} erfolgreich geladen.`);
+            console.log(`Seite ${page}.html erfolgreich geladen.`);
         } else {
-            console.log(`Fehler beim Laden von ${page}: ${response.status}`);
             content.innerHTML = `<p>Seite ${page} konnte nicht geladen werden.</p>`;
+            return;
+        }
+
+        // CSS einbinden
+        const dynamicCss = document.getElementById("dynamic-css");
+        if (dynamicCss) {
+            dynamicCss.href = `./styles/${page}.css`;
+        } else {
+            document.head.innerHTML += `<link id="dynamic-css" rel="stylesheet" href="./styles/${page}.css">`;
+        }
+
+        // JS ausführen
+        const scriptResponse = await fetch(`./scripts/${page}.js`);
+        if (scriptResponse.ok) {
+            const scriptText = await scriptResponse.text();
+            eval(scriptText); // Direktes Ausführen des geladenen Skripts
         }
     } catch (error) {
-        console.error(`Fehler beim Laden der Seite ${page}:`, error);
         content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
     }
 }
 
-async function loadScript(scriptPath) {
-    try {
-        const script = document.createElement("script");
-        script.src = scriptPath;
-        script.defer = true;
-        document.body.appendChild(script);
-    } catch (error) {
-        console.error(`Fehler beim Laden des Skripts ${scriptPath}:`, error);
-    }
-}
+// Events für Navigationslinks definieren
+navbarLinks.forEach((link) => {
+    link.onclick = function (event) {
+        event.preventDefault();
+        const page = this.dataset.page;
+        loadPage(page);
+    };
+});
 
+// Startseite initialisieren
 (async function initStartPage() {
     await loadPage("summary");
 })();

@@ -4,46 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Startseite</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Stylesheets -->     
+    <!-- Statische Stylesheets -->
     <link rel="stylesheet" href="styles/startseite.css">
     <link rel="stylesheet" href="styles/assets.css">
     <link rel="stylesheet" href="styles/standart.css">
+    <link rel="stylesheet" href="styles/contacts.css">
+    <link rel="stylesheet" href="styles/summary.css">
 
-    <!-- Scripts -->
+    <!-- Platzhalter für dynamisches CSS -->
+    <link id="dynamic-css" rel="stylesheet">
+
+    <!-- Hauptskript -->
     <script src="scripts/startseite.js" defer></script>
 </head>
 <body>
-        <nav class="navbar">
-            <div>
-                <img src="assets/icons/Capa 1.png" alt="">
-            </div>
-            <div class="nav-container">
-                <a href="#" data-page="summary"><img src="assets/icons/Icons.png" alt="">Summary</a>
-                <a href="#" data-page="add-task"><img src="assets/icons/Icons (1).png" alt="">Add Task</a>
-                <a href="#" data-page="board"><img src="assets/icons/Icons (2).png" alt="">Board</a>
-                <a href="#" data-page="contacts"><img src="assets/icons/Icons (3).png" alt="">Contacts</a>                
-            </div>
-            <div class="flex flex-col cursor-pointer">
-                <a href="" class=" mt-6">Privacy Policy</a>
-                <a href="" class=" mt-6">Legal Notice</a>
-            </div>       
-        </nav>
+    <nav class="navbar">
         <div>
-            <header>
-                <p>Kanban Project Management Tool</p>
-                <div id="user-info">
-                    <img src="" alt="Hilfe-Icon">
-                    <span id="user-initials">G</span>
-                </div>
-            </header>
-
-            <main id="content">
-            </main>
+            <img src="assets/icons/Capa 1.png" alt="">
         </div>
+        <div class="nav-container">
+            <a href="#" id="summaryLink" data-page="summary"><img src="assets/icons/Icons.png" alt="">Summary</a>
+            <a href="#" id="addTaskLink" data-page="add-task"><img src="assets/icons/Icons (1).png" alt="">Add Task</a>
+            <a href="#" id="boardLink" data-page="board"><img src="assets/icons/Icons (2).png" alt="">Board</a>
+            <a href="#" id="contactsLink" data-page="contacts"><img src="assets/icons/Icons (3).png" alt="">Contacts</a>
+        </div>
+        <div class="flex flex-col cursor-pointer">
+            <a href="" class="mt-6">Privacy Policy</a>
+            <a href="" class="mt-6">Legal Notice</a>
+        </div>
+    </nav>
+    <div>
+        <header>
+            <p>Kanban Project Management Tool</p>
+            <div id="user-info">
+                <img src="" alt="Hilfe-Icon">
+                <span id="user-initials">G</span>
+            </div>
+        </header>
+
+        <main id="content">
+            <!-- Dynamische Inhalte werden hier geladen -->
+        </main>
+    </div>
 </body>
 </html>
