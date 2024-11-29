@@ -38,17 +38,17 @@ async function postAccoundData(data) {
         loginToAccountMessage()
         mailIsUsed = false;
     } else {
-        checkAndputToServer(data)
+     checkAndputToServer(data)
         mailIsUsed = false;
     }
 }
 
 async function checkAndputToServer(data) {
-    if (document.getElementById("passwordInput").value == document.getElementById("confirmInput")) {
+    if (document.getElementById("passwordInput").value == document.getElementById("confirmInput").value) {
         UsersAmountViaId++;
-        putToServer(data);
-        putUserAmonutToServer()
-        return responseToJson = await response.json();
+        await putToServer(data);
+        await putUserAmonutToServer()
+        window.location.href = "succesfulNewAccount.html";
     } else {
         passwordsAreDifferent();
     }

@@ -9,7 +9,13 @@ async function checkForExistingAccount() {
     let response = await fetch(BASE_URL + `User/${indexAcconts}.json`);
     responseToJson = await response.json();
         if (responseToJson.mail == document.getElementById("emailLogin").value && responseToJson.password == document.getElementById("passwordLogin").value) {
-            openAccount()   
-        }   
+            openAccount(indexAcconts)   
+        } 
     }
 }
+
+function goToSignUp() {
+    window.location.href = "signUp.html";
+}
+
+
