@@ -49,12 +49,8 @@ async function initializeContacts() {
     try {
         const response = await fetch(BASE_URL + "Contacts.json");
         const contacts = await response.json();
-
         if (!contacts) {
-            console.log("Keine Kontakte gefunden, initialisiere Standardkontakte...");
             await seedContacts();
-        } else {
-            console.log("Kontakte bereits vorhanden.");
         }
     } catch (error) {
         console.error("Fehler bei der Initialisierung der Kontakte:", error);
