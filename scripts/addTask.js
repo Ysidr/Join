@@ -1,20 +1,20 @@
 
-async function updateTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks.json`);
+async function updateToDoTaskCount() {
+    let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
     responseToJson = await response.json();
     let localTaskCount = 0;
     for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
         localTaskCount++;
     }
-    taskCount = localTaskCount;
+    toDoTaskCount = localTaskCount;
 }
 
 
 async function createTask() {
-    taskCount++;
+    toDoTaskCount++;
     getNewTaskInfo()
     await putTaskToServer();
-    await setTaskCount();
+    await setToDoTaskCount();
 }
 
 function getNewTaskInfo() {
@@ -77,7 +77,7 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
 }
 
 async function putTaskToServer() {
-    let response = await fetch(BASE_URL + `Tasks/${taskCount}.json`,
+    let response = await fetch(BASE_URL + `Tasks/ToDo/${toDoTaskCount}.json`,
         {
             method: "put",
             header: {
@@ -88,14 +88,14 @@ async function putTaskToServer() {
         return responseToJson = await response.json();
 }
 
-async function setTaskCount() {
-    let response = await fetch(BASE_URL + `TaskCount/.json`,
+async function setToDoTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/ToDoTaskCount/.json`,
         {
             method: "put",
             header: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(taskCount)
+            body: JSON.stringify(toDoTaskCount)
         });
     return responseToJson = await response.json();
 }
