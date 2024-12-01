@@ -1,15 +1,4 @@
 
-async function updateToDoTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
-    responseToJson = await response.json();
-    let localTaskCount = 0;
-    for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
-        localTaskCount++;
-    }
-    toDoTaskCount = localTaskCount;
-}
-
-
 async function createTask() {
     toDoTaskCount++;
     getNewTaskInfo()
