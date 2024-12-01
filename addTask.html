@@ -1,4 +1,4 @@
-<div class="contentAddTask">
+<div class="contentAddTask" onload="updateTaskCount()">
     <h1 class="h1AddTask">Add Task</h1>
     <div class="coloumns">
         <div class="cloumn1">
@@ -23,22 +23,23 @@
                 <form id="formPrio">
                     <input type="radio" id="high" name="priority" value="HTML">
                     <label for="high">High</label>
-                    
+
                     <input type="radio" id="medium" name="priority" value="HTML">
                     <label for="medium">Medium</label>
 
                     <input type="radio" id="low" name="priority" value="HTML">
                     <label for="low">Low</label>
-            </form>
+                </form>
             </div>
 
-
-            <label for="selectCategory">Category</label>
-            <select name="selectCategory" class="smallInputField" id="categorytSelector" required>
-                <option value="basicText">Select task category</option>
-                <option value="technicalTask">Technical Task</option>
-                <option value="userStory">User Story</option>
-            </select>
+            <form>
+                <label for="selectCategory">Category</label>
+                <select name="selectCategory" class="smallInputField" id="categorytSelector" required>
+                    <option value="basicText">Select task category</option>
+                    <option value="technicalTask">Technical Task</option>
+                    <option value="userStory">User Story</option>
+                </select>
+            </form>
 
             <label for="subtaskInput">Subtasks</label>
             <input id="subtaskInput" class="smallInputField" type="text" required>

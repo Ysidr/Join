@@ -63,6 +63,7 @@ async function putToServer(data) {
             },
             body: JSON.stringify(data)
         });
+        return responseToJson = await response.json();
 }
 
 async function putUserAmonutToServer() {

@@ -1,46 +1,62 @@
 
-function createTask() {
+async function updateTaskCount() {
+    let response = await fetch(BASE_URL + `Tasks.json`);
+    responseToJson = await response.json();
+    let localTaskCount = 0;
+    for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
+        localTaskCount++;
+    }
+    taskCount = localTaskCount;
+}
+
+
+async function createTask() {
+    taskCount++;
     getNewTaskInfo()
-    uploadData(newTaskData);
+    await putTaskToServer();
+    await setTaskCount();
 }
 
 function getNewTaskInfo() {
     let newTitle = document.getElementById("titleInput").value;
     let newDescription = document.getElementById("descriptionInput").value;
     let newDate = document.getElementById("dateIput").value;
-    getPriority();
     getCategory();
+    getPriority();
     getAddedContacts();
-    gatherTaskData(newTitle, newDescription, newDate, newAssigned, newPrio, newCategory);
+    gatherAllTaskData(newTitle, newDescription, newDate);
     return newTaskData;
 }
 
 function getAddedContacts() {
-    if (document.getElementById("contactSelector").value != basicText) {
-        let newAssigned = document.getElementById("contactSelector").value;
+    if (document.getElementById("contactSelector").value != "basicText") {
+        newAssigned = document.getElementById("contactSelector").value;
+        return newAssigned
     }else{
-        let newAssigned = "";
+        newAssigned = "";
+        return newAssigned
     }
-    return newAssigned
 }
 
 function getPriority() {
     if (document.getElementById("high").checked) {
-        let newPrio = "high";
-    } else if (document.getElementById("meium").checked) {
-        let newPrio = "medium";
+        newPrio = "high";
+        return newPrio;
+    } else if (document.getElementById("medium").checked) {
+        newPrio = "medium";
+        return newPrio;
     } else {
-        let newPrio = "low";
+        newPrio = "low";
+        return newPrio;
     }
-    return newPrio;
 }
 
 function getCategory() {
-    if (document.getElementById("categorytSelector").value = technicalTask) {
-        let newCategory = "technical";
+    if (document.getElementById("categorytSelector").value == "technicalTask") {
+        newCategory = "technical";
         return newCategory;
-    } else if (document.getElementById("categorytSelector").value = userStory) {
-        let newCategory = "user";
+    } else if (document.getElementById("categorytSelector").value == "userStory") {
+        newCategory = "user";
         return newCategory;
     } else {
         selectCategoryErr();
@@ -48,8 +64,8 @@ function getCategory() {
     
 }
 
-function gatherTaskData(newTitle, newDescription, newDate, newAssigned, newPrio, newCategory) {
-    let newTaskData = {
+function gatherAllTaskData(newTitle, newDescription, newDate) {
+    newTaskData = {
         "title": newTitle,
         "description": newDescription,
         "date": newDate,
@@ -58,4 +74,28 @@ function gatherTaskData(newTitle, newDescription, newDate, newAssigned, newPrio,
         "category": newCategory,
     };
     return newTaskData;
+}
+
+async function putTaskToServer() {
+    let response = await fetch(BASE_URL + `Tasks/${taskCount}.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTaskData)
+        });
+        return responseToJson = await response.json();
+}
+
+async function setTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCount/.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(taskCount)
+        });
+    return responseToJson = await response.json();
 }

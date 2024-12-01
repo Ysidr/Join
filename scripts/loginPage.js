@@ -1,8 +1,8 @@
 
 async function getUserCount() {
     let response = await fetch(BASE_URL + `User.json`);
-    let localUserCount = 0;
     responseToJson = await response.json();
+    let localUserCount = 0;
     for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
         localUserCount++;
     }
