@@ -7,7 +7,8 @@ function renderDone() {
     `<h1 class="taskAmount">${doneTaskCount}</h1>`
 }
 function renderUrgent() {
-
+    document.getElementById("urgentTasks").innerHTML= 
+    `<h1 class="taskAmount">${urgentAmount}</h1>`
 }
 function renderAllTasks() {
     document.getElementById("allTasks").innerHTML= 
