@@ -1,3 +1,21 @@
+let firstLetters = [];
+
+async function getContacts() {
+    resetContactList()
+    let response = await fetch(BASE_URL + "Contacts.json");
+    responseToJson = await response.json();
+    firstLetters = Object.keys(responseToJson);
+    for (let indexContactLetters = 0; indexContactLetters < Object.keys(responseToJson).length; indexContactLetters++) {
+        await getContactsWithThisLetter(indexContactLetters);
+    }
+}
+async function getContactsWithThisLetter(indexContactLetters) {
+    let response = await fetch(BASE_URL + `Contacts/${firstLetters[indexContactLetters]}.json`);
+    responseToJson = await response.json();
+    for (let indexContactWithLetter = 0; indexContactWithLetter < responseToJson.length; indexContactWithLetter++) {
+        renderContact(responseToJson, indexContactWithLetter);   
+    }
+}
 
 async function createTask() {
     toDoTaskCount++;

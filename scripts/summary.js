@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function initSummary() {
-    console.log(currentTime);
-    
     await updateAllTaskCounts();
     displayCounts();
 }
@@ -36,19 +34,12 @@ async function getUrgentAmount() {
 function getGreeting() {
     const now = new Date();
     const hour = now.getHours();
-    let greeting = '';
     if (hour >= 6 && hour < 12) {
-        greeting = 'Good morning';
+        document.getElementById('greeting').innerHTML = 'Good morning,';
     } else if (hour >= 12 && hour < 18) {
-        greeting = 'Good day';
+        document.getElementById('greeting').innerHTML = 'Good afternoon,';
     } else {
-        greeting = 'Good evening';
-    }
-    const greetingElement = document.getElementById('greeting');
-    if (greetingElement) {
-        greetingElement.innerHTML = greeting;
-    } else {
-        console.log(greeting);
+        document.getElementById('greeting').innerHTML = 'Good evening,';
     }
 }
 getGreeting();

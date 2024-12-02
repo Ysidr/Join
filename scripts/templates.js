@@ -22,3 +22,13 @@ function renderAwaitFeedback() {
     document.getElementById("awaitFeedbackTasks").innerHTML= 
     `<h1 class="taskAmount">${awaitFeedbackTaskCount}</h1>`
 }
+
+function resetContactList() {
+    document.getElementById("contactSelector").innerHTML =
+    "<option value='basicText'>Select contacts to assign</option>"
+}
+
+function renderContact(responseToJson, indexContactWithLetter) {
+     document.getElementById("contactSelector").innerHTML += 
+        `<option value="${responseToJson[indexContactWithLetter].name}">${responseToJson[indexContactWithLetter].name}</option>`
+}
