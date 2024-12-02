@@ -1,4 +1,4 @@
-<div class="contentAddTask" onload="updateTaskCount()">
+<div class="contentAddTask">
     <h1 class="h1AddTask">Add Task</h1>
     <div class="coloumns">
         <div class="cloumn1">
@@ -9,7 +9,7 @@
             <input id="descriptionInput" class="descriptionInput" type="text" placeholder="Enter a Description" re>
 
             <label for="selectContacts">Assignet to</label>
-            <select name="selectContacts" class="smallInputField" id="contactSelector">
+            <select name="selectContacts" class="smallInputField" id="contactSelector" onclick="getContacts()">
                 <option value="basicText">Select contacts to assign</option>
             </select>
 
