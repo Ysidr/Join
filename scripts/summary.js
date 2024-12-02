@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    await initSummary();
+});
 
 async function initSummary() {
     console.log(currentTime);
@@ -29,6 +32,26 @@ async function getUrgentAmount() {
     await checkAwait()
     await checkInProgress()
 }
+
+function getGreeting() {
+    const now = new Date();
+    const hour = now.getHours();
+    let greeting = '';
+    if (hour >= 6 && hour < 12) {
+        greeting = 'Good morning';
+    } else if (hour >= 12 && hour < 18) {
+        greeting = 'Good day';
+    } else {
+        greeting = 'Good evening';
+    }
+    const greetingElement = document.getElementById('greeting');
+    if (greetingElement) {
+        greetingElement.innerHTML = greeting;
+    } else {
+        console.log(greeting);
+    }
+}
+getGreeting();
 
 async function checkToDo() {
     let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
