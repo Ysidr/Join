@@ -118,3 +118,20 @@
 .contact-details p {
     margin: 5px 0;
 }
+
+.bg-blur{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: all 0.5s ease-in-out;
+}
+
+.bg-white{
+    background-color: white;
+}

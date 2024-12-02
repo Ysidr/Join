@@ -20,14 +20,22 @@ function renderContacts() {
             </div>
         </div>
     </div>
-    <div id="newContactForm" class="">
-        <div>
-            <h3>Create New Contact</h3>
-            <input type="text" id="newContactName" placeholder="Name">
-            <input type="email" id="newContactEmail" placeholder="Email">
-            <input type="tel" id="newContactPhone" placeholder="Phone">
-            <button onclick="createContact()">Create</button>
-            <button onclick="cancelCreateContact()">Cancel</button>
+    <div id="newContactForm" class="hidden" onclick="cancelCreateContact()">
+        <div class="flex" onclick="event.stopPropagation()">
+            <div class="bg-main ">
+                <img src="assets/icons/Capa 1.png" alt="">
+                <h3>Add contact</h3>
+                <p>Tasks are better with a team!</p>
+                <span></span>
+            </div>
+            <div class="bg-white">
+                <input type="text" id="newContactName" placeholder="Name">
+                <input type="email" id="newContactEmail" placeholder="Email">
+                <input type="tel" id="newContactPhone" placeholder="Phone">
+                <button onclick="createContact()">Create</button>
+                <button onclick="cancelCreateContact()">Cancel</button>
+            </div>
+
         </div>
     </div>
     `;
@@ -35,12 +43,13 @@ function renderContacts() {
 
 function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");
-    newContactForm.classList.remove("newContact-hidden");
+    newContactForm.classList.remove("hidden");
+    newContactForm.classList.add("bg-blur");
 }
 
 function cancelCreateContact() {
     const newContactForm = document.getElementById("newContactForm");
-    newContactForm.classList.add("newContact-hidden");
+    newContactForm.classList.add("hidden");
 }
 
 async function createContact() {

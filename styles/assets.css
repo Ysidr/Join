@@ -49,3 +49,8 @@
 .selectPrio [type="radio"]:checked +label {
     background-color: #FFA800;
 }
+
+.bg-main{
+    background-color: #2A3647;
+    color: white;
+}
