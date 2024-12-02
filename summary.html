@@ -1,9 +1,10 @@
 <div class="contentSummary" onclick="initSummary()">
     <div class="summaryHeader">
-        <h1 class="h1AddTask">Join 360</h1>
+        <h1 class="h1Summary">Join 360</h1>
         <div class="sepreratorHeader"></div>
-        <h4>Key Metrics at a Glance</h4>
+        <p class="secondHeader">Key Metrics at a Glance</p>
     </div>
+
     <div class="summaryRows">
         <div class="summaryRow1">
             <div class="divRow1">
@@ -22,10 +23,12 @@
             </div>
         </div>
         <div class="summaryRow2">
-            <img src="" alt="">
-            <div class="SummaryRow3TextLeft">
-                <p id="urgentTasks"></p>
-                <p>Urgent</p>
+            <div class="SummaryRow3Left">
+                <img src="./assets/icons/urgent.svg" alt="">
+                <div class="SummaryRow3TextLeft">
+                    <p id="urgentTasks"></p>
+                    <p>Urgent</p>
+                </div>
             </div>
             <div class="dividerRow2"></div>
             <div class="SummaryRow3TextRight">
@@ -36,21 +39,22 @@
         <div class="summaryRow3">
             <div class="SummaryRow3Style">
                 <p id="allTasks"></p>
-                <p>Tasks in Board</p>
+                <p>Tasks in <br> Board</p>
             </div>
             <div class="SummaryRow3Style">
                 <p id="inProgressTasks"></p>
-                <p>Tasks in Progress</p>
+                <p>Tasks in <br> Progress</p>
             </div>
             <div class="SummaryRow3Style">
                 <p id="awaitFeedbackTasks"></p>
-                <p>Awaiting Feedback</p>
+                <p>Awaiting <br> Feedback</p>
             </div>
             <h1 class="taskAmount"></h1>
 
         </div>
     </div>
-
-
-
+    <div class="greetings">
+        <p class="timeOfDay"></p>
+        <p class="userName"></p>
+    </div>
 </div>
