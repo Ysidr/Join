@@ -1,8 +1,14 @@
-function renderContacts() {
+document.addEventListener("DOMContentLoaded", async () => {
+    renderContacts();
+    await loadContacts();
+});
+
+async function renderContacts() {
     const contactsContainer = document.getElementById("contacts");
-    contactsContainer.innerHTML = /*html*/ `
-    <div class="flex">
-        <div class="contacts">
+    if (contactsContainer) {
+        contactsContainer.innerHTML = /*html*/ `
+        <div class="flex">
+            <div class="contacts">
             <div>
                 <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
             </div>
@@ -39,15 +45,16 @@ function renderContacts() {
         </div>
     </div>
     `;
+    }
 }
 
-function renderAddContactForm() {
+async function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");
     newContactForm.classList.remove("hidden");
     newContactForm.classList.add("bg-blur");
 }
 
-function cancelCreateContact() {
+async function cancelCreateContact() {
     const newContactForm = document.getElementById("newContactForm");
     newContactForm.classList.add("hidden");
 }
@@ -113,12 +120,12 @@ async function loadContacts() {
                 letterSection.appendChild(contactItem);
             });
         });
-    } catch (error) {
-        console.error("Fehler beim Laden der Kontakte:", error);
+    }catch (error) {
+        console.log("Fehler beim Laden der Kontakte:", error);
     }
 }
 
-function displayContactInfo(contact) {
+async function displayContactInfo(contact) {
     const contactInfoContainer = document.getElementById("contactInfo");
     const initials = contact.name.split(" ").map(namePart => namePart[0]).join("");
     contactInfoContainer.innerHTML = /*html*/ `

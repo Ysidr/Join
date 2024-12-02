@@ -1,6 +1,18 @@
+window.onload = loadUserData;
+const content = document.getElementById("content");
+const navbarLinks = [
+    document.getElementById("summaryLink"),
+    document.getElementById("addTaskLink"),
+    document.getElementById("boardLink"),
+    document.getElementById("contactsLink"),
+    document.getElementById("privacyPolicy"),
+    document.getElementById("legalNotice"),
+    document.getElementById("help"),
+    document.getElementById("login")
+];
+
 async function loadUserData() {
     const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
-
     if (isGuest) {
         document.getElementById('user-initials').textContent = 'G';
         return;
@@ -34,24 +46,8 @@ function getInitials(name) {
     return firstInitial + (lastInitial || '');
 }
 
-window.onload = loadUserData;
-
-// Hauptbereich der Seite und Links laden
-const content = document.getElementById("content");
-const navbarLinks = [
-    document.getElementById("summaryLink"),
-    document.getElementById("addTaskLink"),
-    document.getElementById("boardLink"),
-    document.getElementById("contactsLink"),
-    document.getElementById("privacyPolicy"),
-    document.getElementById("legalNotice"),
-    document.getElementById("help")
-];
-
-// Funktion zum Laden von HTML, CSS und JS
 async function loadPage(page) {
     try {
-        // HTML laden
         const response = await fetch(`${page}.html`);
         if (response.ok) {
             const html = await response.text();
@@ -61,36 +57,38 @@ async function loadPage(page) {
             content.innerHTML = `<p>Seite ${page} konnte nicht geladen werden.</p>`;
             return;
         }
-
-        // CSS einbinden
         const dynamicCss = document.getElementById("dynamic-css");
         if (dynamicCss) {
             dynamicCss.href = `./styles/${page}.css`;
         } else {
             document.head.innerHTML += `<link id="dynamic-css" rel="stylesheet" href="./styles/${page}.css">`;
         }
-
-        // JS ausführen
         const scriptResponse = await fetch(`./scripts/${page}.js`);
         if (scriptResponse.ok) {
             const scriptText = await scriptResponse.text();
-            eval(scriptText); // Direktes Ausführen des geladenen Skripts
+            eval(scriptText);
         }
     } catch (error) {
         content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
     }
 }
 
-// Events für Navigationslinks definieren
 navbarLinks.forEach((link) => {
-    link.onclick = function (event) {
-        event.preventDefault();
-        const page = this.dataset.page;
-        loadPage(page);
-    };
+    if (link) {
+        link.onclick = function (event) {
+            event.preventDefault();
+            const page = this.dataset.page;
+            loadPage(page);
+        };
+    }
 });
 
-// Startseite initialisieren
 (async function initStartPage() {
     await loadPage("summary");
 })();
+
+function toggleMenu() {
+    const menu = document.getElementById('menu-container');
+    menu.classList.toggle('hidden');
+}
+

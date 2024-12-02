@@ -89,3 +89,28 @@ section h1{
     font-weight: 700;
     margin: 0;
 }
+
+.menu {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 20px 20px;
+    padding: 10px;
+    top: 96px;
+    right: 0;
+    flex-direction: column;
+    display: flex;
+    background-color: #2A3647;
+}
+
+.menu button{
+    padding: 8px 16px;
+}
+
+.menu button :hover{
+    background-color: #2A3D59;
+}
+
+.hidden {
+    display: none;
+}

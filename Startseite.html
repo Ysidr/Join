@@ -49,12 +49,17 @@
             <p>Kanban Project Management Tool</p>
             <div id="user-info">
                 <a href="#" id="help" data-page="help"><img src="assets/icons/help.png" alt=""></a>
-                <span id="user-initials"></span> 
+                <button id="user-initials" onclick="toggleMenu()">Click Me</button>
             </div>
         </header>
-
+        
+        <div id="menu-container" class="menu hidden bg-main">
+            <a href="#" onclick="loadPage('privacyPolicy')">Privacy Policy</a>
+            <a href="#" onclick="loadPage('legalNotice')">Legal Notice</a>
+            <a href="#" onclick="window.location.href='login.html'; return false;">Log out</a>
+        </div>
+        
         <main id="content" class="content">
-            <!-- Dynamische Inhalte werden hier geladen -->
         </main>
     </div>
 </body>
