@@ -127,11 +127,20 @@ function contactSelected(name) {
 }
 
 function addSubtask() {
+    let subtaskName = document.getElementById("subtaskInput").value;
     document.getElementById("addedSubtasks").innerHTML +=
-        `<p class="addedSubtask">- ${document.getElementById("subtaskInput").value}</p>`
-        addedSubtasks.push(`${document.getElementById("subtaskInput").value}`)
+        `<div id="${subtaskName}">
+        <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p>
+        </div>`
+        addedSubtasks.push(`${subtaskName}`)
         console.log(addedSubtasks);
         
+}
+
+function subtasksHover(subtaskName) {
+    console.log("okay");
+    
+    document.getElementById(subtaskName).innerHTML = ` <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p> <img src="./assets/icons/delete.svg" alt="">`
 }
 
 function resetAllVars() {

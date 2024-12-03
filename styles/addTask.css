@@ -62,9 +62,6 @@
     background-color: white;
 }
 
-.prioLabels {
-}
-
 .selectPrio  img {
 width: 20px;
 height: 14px;
@@ -166,4 +163,10 @@ height: 14px;
     justify-content: center;
     align-items: center;
     gap: 8px;
+}
+
+.addedSubtask {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
