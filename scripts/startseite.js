@@ -1,5 +1,5 @@
 window.onload = loadUserData;
-const content = document.getElementById("content");
+const content = document.getElementById("main-content");
 const navbarLinks = [
     document.getElementById("summaryLink"),
     document.getElementById("addTaskLink"),
