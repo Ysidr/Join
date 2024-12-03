@@ -9,10 +9,11 @@
             <input id="descriptionInput" class="descriptionInput" type="text" placeholder="Enter a Description" re>
 
             <label for="selectContacts">Assignet to</label>
-            <select name="selectContacts" class="smallInputField" id="contactSelector" onclick="getContacts()">
-                <option value="basicText">Select contacts to assign</option>
-            </select>
-
+            <div class="selectContacts smallInputField" id="contactSelector" onclick="getContacts()">
+                <p>Select Contacts to assign</p>
+            </div>
+            <div class="openContactsDiv d-none" id="openContactsDiv">
+            </div>
         </div>
         <div class="sepererator"></div>
         <div class="cloumn2">
@@ -41,8 +42,20 @@
                 </select>
             </form>
 
-            <label for="subtaskInput">Subtasks</label>
-            <input id="subtaskInput" class="smallInputField" type="text" required>
+            <label for="smallInputField">Subtasks</label>
+            <div class="smallInputField subtaskDiv">
+
+                    <input id="subtaskInput" class="subtaskInput" type="text" onselect="showAllButtons()">
+
+                <div class="btnSubtasks">
+                    <button class="clear"><img src="./assets/icons/Subtasks icons11.svg" alt=""></button>
+                    <button type="submit" class="add" onclick="addSubtask()">Y</button>
+                </div>
+            </div>
+            <div id="addedSubtasks">
+                <p class="addedSubtask"></p>
+            </div>
+
 
             <div class="addTasksBtn">
                 <button class="btnClear clearBtn">Clear</button>
@@ -51,7 +64,4 @@
 
         </div>
     </div>
-
-
-
 </div>

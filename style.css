@@ -9,3 +9,7 @@ main {
     background-color: #f5f6f7;
 
 }
+
+.d-none {
+    display: none;
+}

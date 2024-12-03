@@ -1,19 +1,22 @@
 let firstLetters = [];
+let selectedContatct = [];
+let addedSubtasks = [];
 
 async function getContacts() {
     resetContactList()
     let response = await fetch(BASE_URL + "Contacts.json");
     responseToJson = await response.json();
     firstLetters = Object.keys(responseToJson);
-    for (let indexContactLetters = 0; indexContactLetters < Object.keys(responseToJson).length; indexContactLetters++) {
+    for (let indexContactLetters = 0; indexContactLetters < firstLetters.length; indexContactLetters++) {
         await getContactsWithThisLetter(indexContactLetters);
     }
+    document.getElementById("openContactsDiv").classList.toggle("d-none")
 }
 async function getContactsWithThisLetter(indexContactLetters) {
     let response = await fetch(BASE_URL + `Contacts/${firstLetters[indexContactLetters]}.json`);
     responseToJson = await response.json();
     for (let indexContactWithLetter = 0; indexContactWithLetter < responseToJson.length; indexContactWithLetter++) {
-        renderContact(responseToJson, indexContactWithLetter);   
+        renderContact(responseToJson, indexContactWithLetter);
     }
 }
 
@@ -36,10 +39,10 @@ function getNewTaskInfo() {
 }
 
 function getAddedContacts() {
-    if (document.getElementById("contactSelector").value != "basicText") {
-        newAssigned = document.getElementById("contactSelector").value;
+    if (selectedContatct.length != 0) {
+        newAssigned = selectedContatct;
         return newAssigned
-    }else{
+    } else {
         newAssigned = "";
         return newAssigned
     }
@@ -68,7 +71,7 @@ function getCategory() {
     } else {
         selectCategoryErr();
     }
-    
+
 }
 
 function gatherAllTaskData(newTitle, newDescription, newDate) {
@@ -79,6 +82,7 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
         "assigned": newAssigned,
         "priority": newPrio,
         "category": newCategory,
+        "subtasks": addedSubtasks
     };
     return newTaskData;
 }
@@ -92,7 +96,7 @@ async function putTaskToServer() {
             },
             body: JSON.stringify(newTaskData)
         });
-        return responseToJson = await response.json();
+    return responseToJson = await response.json();
 }
 
 async function setToDoTaskCount() {
@@ -105,4 +109,26 @@ async function setToDoTaskCount() {
             body: JSON.stringify(toDoTaskCount)
         });
     return responseToJson = await response.json();
+}
+
+function contactSelected(name) {
+    if (selectedContatct.includes(name)) {
+        let index = selectedContatct.indexOf(name)
+        selectedContatct.splice(index, 1)
+        console.log(selectedContatct);
+
+    } else {
+        selectedContatct.push(name)
+        console.log(selectedContatct);
+
+    }
+    document.getElementById(name).classList.toggle("selectedContact")
+}
+
+function addSubtask() {
+    document.getElementById("addedSubtasks").innerHTML +=
+        `<p class="addedSubtask">${document.getElementById("subtaskInput").value}</p>`
+        addedSubtasks.push(`${document.getElementById("subtaskInput").value}`)
+        console.log(addedSubtasks);
+        
 }
