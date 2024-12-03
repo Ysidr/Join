@@ -37,4 +37,7 @@ function renderContact(responseToJson, indexContactWithLetter) {
                     <input type="checkbox" id="${responseToJson[indexContactWithLetter].name}" value="${responseToJson[indexContactWithLetter].name}" onclick="contactSelected('${responseToJson[indexContactWithLetter].name}')">
                     <label for="${responseToJson[indexContactWithLetter].name}" onclick="contactSelected('${responseToJson[indexContactWithLetter].name}')">${responseToJson[indexContactWithLetter].name}</label><br>
                 </div>`
+    if (selectedContatct.includes(responseToJson[indexContactWithLetter].name)) {
+        document.getElementById(responseToJson[indexContactWithLetter].name).classList.add("selectedContact")
+    }
 }

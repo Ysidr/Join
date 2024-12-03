@@ -16,40 +16,42 @@
             </div>
         </div>
         <div class="sepererator"></div>
-        <div class="cloumn2">
-            <label for="dateInput">Due date</label>
-            <input id="dateIput" class="smallInputField" type="date" required>
-            <label for="selectPrio">Priority</label>
-            <div class="selectPrio">
-                <form id="formPrio">
-                    <input type="radio" id="high" name="priority" value="HTML">
-                    <label for="high">High</label>
+        <div class="coloumn2NoSubtasks">
+            <div class="cloumn2">
+                <label for="dateInput">Due date</label>
+                <input id="dateIput" class="smallInputField" type="date" required>
+                <label for="selectPrio">Priority</label>
+                <div class="selectPrio">
+                    <form id="formPrio">
+                        <input type="radio" id="high" name="priority" value="HTML">
+                        <label class="prioLabels" for="high">High</label>
 
-                    <input type="radio" id="medium" name="priority" value="HTML">
-                    <label for="medium">Medium</label>
+                        <input type="radio" id="medium" name="priority" value="HTML">
+                        <label class="prioLabels" for="medium">Medium </label>
 
-                    <input type="radio" id="low" name="priority" value="HTML">
-                    <label for="low">Low</label>
+                        <input type="radio" id="low" name="priority" value="HTML">
+                        <label class="prioLabels" for="low">Low</label>
+                    </form>
+                </div>
+
+                <form>
+                    <label for="selectCategory">Category</label>
+                    <select name="selectCategory" class="smallInputField" id="categorytSelector" required>
+                        <option value="basicText">Select task category</option>
+                        <option value="technicalTask">Technical Task</option>
+                        <option value="userStory">User Story</option>
+                    </select>
                 </form>
-            </div>
 
-            <form>
-                <label for="selectCategory">Category</label>
-                <select name="selectCategory" class="smallInputField" id="categorytSelector" required>
-                    <option value="basicText">Select task category</option>
-                    <option value="technicalTask">Technical Task</option>
-                    <option value="userStory">User Story</option>
-                </select>
-            </form>
-
-            <label for="smallInputField">Subtasks</label>
-            <div class="smallInputField subtaskDiv">
+                <label for="smallInputField">Subtasks</label>
+                <div class="smallInputField subtaskDiv">
 
                     <input id="subtaskInput" class="subtaskInput" type="text" onselect="showAllButtons()">
 
-                <div class="btnSubtasks">
-                    <button class="clear"><img src="./assets/icons/Subtasks icons11.svg" alt=""></button>
-                    <button type="submit" class="add" onclick="addSubtask()">Y</button>
+                    <div class="btnSubtasks">
+                        <button class="clear"><img src="./assets/icons/Subtasks icons11.svg" alt=""></button>
+                        <button type="submit" class="add" onclick="addSubtask()">Y</button>
+                    </div>
                 </div>
             </div>
             <div id="addedSubtasks">

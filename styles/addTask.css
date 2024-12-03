@@ -12,6 +12,10 @@
     width: 440px;
 }
 
+.coloumn2NoSubtasks{
+    height: 461px;
+}
+
 
 .smallInputField {
     height: 48px !important;
@@ -26,9 +30,10 @@
     resize: vertical;
     border: 1px solid #D1D1D1;
     margin-bottom: 16px;
-    height: 120px;
+    min-height: 120px;
     width: 440px;
     border-radius: 10px;
+    display: flex;
 }
 
 .coloumns {
@@ -44,7 +49,6 @@
 
 .selectPrio {
     height: 56px;
-    ;
 
 }
 
@@ -55,6 +59,15 @@
     width: 136px;
     border-radius: 10px;
     transition: all 0.3s;
+    background-color: white;
+}
+
+.prioLabels {
+}
+
+.selectPrio  img {
+width: 20px;
+height: 14px;
 }
 
 .selectPrio input[type="radio"]:checked+label {

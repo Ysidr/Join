@@ -25,6 +25,7 @@ async function createTask() {
     getNewTaskInfo()
     await putTaskToServer();
     await setToDoTaskCount();
+    resetAllVars()
 }
 
 function getNewTaskInfo() {
@@ -127,8 +128,14 @@ function contactSelected(name) {
 
 function addSubtask() {
     document.getElementById("addedSubtasks").innerHTML +=
-        `<p class="addedSubtask">${document.getElementById("subtaskInput").value}</p>`
+        `<p class="addedSubtask">- ${document.getElementById("subtaskInput").value}</p>`
         addedSubtasks.push(`${document.getElementById("subtaskInput").value}`)
         console.log(addedSubtasks);
         
+}
+
+function resetAllVars() {
+firstLetters = [];
+selectedContatct = [];
+addedSubtasks = [];
 }
