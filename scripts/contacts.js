@@ -1,50 +1,44 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    renderContacts();
-    await loadContacts();
-});
-
 async function renderContacts() {
     const contactsContainer = document.getElementById("contacts");
     if (contactsContainer) {
         contactsContainer.innerHTML = /*html*/ `
         <div class="flex">
             <div class="contacts">
-            <div>
-                <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
-            </div>
-            <div class="showContacts" id="showContacts"></div>
-        </div>
-        <div class="contact-container">
-            <div>
-                <div class="headline-container">
-                    <h1 class="headline">Contacts</h1>
-                    <span>
-                        <p>Better with a team</p>
-                    </span>
+                <div>
+                    <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
                 </div>
-                <div id="contactInfo"></div>
+                <div class="showContacts" id="showContacts"></div> <!-- Sicherstellen, dass dieses Element erstellt wird -->
+            </div>
+            <div class="contact-container">
+                <div>
+                    <div class="headline-container">
+                        <h1 class="headline">Contacts</h1>
+                        <span>
+                            <p>Better with a team</p>
+                        </span>
+                    </div>
+                    <div id="contactInfo"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="newContactForm" class="hidden" onclick="cancelCreateContact()">
-        <div class="flex" onclick="event.stopPropagation()">
-            <div class="bg-main ">
-                <img src="assets/icons/Capa 1.png" alt="">
-                <h3>Add contact</h3>
-                <p>Tasks are better with a team!</p>
-                <span></span>
+        <div id="newContactForm" class="hidden" onclick="cancelCreateContact()">
+            <div class="flex" onclick="event.stopPropagation()">
+                <div class="bg-main ">
+                    <img src="assets/icons/Capa 1.png" alt="">
+                    <h3>Add contact</h3>
+                    <p>Tasks are better with a team!</p>
+                    <span></span>
+                </div>
+                <div class="bg-white">
+                    <input type="text" id="newContactName" placeholder="Name">
+                    <input type="email" id="newContactEmail" placeholder="Email">
+                    <input type="tel" id="newContactPhone" placeholder="Phone">
+                    <button onclick="createContact()">Create</button>
+                    <button onclick="cancelCreateContact()">Cancel</button>
+                </div>
             </div>
-            <div class="bg-white">
-                <input type="text" id="newContactName" placeholder="Name">
-                <input type="email" id="newContactEmail" placeholder="Email">
-                <input type="tel" id="newContactPhone" placeholder="Phone">
-                <button onclick="createContact()">Create</button>
-                <button onclick="cancelCreateContact()">Cancel</button>
-            </div>
-
         </div>
-    </div>
-    `;
+        `;
     }
 }
 
@@ -95,42 +89,48 @@ async function loadContacts() {
     try {
         const response = await fetch(BASE_URL + "Contacts.json");
         const contacts = await response.json();
-        if (!contacts) {
-            console.error("Keine Kontakte zum Laden gefunden!");
-            return;
-        }
+        if (!contacts) return;
         const contactContainer = document.getElementById("showContacts");
+        if (!contactContainer) return;
         contactContainer.innerHTML = "";
-        Object.keys(contacts).sort().forEach((letter) => {
-            const contactGroup = contacts[letter];
-            const letterSection = document.createElement("div");
-            letterSection.classList.add("contact-letter-section");
-            letterSection.innerHTML = `<h2>${letter}</h2>`;
-            contactContainer.appendChild(letterSection);
-            contactGroup.forEach((contact) => {
-                const contactItem = document.createElement("div");
-                contactItem.classList.add("contact-item");
-                contactItem.onclick = () => displayContactInfo(contact);
-                contactItem.innerHTML = `
-                    <div class="contact-details">
-                        <p><strong>${contact.name}</strong></p>
-                        <p>${contact.email}</p>
+        const letters = Object.keys(contacts).sort();
+
+        for (let i = 0; i < letters.length; i++) {
+            const letter = letters[i];
+            let letterHTML = `<div class="contact-letter-section"><h2>${letter}</h2>`;
+            for (let j = 0; j < contacts[letter].length; j++) {
+                const contact = contacts[letter][j];
+                
+                // Direkt das Kontaktobjekt an den Event-Handler übergeben
+                letterHTML += `
+                    <div class="contact-item" onclick="displayContactInfo(${JSON.stringify(contact)})">
+                        <p><strong>${contact.name}</strong><br>${contact.email}</p>
                     </div>
                 `;
-                letterSection.appendChild(contactItem);
-            });
-        });
-    }catch (error) {
-        console.log("Fehler beim Laden der Kontakte:", error);
+            }
+            letterHTML += '</div>';
+            contactContainer.innerHTML += letterHTML;
+        }
+
+    } catch (error) {
+        console.error("Fehler beim Laden der Kontakte:", error);
     }
 }
 
 async function displayContactInfo(contact) {
     const contactInfoContainer = document.getElementById("contactInfo");
-    const initials = contact.name.split(" ").map(namePart => namePart[0]).join("");
+
+    // Initialen berechnen
+    let initials = '';
+    const nameParts = contact.name.split(' ');
+    for (let i = 0; i < nameParts.length; i++) {
+        initials += nameParts[i][0]; // Nimmt den ersten Buchstaben jedes Namens
+    }
+
+    // HTML-Inhalt für die Anzeige des Kontakts erstellen
     contactInfoContainer.innerHTML = /*html*/ `
         <div>
-            <h2>${contact.name} (${initials})</h2>
+            <h2>${contact.name} (${initials})</h2>  <!-- Anzeige des Namens und der Initialen -->
             <div class="flex gap-8">
                 <button class="flex"><img src="assets/icons/edit.png" alt=""> Edit</button>
                 <button class="flex"><img src="assets/icons/delete.png" alt=""> Delete</button>
@@ -139,14 +139,16 @@ async function displayContactInfo(contact) {
         <p>Contact Information</p>
         <div>
             <h5>Email</h5>
-            <a href="mailto:${contact.email}">${contact.email}</a>
+            <p><strong>${contact.email}</strong></p>  <!-- Anzeige der E-Mail -->
         </div>
         <div>
             <h5>Phone</h5>
-            <a href="tel:${contact.phone}">${contact.phone}</a>
+            <p><strong>${contact.phone}</strong></p>  <!-- Anzeige der Telefonnummer -->
         </div>
     `;
 }
+
+
 
 (async function main() {
     renderContacts();
