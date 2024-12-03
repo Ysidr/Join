@@ -1,3 +1,8 @@
+async function loadAll() {
+    renderContacts();
+    await loadContacts();
+}
+
 async function renderContacts() {
     const contactsContainer = document.getElementById("contacts");
     if (contactsContainer) {
@@ -7,7 +12,7 @@ async function renderContacts() {
                 <div>
                     <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
                 </div>
-                <div class="showContacts" id="showContacts"></div> <!-- Sicherstellen, dass dieses Element erstellt wird -->
+                <div class="showContacts" id="showContacts"></div>
             </div>
             <div class="contact-container">
                 <div>
@@ -86,71 +91,91 @@ async function createContact() {
 }
 
 async function loadContacts() {
-    try {
-        const response = await fetch(BASE_URL + "Contacts.json");
-        const contacts = await response.json();
-        if (!contacts) return;
-        const contactContainer = document.getElementById("showContacts");
-        if (!contactContainer) return;
-        contactContainer.innerHTML = "";
-        const letters = Object.keys(contacts).sort();
+    const response = await fetch(BASE_URL + "Contacts.json");
+    const contacts = await response.json();
 
-        for (let i = 0; i < letters.length; i++) {
-            const letter = letters[i];
-            let letterHTML = `<div class="contact-letter-section"><h2>${letter}</h2>`;
-            for (let j = 0; j < contacts[letter].length; j++) {
-                const contact = contacts[letter][j];
-                
-                // Direkt das Kontaktobjekt an den Event-Handler übergeben
-                letterHTML += `
-                    <div class="contact-item" onclick="displayContactInfo(${JSON.stringify(contact)})">
-                        <p><strong>${contact.name}</strong><br>${contact.email}</p>
-                    </div>
-                `;
-            }
-            letterHTML += '</div>';
-            contactContainer.innerHTML += letterHTML;
-        }
+    if (!contacts) {
+        console.log("Keine Kontakte zum Laden gefunden!");
+        return;
+    }
 
-    } catch (error) {
-        console.error("Fehler beim Laden der Kontakte:", error);
+    const contactContainer = document.getElementById("showContacts");
+    if (!contactContainer) return;
+    contactContainer.innerHTML = "";        
+    const letters = Object.keys(contacts).sort();
+
+    for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        let letterHTML = `<div class="contact-letter-section"><h2>${letter}</h2>`;            
+        for (let j = 0; j < contacts[letter].length; j++) {
+            const contact = contacts[letter][j];
+            letterHTML += `
+                <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}')">
+                    <p><strong>${contact.name}</strong><br>${contact.email}</p>
+                </div>
+            `;
+        }            
+        letterHTML += '</div>';
+        contactContainer.innerHTML += letterHTML;
     }
 }
 
-async function displayContactInfo(contact) {
+async function displayContactInfo(name, email, phone) {
     const contactInfoContainer = document.getElementById("contactInfo");
-
-    // Initialen berechnen
     let initials = '';
-    const nameParts = contact.name.split(' ');
+    const nameParts = name.split(' ');
     for (let i = 0; i < nameParts.length; i++) {
-        initials += nameParts[i][0]; // Nimmt den ersten Buchstaben jedes Namens
+        initials += nameParts[i][0];
     }
-
-    // HTML-Inhalt für die Anzeige des Kontakts erstellen
-    contactInfoContainer.innerHTML = /*html*/ `
-        <div>
-            <h2>${contact.name} (${initials})</h2>  <!-- Anzeige des Namens und der Initialen -->
-            <div class="flex gap-8">
-                <button class="flex"><img src="assets/icons/edit.png" alt=""> Edit</button>
-                <button class="flex"><img src="assets/icons/delete.png" alt=""> Delete</button>
-            </div>
-        </div>
-        <p>Contact Information</p>
-        <div>
-            <h5>Email</h5>
-            <p><strong>${contact.email}</strong></p>  <!-- Anzeige der E-Mail -->
-        </div>
-        <div>
-            <h5>Phone</h5>
-            <p><strong>${contact.phone}</strong></p>  <!-- Anzeige der Telefonnummer -->
-        </div>
+    contactInfoContainer.innerHTML = /*html*/`
+                <div>
+                    <h2>${name} (${initials})</h2>
+                    <div class="flex gap-8">
+                        <button class="flex"><img src="assets/icons/edit.png" alt=""> Edit</button>
+                        <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
+                    </div>
+                </div>
+                <p>Contact Information</p>
+                <div>
+                    <h5>Email</h5>
+                    <p><strong>${email}</strong></p>
+                </div>
+                <div>
+                    <h5>Phone</h5>
+                    <p><strong>${phone}</strong></p>
+                </div>
     `;
 }
 
+async function deleteContact(contactEmail) {
+    const response = await fetch(BASE_URL + "Contacts.json");
+    const contacts = await response.json();
+    if (!contacts) {
+        console.log("Keine Kontakte in Firebase.");
+        return;
+    }
+    const letters = Object.keys(contacts);
+    for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const contactGroup = contacts[letter];
+        const index = contactGroup.findIndex(contact => contact.email === contactEmail);
+        
+        if (index !== -1) {
+            contactGroup.splice(index, 1);
+            break;
+        }
+    }
+    await fetch(BASE_URL + "Contacts.json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contacts),
+    });
+    loadContacts();
+}
 
 
 (async function main() {
-    renderContacts();
-    await loadContacts();
+    await loadAll();
 })();
