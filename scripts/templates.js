@@ -1,3 +1,5 @@
+//Render Task Counts for Summary functions
+
 function renderToDo() {
     document.getElementById("toDoCount").innerHTML =
         `<h1 class="taskAmount">${toDoTaskCount}</h1>`
@@ -23,6 +25,8 @@ function renderAwaitFeedback() {
         `<h1 class="taskAmount">${awaitFeedbackTaskCount}</h1>`
 }
 
+//Render Contacts in Add Task functions
+
 function resetContactList() {
     document.getElementById("openContactsDiv").innerHTML =
         `<div class="singleContact">
@@ -40,4 +44,36 @@ function renderContact(responseToJson, indexContactWithLetter) {
     if (selectedContatct.includes(responseToJson[indexContactWithLetter].name)) {
         document.getElementById(responseToJson[indexContactWithLetter].name).classList.add("selectedContact")
     }
+}
+
+//Render tasks in Board functions
+
+function renderTasksinBoard(responseToJson) {
+    document.getElementById(currentlyRenderingTasks+"Tasks").innerHTML +=
+        `<div class="singleTask">
+                    <div class="category" id="category">
+                    <p class="categorySingleCard">${responseToJson.category}</p>
+                    </div>
+                    <div class="textSingleTask">
+                        <p class="titleSingleCard">${responseToJson.title}</p>
+                        <p class="descriptionSingleCard">${responseToJson.description}</p>
+                    </div>
+                    <div class="subtasksSingleCard" id="${responseToJson.title}">
+                        
+                    </div>
+                    <div class="bottomDivSingleCard">
+                        <div class="addedContactsSingleCard"></div>
+                        <img src="./assets/icons/" alt="">
+                    </div>
+                </div>`
+}
+
+function renderSubtasks(responseToJson) {
+    document.getElementById(responseToJson.title).innerHTML =
+        `<div class="subtaskProgressBar"></div>
+                        <div class="subtaskCountSingleCard">
+                            <p class="amountSubtaskSingleCard">/${responseToJson.subtasks.length}</p>
+                            <p class="subtaskTextSingleCard">Subtasks</p>
+                        </div>`
+
 }
