@@ -50,9 +50,8 @@ function renderContact(responseToJson, indexContactWithLetter) {
 
 function renderTasksinBoard(responseToJson) {
     document.getElementById(currentlyRenderingTasks+"Tasks").innerHTML +=
-        `<div class="singleTask">
-                    <div class="category" id="category">
-                    <p class="categorySingleCard">${responseToJson.category}</p>
+        `<div class="singleTaskBoard">
+                    <div class="category" id="divCategory${responseToJson.title}">
                     </div>
                     <div class="textSingleTask">
                         <p class="titleSingleCard">${responseToJson.title}</p>
@@ -62,8 +61,9 @@ function renderTasksinBoard(responseToJson) {
                         
                     </div>
                     <div class="bottomDivSingleCard">
-                        <div class="addedContactsSingleCard"></div>
-                        <img src="./assets/icons/" alt="">
+                        <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
+                        <div id="prioImg${responseToJson.title}" class="prioImg">
+                        </div>
                     </div>
                 </div>`
 }
@@ -77,3 +77,20 @@ function renderSubtasks(responseToJson) {
                         </div>`
 
 }
+
+function renderCategoryTechnical(getCurrentTask) {
+    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = 
+    `<p class="categorySingleCard" id="category${getCurrentTask.title}">Technical Task</p>`
+}
+
+function renderCategoryUser(getCurrentTask) {
+document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p class="categorySingleCard" id="category${getCurrentTask.title}">User Story</p>`
+}
+
+function renderInitials(firstInitial, lastInitial, name) {
+    document.getElementById(`contacts${name}`)
+}
+
+
+
+

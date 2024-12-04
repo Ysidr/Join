@@ -3,6 +3,18 @@
     gap: 26px;
 }
 
+.tasksInRow {
+    max-height: 688px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 252px;
+    overflow-y: scroll;
+
+}
+
 .taskRow {
     width: 244px;
     gap: 16px;
@@ -20,15 +32,45 @@
     flex: 1;
 }
 
-.singleTask {
+.singleTaskBoard {
+    display: flex;
+    flex-direction: column;
     max-height: 263px;
     width: 252px;
     background-color: white;
     border-radius: 24px;
     filter: drop-shadow(0px 0px 5px rgba(164, 163, 163, 0.265));
+    padding: 16px;
+    gap: 24px;
 }
 
 .categorySingleCard {
     height: 27px;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blueBackground {
+    background-color: #0038FF;
+    width: 113px;
+}
+
+.lightBlueBackground {
+    background-color: #1FD7C1;
+    width: 144px;
+}
+
+.bottomDivSingleCard {
+    display: flex;
+}
+
+.addedContactsSingleCard{
+    display: flex;
+    flex: 1;
+}
+
+.prioImg {
+    width: 32px;
 }

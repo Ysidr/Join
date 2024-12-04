@@ -170,3 +170,8 @@ height: 14px;
     display: flex;
     justify-content: space-between;
 }
+
+.bottomDivSingleCard {
+    display: flex;
+    justify-content: space-between;
+}
