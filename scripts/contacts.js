@@ -26,26 +26,63 @@ async function renderContacts() {
                 </div>
             </div>
         </div>
-        <div id="newContactForm" class="hidden" onclick="cancelCreateContact()">
-            <div class="flex" onclick="event.stopPropagation()">
-                <div class="bg-main ">
-                    <img src="assets/icons/Capa 1.png" alt="">
-                    <h3>Add contact</h3>
-                    <p>Tasks are better with a team!</p>
-                    <span></span>
+        <div id="newContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
+            <div class="new-contact-container" onclick="event.stopPropagation()">
+                <div class="bg-main">
+                    <div class="join-contact-container">
+                        <img src="assets/icons/Capa 1.png" alt="">
+                    </div>
+                    <div class="join-contact-container">
+                        <h2>Add Contact</h2>
+                        <p>Tasks are better with a team!</p>
+                    </div>
                 </div>
                 <div class="bg-white">
-                    <input type="text" id="newContactName" placeholder="Name">
-                    <input type="email" id="newContactEmail" placeholder="Email">
-                    <input type="tel" id="newContactPhone" placeholder="Phone">
-                    <button onclick="createContact()">Create</button>
-                    <button onclick="cancelCreateContact()">Cancel</button>
+                    <div class="flex justify-end m-8">
+                        <div class="cursor-pointer">
+                            <img src="assets/icons/Vector.png" alt="" onclick="cancelCreateContact()">
+                        </div>
+                    </div>
+                    <div class="flex margin gap-24 items-center">
+                        <div>
+                            <img src="assets/icons/Group13.png" alt="">
+                        </div>
+                        <div class="contact-inuptfield-container">
+                            <div class="input-container">
+                                <input type="text" id="newContactName" placeholder="Name">
+                                <img src="assets/icons/person.png" alt="">
+                            </div>
+                            <div class="input-container">
+                                <input type="email" id="newContactEmail" placeholder="Email">
+                                <img src="assets/icons/mail.svg" alt="">
+                            </div>
+                            <div class="input-container">
+                                <input type="tel" id="newContactPhone" placeholder="Phone">
+                                <img src="assets/icons/call.png" alt="">
+                            </div>
+                            <div class="new-contact-button-container">
+                            <div class="cancel cursor-pointer" onclick="cancelCreateContact()">
+                                <button>Cancel</button>
+                                <img src="assets/icons/Vector.png" alt="">
+                            </div>
+                            <div class="create btnGray" onclick="createContact()">
+                                <button>Create Contact</button>
+                                <img src="assets/icons/check.png" alt="">
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                    <div>
+
+                    </div>
                 </div>
             </div>
         </div>
         `;
     }
 }
+
 
 async function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");

@@ -44,47 +44,6 @@
     gap: 26px;
 }
 
-.newContact{
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.newContact-hidden {
-    display: none;
-}
-
-#newContactForm input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#newContactForm button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-}
-
-#newContactForm button:hover {
-    background-color: #45a049;
-}
-
-#newContactForm button:nth-child(2) {
-    background-color: #f44336;
-}
-
-#newContactForm button:nth-child(2):hover {
-    background-color: #e53935;
-}
-
 /* Anzeige der Kontakte */
 .showContacts {
     margin-top: 20px;
@@ -133,10 +92,6 @@
     transform: all 0.5s ease-in-out;
 }
 
-.bg-white{
-    background-color: white;
-}
-
 .contact-div{
     display: flex;
     justify-content: center;
@@ -169,4 +124,134 @@
     font-size: 18px;
     text-transform: uppercase;
 }
+/* Container für Input und Bild */
+.input-container {
+    position: relative; /* Relatives Positionieren des Containers */
+    display: flex;
+    align-items: center;
+}
 
+/* Styling für das Input-Feld */
+.input-container input {
+    width: 100%; /* Input-Feld soll die volle Breite einnehmen */
+    padding-right: 40px; /* Platz für das Icon schaffen */
+    box-sizing: border-box; /* Padding wird innerhalb der Breite gezählt */
+    font-size: 16px; /* Optional: Schriftgröße anpassen */
+}
+
+/* Styling für das Bild */
+.input-container img {
+    position: absolute; /* Absolute Positionierung innerhalb des Containers */
+    right: 10px;
+    transform: translateY(-50%); /* Zentrierung korrigieren */
+    height: 20px; /* Größe des Icons anpassen */
+    pointer-events: none; /* Klicks werden nicht auf das Bild übertragen */
+    top: 25%;
+}
+
+.newContact{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.newContact-hidden {
+    display: none;
+}
+
+.newContactForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.newContactForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln */
+    z-index: 100;
+}
+
+/* Main form container */
+.new-contact-container {
+    display: flex;
+    width: 1212px;
+    height: 592px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Left section */
+.bg-main {
+    background-color: #2A3647;
+    color: white;
+    width: 467px; /* Fixed width */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Right section */
+.bg-white {
+    width: 100%;
+}
+
+.new-contact-button-container{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 57px;
+    gap: 40px;
+}
+.cancel{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border: 1px solid black;
+    padding: 8px;
+    height: 100%;
+    border-radius: 8px;
+    width: 150px;
+}
+
+.cancel img{
+    width: 24px;
+    height: 24px;
+}
+
+.create{
+    display: flex;
+    gap: 8px;
+}
+
+.margin{
+    margin: 126px 0 0 24px;
+}
+
+.contact-inuptfield-container{
+    width: 422px;
+}
+
+.join-contact-container{
+    width: 100%;
+    padding: 24px;
+}
+
+.join-contact-container img{
+    width: 64px;
+}
