@@ -242,15 +242,9 @@
     justify-content: space-between;
     gap: 8px;
     border: 1px solid black;
-    padding: 8px;
+    padding: 24px;
     height: 100%;
     border-radius: 8px;
-    width: 150px;
-}
-
-.cancel img{
-    width: 24px;
-    height: 24px;
 }
 
 .create{

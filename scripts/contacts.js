@@ -116,7 +116,6 @@ async function renderContacts() {
                             <div class="new-contact-button-container">
                             <div class="cancel cursor-pointer" onclick="deleteContact(contactEmail)">
                                 <button>Delete</button>
-                                <img src="assets/icons/Vector.png" alt="">
                             </div>
                             <div class="create btnGray" onclick="saveEditedContact()">
                             <button>Save</button>
@@ -148,11 +147,6 @@ async function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");
     newContactForm.classList.remove("hidden");
     newContactForm.classList.add("bg-blur");
-}
-
-async function cancelCreateContact() {
-    const newContactForm = document.getElementById("newContactForm");
-    newContactForm.classList.add("hidden");
 }
 
 async function createContact() {
