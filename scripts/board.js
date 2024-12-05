@@ -71,5 +71,5 @@ function checkForSubtasks(getCurrentTask) {
 
 function toggleNoteDetails(title) {
     document.getElementById("taskDetailSection").classList.toggle("d-none");
-    renderDetails(responseToJson);
+    renderDetails(title);
 }
