@@ -19,6 +19,7 @@ let isGuestAccount = false;
 accountExists = false;
 
 let newAssigned = "";
+let newAssignedBgColor = "";
 let newPrio = "";
 let newCategory = "";
 let newTaskData = {};

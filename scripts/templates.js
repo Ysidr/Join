@@ -87,8 +87,8 @@ function renderCategoryUser(getCurrentTask) {
 document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p class="categorySingleCard" id="category${getCurrentTask.title}">User Story</p>`
 }
 
-function renderInitials(firstInitial, lastInitial, title) {
-    document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials">${firstInitial}${lastInitial}</p>`
+function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
+    document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}</p>`
 }
 
 

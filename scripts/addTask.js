@@ -44,9 +44,11 @@ function getNewTaskInfo() {
 function getAddedContacts() {
     if (selectedContatct.length != 0) {
         newAssigned = selectedContatct;
+        newAssignedBgColor = selectedContatctBgColor;
         return newAssigned
     } else {
         newAssigned = "";
+        newAssignedBgColor = "";
         return newAssigned
     }
 }
@@ -83,6 +85,7 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
         "description": newDescription,
         "date": newDate,
         "assigned": newAssigned,
+        "assignedBgColor": newAssignedBgColor,
         "priority": newPrio,
         "category": newCategory,
         "subtasks": addedSubtasks
