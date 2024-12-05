@@ -12,12 +12,12 @@ async function renderContacts() {
                 <div class="contact-div">
                     <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
                 </div>
-                <div class="showContacts" id="showContacts"></div>
+                <div class="showContacts" id="showContacts" ></div>
             </div>
             <div class="contact-container">
                 <div class="padding">
                     <div class="headline-container">
-                        <h1 class="headline">Contacts</h1>
+                        <h1>Contacts</h1>
                         <span>
                             <p>Better with a team</p>
                         </span>
@@ -96,9 +96,12 @@ async function cancelCreateContact() {
 }
 
 async function createContact() {
-    const name = document.getElementById("newContactName").value;
-    const email = document.getElementById("newContactEmail").value;
-    const phone = document.getElementById("newContactPhone").value;
+    const nameInput = document.getElementById("newContactName");
+    const emailInput = document.getElementById("newContactEmail");
+    const phoneInput = document.getElementById("newContactPhone");
+    const name = nameInput.value;
+    const email = emailInput.value;
+    const phone = phoneInput.value;
     const bgColor = getRandomColor();
     if (!name || !email || !phone) {
         alert("Please fill in all fields.");
@@ -123,9 +126,13 @@ async function createContact() {
         });
         await loadContacts();
         cancelCreateContact();
+        nameInput.value = "";
+        emailInput.value = "";
+        phoneInput.value = "";
     } catch (error) {
         console.error("Fehler beim Hinzufügen des Kontakts:", error);
     }
+
 }
 
 async function loadContacts() {
