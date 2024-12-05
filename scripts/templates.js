@@ -50,7 +50,7 @@ function renderContact(responseToJson, indexContactWithLetter) {
 
 function renderTasksinBoard(responseToJson) {
     document.getElementById(currentlyRenderingTasks+"Tasks").innerHTML +=
-        `<div class="singleTaskBoard">
+        `<div class="singleTaskBoard" onclick="toggleNoteDetails(${responseToJson.title})">
                     <div class="category" id="divCategory${responseToJson.title}">
                     </div>
                     <div class="textSingleTask">
@@ -89,6 +89,10 @@ document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p cl
 
 function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
     document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}</p>`
+}
+
+function renderDetails(responseToJson) {
+    document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory">${responseToJson.category}</p>`
 }
 
 

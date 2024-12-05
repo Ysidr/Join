@@ -66,3 +66,10 @@ function checkForSubtasks(getCurrentTask) {
         renderSubtasks(getCurrentTask);
     }
 }
+
+//Detailed Window functions
+
+function toggleNoteDetails(title) {
+    document.getElementById("taskDetailSection").classList.toggle("d-none");
+    renderDetails(responseToJson);
+}
