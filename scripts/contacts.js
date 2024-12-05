@@ -162,18 +162,18 @@ async function createContact() {
     const name = nameInput.value;
     const email = emailInput.value;
     const phone = phoneInput.value;
-    const bgColor = getRandomColor();
+    const bgColor = getRandomColor();    
     if (!name || !email || !phone) {
         alert("Please fill in all fields.");
         return;
-    }
+    }    
     const contact = { name, email, phone, bgColor};
     const firstLetter = name.charAt(0).toUpperCase();
     try {
         const response = await fetch(BASE_URL + "Contacts.json");
         const contacts = await response.json();
         if (!contacts) {
-            console.log("Keine Kontakte in Firebase.");
+            contacts = {};
         }
         if (!contacts[firstLetter]) {
             contacts[firstLetter] = [];
@@ -190,38 +190,37 @@ async function createContact() {
         emailInput.value = "";
         phoneInput.value = "";
     } catch (error) {
-        console.error("Fehler beim Hinzufügen des Kontakts:", error);
+        console.error("Error while adding the contact:", error);
     }
-
 }
+
 
 async function loadContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
     if (!contacts) {
-        console.log("Keine Kontakte zum Laden gefunden!");
+        console.log("No contacts found in Firebase.");
         return;
     }
     const contactContainer = document.getElementById("showContacts");
-    if (!contactContainer) return;
+    if (!contactContainer) return;    
     contactContainer.innerHTML = "";        
-    const letters = Object.keys(contacts).sort();
+    const letters = Object.keys(contacts).sort();    
     for (let i = 0; i < letters.length; i++) {
         const letter = letters[i];
-        let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;            
+        let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
         for (let j = 0; j < contacts[letter].length; j++) {
             const contact = contacts[letter][j];
             const initials = getInitials(contact.name);
-
             letterHTML += /*html*/`
-                    <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
-                        <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
-                        <div>
-                            <p><strong>${contact.name}</strong><br>${contact.email}</p>
-                        </div>
+                <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
+                    <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
+                    <div>
+                        <p><strong>${contact.name}</strong><br>${contact.email}</p>
                     </div>
+                </div>
             `;
-        }            
+        }
         letterHTML += '</div>';
         contactContainer.innerHTML += letterHTML;
     }
@@ -275,7 +274,7 @@ async function editContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
     if (!contacts) {
-        console.log("Keine Kontakte in Firebase.");
+        console.log("No contacts found in Firebase.");
         return;
     }
     const letters = Object.keys(contacts);
@@ -283,14 +282,11 @@ async function editContact(contactEmail) {
     for (let i = 0; i < letters.length; i++) {
         const letter = letters[i];
         const contactGroup = contacts[letter];
-        const contact = contactGroup.find(c => c.email === contactEmail);
-        if (contact) {
-            foundContact = contact;
-            break;
-        }
+        foundContact = contactGroup.find(c => c.email === contactEmail);
+        if (foundContact) break;
     }
     if (!foundContact) {
-        console.log("Kontakt nicht gefunden.");
+        console.log("Contact not found.");
         return;
     }
     const nameInput = document.getElementById("editContactName");
@@ -314,12 +310,13 @@ async function saveEditedContact() {
     const emailInput = document.getElementById("editContactEmail");
     const phoneInput = document.getElementById("editContactPhone");
     const form = document.getElementById("editContactForm");
-    if (!nameInput || !emailInput || !phoneInput || !form) return console.log("Fehlende Formularfelder.");
-    const newName = nameInput.value, newEmail = emailInput.value, newPhone = phoneInput.value, currentEmail = form.dataset.currentEmail;
-    if (!newName || !newEmail || !newPhone) return alert("Bitte füllen Sie alle Felder aus.");
+    if (!nameInput || !emailInput || !phoneInput || !form) return console.log("Missing form fields.");    
+    const newName = nameInput.value, newEmail = emailInput.value, newPhone = phoneInput.value;
+    const currentEmail = form.dataset.currentEmail;    
+    if (!newName || !newEmail || !newPhone) return alert("Please fill in all fields.");
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
-    if (!contacts) return console.log("Keine Kontakte in Firebase.");
+    if (!contacts) return console.log("No contacts found in Firebase.");
     let updatedContact = null;
     for (const letter in contacts) {
         const group = contacts[letter];
@@ -330,23 +327,17 @@ async function saveEditedContact() {
             break;
         }
     }
-    if (!updatedContact) return console.log("Kontakt konnte nicht gefunden werden.");
+    if (!updatedContact) return console.log("Contact not found.");
     await fetch(BASE_URL + "Contacts.json", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contacts),
     });
     form.classList.add("hidden");
-    await loadAll();
-    const nameParts = newName.split(" ");
-    let initials = "";
-    for (let part of nameParts) {
-        if (part.length) initials += part[0].toUpperCase();
-    }
-    displayContactInfo(newName, newEmail, newPhone, initials, updatedContact.bgColor);
+    await loadContacts();
+    const initials = getInitials(updatedContact.name);
+    displayContactInfo(updatedContact.name, updatedContact.email, updatedContact.phone, initials, updatedContact.bgColor);
 }
-
-
 
 async function deleteContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
