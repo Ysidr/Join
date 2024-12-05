@@ -127,19 +127,15 @@ section h1{
     z-index: 2;
 }
 
-body {
-    margin: 0;
-}
-
 h1 {
-    font-size: 61px;
-    font-weight: 700;
-    margin: 0;
+    font-size: 61px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
 }
 h2 {
-    font-size: 27px;
-    font-weight: 400px;
+    font-size: 27px !important;
+    font-weight: 400px !important;
 }
 h3 {
-    font-size: 16px;
+    font-size: 16px !important;
 }
