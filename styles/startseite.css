@@ -114,3 +114,14 @@ section h1{
 .hidden {
     display: none;
 }
+
+.container-mini-nav {
+    background-color: #2A3647;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
