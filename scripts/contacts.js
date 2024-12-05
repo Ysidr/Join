@@ -38,7 +38,7 @@ async function renderContacts() {
                     </div>
                 </div>
                 <div class="bg-white">
-                    <div class="flex justify-end m-8">
+                    <div class="flex justify-end mt-8">
                         <div class="cursor-pointer">
                             <img src="assets/icons/Vector.png" alt="" onclick="cancelCreateContact()">
                         </div>
@@ -187,7 +187,6 @@ async function createContact() {
         console.error("Error while adding the contact:", error);
     }
 }
-
 
 async function loadContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");

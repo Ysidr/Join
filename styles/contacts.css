@@ -224,11 +224,6 @@
     justify-content: center;
 }
 
-/* Right section */
-.bg-white {
-    width: 100%;
-}
-
 .new-contact-button-container{
     display: flex;
     justify-content: start;
@@ -253,7 +248,7 @@
 }
 
 .margin{
-    margin: 126px 0 0 24px;
+    margin: 96px 0 0 24px;
 }
 
 .contact-inuptfield-container{
