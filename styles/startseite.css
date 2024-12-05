@@ -114,3 +114,35 @@ section h1{
 .hidden {
     display: none;
 }
+
+.container-mini-nav {
+    background-color: #2A3647;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 61px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+h2 {
+    font-size: 27px !important;
+    font-weight: 400px !important;
+}
+h3 {
+    font-size: 16px !important;
+}
+
+.privacyPolicy{
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 16px;
+    box-sizing: border-box;
+}
