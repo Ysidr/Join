@@ -79,6 +79,24 @@ async function renderContacts() {
                 </div>
             </div>
         </div>
+        <div class="edit-contact">
+            <div onclick="event.stopPropagation()">
+                <div class="bg-main">
+                    <div class="join-contact-container">
+                        <img src="assets/icons/Capa 1.png" alt="">
+                    </div>
+                    <div class="join-contact-container">
+                        <h2>Edit Contact</h2>
+                        <p class="border-bottom"></p>
+                    </div>
+                </div>
+                    
+                <div>
+                <----hier sollten die inputfelder name,email, telefonnummer sein links davon die bg-color mit den initialen,
+                darunter dann zwei buttons einer mit delete der nimmt die funktion deleteContact der andere mit save, welcher änderungen in die firebase pusht.
+                </div>
+            </div>
+        </div>
         `;
     }
 }
@@ -192,7 +210,7 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
                     <div class="flex gap-8">
                         <div class="initials" style="background-color: ${bgColor};">${initials}</div>
                         <div>
-                            <h2 class="text-4xl">${name}</h2>
+                            <h2>${name}</h2>
                             <div class="flex gap-8 pt-4">
                                 <button class="flex"><img src="assets/icons/edit.png" alt=""> Edit</button>
                                 <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
