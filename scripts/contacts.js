@@ -99,11 +99,12 @@ async function createContact() {
     const name = document.getElementById("newContactName").value;
     const email = document.getElementById("newContactEmail").value;
     const phone = document.getElementById("newContactPhone").value;
+    const bgColor = getRandomColor();
     if (!name || !email || !phone) {
         alert("Please fill in all fields.");
         return;
     }
-    const contact = { name, email, phone };
+    const contact = { name, email, phone, bgColor};
     const firstLetter = name.charAt(0).toUpperCase();
     try {
         const response = await fetch(BASE_URL + "Contacts.json");
@@ -144,10 +145,10 @@ async function loadContacts() {
         for (let j = 0; j < contacts[letter].length; j++) {
             const contact = contacts[letter][j];
             const initials = getInitials(contact.name);
-            const bgColor = getRandomColor();
+
             letterHTML += /*html*/`
-                    <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${bgColor}')">
-                        <div class="initials" style="background-color: ${bgColor};">${initials}</div>
+                    <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
+                        <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
                         <div>
                             <p><strong>${contact.name}</strong><br>${contact.email}</p>
                         </div>

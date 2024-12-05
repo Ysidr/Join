@@ -24,18 +24,19 @@ async function getToDoTasks() {
 }
 
 function checkForAddedUsers(getCurrentTask) {
-    for (let AddedUsers = 0; AddedUsers < getCurrentTask.users.length; AddedUsers++) {
-        getInitialsOfAddedUsers(getCurrentTask.users[indexAddedUsers])
-
+    if (getCurrentTask.assigned.length != 0) {
+        for (let indexAddedUsers = 0; indexAddedUsers < getCurrentTask.assigned.length; indexAddedUsers++) {
+            getInitialsOfAddedUsers(getCurrentTask.assigned[indexAddedUsers], getCurrentTask.title)
+        }
     }
 }
 
-function getInitialsOfAddedUsers(name) {
+function getInitialsOfAddedUsers(name, title) {
     if (!name) return 'G';
     const nameParts = name.split(' ');
     const firstInitial = nameParts[0]?.charAt(0).toUpperCase();
     const lastInitial = nameParts[1]?.charAt(0).toUpperCase();
-    renderInitials(firstInitial, lastInitial, name);
+    renderInitials(firstInitial, lastInitial, title);
 
 }
 
