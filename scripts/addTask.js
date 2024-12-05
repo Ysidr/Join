@@ -1,5 +1,6 @@
 let firstLetters = [];
 let selectedContatct = [];
+let selectedContatctBgColor = [];
 let addedSubtasks = [];
 
 async function getContacts() {
@@ -12,6 +13,7 @@ async function getContacts() {
     }
     document.getElementById("openContactsDiv").classList.toggle("d-none")
 }
+
 async function getContactsWithThisLetter(indexContactLetters) {
     let response = await fetch(BASE_URL + `Contacts/${firstLetters[indexContactLetters]}.json`);
     responseToJson = await response.json();
@@ -112,14 +114,16 @@ async function setToDoTaskCount() {
     return responseToJson = await response.json();
 }
 
-function contactSelected(name) {
+function contactSelected(name, bgColor) {
     if (selectedContatct.includes(name)) {
         let index = selectedContatct.indexOf(name)
-        selectedContatct.splice(index, 1)
+        selectedContatct.splice(index, 1);
+        selectedContatctBgColor.splice(index, 1);
         console.log(selectedContatct);
 
     } else {
-        selectedContatct.push(name)
+        selectedContatct.push(name);
+        selectedContatctBgColor.push(bgColor);
         console.log(selectedContatct);
 
     }
