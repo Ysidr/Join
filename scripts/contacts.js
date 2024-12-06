@@ -209,7 +209,7 @@ async function loadContacts() {
                 <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
                     <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
                     <div>
-                        <p><strong>${contact.name}</strong><br>${contact.email}</p>
+                        <p><strong>${contact.name}</strong><br></p><p class="email">${contact.email}</p>
                     </div>
                 </div>
             `;
@@ -254,10 +254,10 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
                     </div>                    
 
                 </div>
-                <div class="my-8">Contact Information</div>
+                <div class="my-8"><h3>Contact Information</h3></div>
                 <div class="flex flex-col gap-4">
                     <h5><strong>Email</strong></h5>
-                    <a href="mailto:${email}">${email}</a>
+                    <a href="mailto:${email}" class="email">${email}</a>
                     <h5><strong>Phone</strong></h5>
                     <a href="tel:${phone}">${phone}</a>
                 </div>`;

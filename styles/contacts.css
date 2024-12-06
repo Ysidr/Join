@@ -263,3 +263,8 @@
 .join-contact-container img{
     width: 64px;
 }
+
+.email{
+    text-decoration: dashed !important;
+    color: #3D9AEF;
+}
