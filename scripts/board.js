@@ -5,6 +5,10 @@ async function initBoards() {
     await getToDoTasks();
 }
 
+function addDNone(id) {
+    document.getElementById(id).classList.add("d-none")
+}
+
 async function getToDoTasks() {
     let response = await fetch(BASE_URL + `Tasks.json`);
     responseToJson = await response.json();
@@ -74,4 +78,15 @@ function checkForSubtasks(getCurrentTask) {
 function toggleNoteDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("taskDetailSection").classList.toggle("d-none");
     renderDetails(indexTaskFields, indexTaskCount);
+}
+
+function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
+    let responseToJson = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount];
+    if (responseToJson.subtasks.subtasksDone[indexAddedSubtasks] == true) {
+        responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = false;
+        renderSubtasks(responseToJson);
+    }else{
+        responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = true;
+    renderSubtasks(responseToJson);
+    }
 }

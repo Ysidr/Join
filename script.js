@@ -24,6 +24,10 @@ let newPrio = "";
 let newCategory = "";
 let newTaskData = {};
 
+function stopEventBubbling(event) {
+    event.stopPropagation()
+}
+
 function openAccount(indexAcconts) {
     sessionStorage.setItem('loggedInUserId', indexAcconts);
     sessionStorage.setItem('isGuestAccount', 'false');

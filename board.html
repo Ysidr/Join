@@ -44,8 +44,8 @@
 
 
 
-<section id="taskDetailSection" class="taskDetailSection d-none">
-    <div class="taskDetailMain">
+<section id="taskDetailSection" class="taskDetailSection d-none" onclick="addDNone('taskDetailSection')">
+    <div class="taskDetailMain" onclick="stopEventBubbling(event)">
         <div class="detailCategory" id="detailCategory">
 
         </div>
@@ -84,3 +84,4 @@
     </div>
 
 </section>
+

@@ -69,10 +69,20 @@ function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
 }
 
 function renderSubtasks(responseToJson) {
+    let doneCount = 0;
+    for (let indexSubtasks = 0; indexSubtasks < responseToJson.subtasks.addedTask.length; indexSubtasks++) {
+        if (responseToJson.subtasks.subtasksDone[indexSubtasks]== true) {
+            doneCount++;
+        }  
+    }
+    const totalSubtasks = responseToJson.subtasks.addedTask.length;
+    const progressPercentage = (doneCount / totalSubtasks) * 100;
     document.getElementById(responseToJson.title).innerHTML =
-        `<div class="subtaskProgressBar"></div>
+        `<div class="subtaskProgressBar">
+                            <div class="subtaskProgressBarInner" style="width: ${progressPercentage}%;"></div>
+</div>
                         <div class="subtaskCountSingleCard">
-                            <p class="amountSubtaskSingleCard">/${responseToJson.subtasks.length}</p>
+                            <p class="amountSubtaskSingleCard">${doneCount}/${responseToJson.subtasks.addedTask.length}</p>
                             <p class="subtaskTextSingleCard">Subtasks</p>
                         </div>`
 
@@ -92,6 +102,8 @@ function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
 }
 
 function renderDetails(indexTaskFields, indexTaskCount) {
+    document.getElementById("detailContacts").innerHTML = "";
+    document.getElementById("detailSubtasks").innerHTML = "";
     let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
     let specificObject = Object.values(objectAllTasks)[indexTaskCount];
     document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory">${specificObject.category}</p>`
@@ -99,15 +111,20 @@ function renderDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("detailDetails").innerHTML = `<p>${specificObject.description}</p>`
     document.getElementById("detailDate").innerHTML = `<p>Due date:</p><p>${specificObject.date}</p>`
     document.getElementById("detailPrio").innerHTML = `<p>Priority:</p><p>${specificObject.priority}</p>`
-    if (specificObject.assigned!= null) {
+    if (specificObject.assigned != null) {
         for (let indexAddedContacts = 0; indexAddedContacts < specificObject.assigned.length; indexAddedContacts++) {
             document.getElementById("detailContacts").innerHTML += `<p class="detailSingleContact" style="background-color:${specificObject.assignedBgColor[indexAddedContacts]};">${specificObject.assigned[indexAddedContacts]}</p>`
         }
     }
-    if (specificObject.subtasks!= null) {
-        for (let indexAddedSubtasks = 0; indexAddedSubtasks < specificObject.subtasks.length; indexAddedSubtasks++) {
-            document.getElementById("detailSubtasks").innerHTML += `<input type="checkbox" id="checkboxSubtask${specificObject.subtasks[indexAddedSubtasks]}">
-            <label for="checkboxSubtask${specificObject.subtasks[indexAddedSubtasks]}">${specificObject.subtasks[indexAddedSubtasks]}</label>`
+    if (specificObject.subtasks != null) {
+        for (let indexAddedSubtasks = 0; indexAddedSubtasks < specificObject.subtasks.addedTask.length; indexAddedSubtasks++) {
+            if (specificObject.subtasks.subtasksDone[indexAddedSubtasks] == true) {
+                document.getElementById("detailSubtasks").innerHTML += `<input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" checked onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+            <label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}</label>`
+            } else {
+                document.getElementById("detailSubtasks").innerHTML += `<input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+            <label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}</label>`
+            }
         }
     }
 }

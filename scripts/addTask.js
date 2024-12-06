@@ -2,6 +2,7 @@ let firstLetters = [];
 let selectedContatct = [];
 let selectedContatctBgColor = [];
 let addedSubtasks = [];
+let addedSubtaskDone = [];
 
 async function getContacts() {
     resetContactList()
@@ -88,7 +89,10 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
         "assignedBgColor": newAssignedBgColor,
         "priority": newPrio,
         "category": newCategory,
-        "subtasks": addedSubtasks
+        "subtasks" : {
+            "addedTask":  addedSubtasks,
+            "subtasksDone" : addedSubtaskDone,
+        },
     };
     return newTaskData;
 }
@@ -140,6 +144,7 @@ function addSubtask() {
         <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p>
         </div>`
         addedSubtasks.push(`${subtaskName}`)
+        addedSubtaskDone.push(false)
         console.log(addedSubtasks);
         
 }

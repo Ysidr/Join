@@ -143,3 +143,32 @@
     width: 24px;
     height: 24px;
 }
+
+.subtaskProgressBar {
+    width: 100%;
+    max-width: 128px;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 8px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.subtaskProgressBarInner {
+    height: 100%;
+    width: 0%;
+    background-color: #4589FF;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.subtasksSingleCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subtaskCountSingleCard {
+    display: flex;
+}
