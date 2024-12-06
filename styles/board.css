@@ -171,4 +171,34 @@
 
 .subtaskCountSingleCard {
     display: flex;
+    gap: 4px;
+}
+
+.detailSingleContact {
+    border-radius: 50px;
+    width: 48px;
+    height: 48px;
+    border: solid white 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divSingleContactDetail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#detailContacts {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+}
+
+#detailSubtasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
