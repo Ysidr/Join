@@ -48,9 +48,9 @@ function renderContact(responseToJson, indexContactWithLetter) {
 
 //Render tasks in Board functions
 
-function renderTasksinBoard(responseToJson) {
-    document.getElementById(currentlyRenderingTasks+"Tasks").innerHTML +=
-        `<div class="singleTaskBoard" onclick="toggleNoteDetails("${responseToJson.title}")">
+function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
+    document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
+        `<div class="singleTaskBoard" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
                     <div class="category" id="divCategory${responseToJson.title}">
                     </div>
                     <div class="textSingleTask">
@@ -79,20 +79,37 @@ function renderSubtasks(responseToJson) {
 }
 
 function renderCategoryTechnical(getCurrentTask) {
-    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = 
-    `<p class="categorySingleCard" id="category${getCurrentTask.title}">Technical Task</p>`
+    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML =
+        `<p class="categorySingleCard" id="category${getCurrentTask.title}">Technical Task</p>`
 }
 
 function renderCategoryUser(getCurrentTask) {
-document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p class="categorySingleCard" id="category${getCurrentTask.title}">User Story</p>`
+    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p class="categorySingleCard" id="category${getCurrentTask.title}">User Story</p>`
 }
 
 function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
     document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}</p>`
 }
 
-function renderDetails() {
-    document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory">${responseToJson.category}</p>`
+function renderDetails(indexTaskFields, indexTaskCount) {
+    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
+    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
+    document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory">${specificObject.category}</p>`
+    document.getElementById("detailHeader").innerHTML = `<h1 class="hTitleCategory">${specificObject.title}</h1>`
+    document.getElementById("detailDetails").innerHTML = `<p>${specificObject.description}</p>`
+    document.getElementById("detailDate").innerHTML = `<p>Due date:</p><p>${specificObject.date}</p>`
+    document.getElementById("detailPrio").innerHTML = `<p>Priority:</p><p>${specificObject.priority}</p>`
+    if (specificObject.assigned!= null) {
+        for (let indexAddedContacts = 0; indexAddedContacts < specificObject.assigned.length; indexAddedContacts++) {
+            document.getElementById("detailContacts").innerHTML += `<p class="detailSingleContact" style="background-color:${specificObject.assignedBgColor[indexAddedContacts]};">${specificObject.assigned[indexAddedContacts]}</p>`
+        }
+    }
+    if (specificObject.subtasks!= null) {
+        for (let indexAddedSubtasks = 0; indexAddedSubtasks < specificObject.subtasks.length; indexAddedSubtasks++) {
+            document.getElementById("detailSubtasks").innerHTML += `<input type="checkbox" id="checkboxSubtask${specificObject.subtasks[indexAddedSubtasks]}">
+            <label for="checkboxSubtask${specificObject.subtasks[indexAddedSubtasks]}">${specificObject.subtasks[indexAddedSubtasks]}</label>`
+        }
+    }
 }
 
 

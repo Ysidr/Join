@@ -1,4 +1,5 @@
 let currentlyRenderingTasks = "";
+let allCurrentTasksObj = {};
 
 async function initBoards() {
     await getToDoTasks();
@@ -7,12 +8,13 @@ async function initBoards() {
 async function getToDoTasks() {
     let response = await fetch(BASE_URL + `Tasks.json`);
     responseToJson = await response.json();
+    allCurrentTasksObj = responseToJson;
     for (let indexTaskFields = 0; indexTaskFields < Object.keys(responseToJson).length; indexTaskFields++) {
         currentlyRenderingTasks = Object.keys(responseToJson)[indexTaskFields]
         document.getElementById(Object.keys(responseToJson)[indexTaskFields] + "Tasks").innerHTML = "";
         for (let indexTaskCount = 1; indexTaskCount < Object.values(responseToJson)[indexTaskFields].length; indexTaskCount++) {
             let getCurrentTask = Object.values(Object.values(responseToJson)[indexTaskFields])[indexTaskCount];
-            renderTasksinBoard(getCurrentTask);
+            renderTasksinBoard(getCurrentTask, indexTaskFields, indexTaskCount);
             checkForSubtasks(getCurrentTask);
             checkForCategory(getCurrentTask);
             checkForImportance(getCurrentTask);
@@ -69,7 +71,7 @@ function checkForSubtasks(getCurrentTask) {
 
 //Detailed Window functions
 
-function toggleNoteDetails(title) {
+function toggleNoteDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("taskDetailSection").classList.toggle("d-none");
-    renderDetails(title);
+    renderDetails(indexTaskFields, indexTaskCount);
 }
