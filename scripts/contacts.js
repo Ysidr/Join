@@ -66,27 +66,25 @@ async function createContact() {
 async function loadContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
-    if (!contacts) {
-        console.log("No contacts found in Firebase.");
-        return;
-    }
     const contactContainer = document.getElementById("showContacts");
     if (!contactContainer) return;    
-    contactContainer.innerHTML = "";        
+    contactContainer.innerHTML = "";
     const letters = Object.keys(contacts).sort();    
     for (let i = 0; i < letters.length; i++) {
-        const letter = letters[i];
-        let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
-        for (let j = 0; j < contacts[letter].length; j++) {
-            const contact = contacts[letter][j];
-            const initials = getInitials(contact.name);
-            letterHTML += getLoadContactTemplate(contact , initials);
-        }
-        letterHTML += '</div>';
-        contactContainer.innerHTML += letterHTML;
+        loadContactsSecondFunction(letters[i], contacts[letters[i]], contactContainer);
     }
 }
 
+function loadContactsSecondFunction(letter, contactsForLetter, contactContainer) {
+    let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
+    for (let j = 0; j < contactsForLetter.length; j++) {
+        const contact = contactsForLetter[j];
+        const initials = getInitials(contact.name);
+        letterHTML += getLoadContactTemplate(contact, initials);
+    }
+    letterHTML += '</div>';
+    contactContainer.innerHTML += letterHTML;
+}
 function getInitials(name) {
     const nameParts = name.split(' ');
     let initials = '';
@@ -107,28 +105,11 @@ function getRandomColor() {
 
 async function displayContactInfo(name, email, phone, initials, bgColor) {
     const contactInfoContainer = document.getElementById("contactInfo");
-    contactInfoContainer.innerHTML = /*html*/`
-                <div class="contact-info-container">
-                    <div class="flex gap-8">
-                        <div class="initials" style="background-color: ${bgColor};">${initials}</div>
-                        <div>
-                            <h2>${name}</h2>
-                            <div class="flex gap-8 pt-4">
-                                <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
-                                <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
-                            </div>
-                        </div>
-                        
-                    </div>                    
-
-                </div>
-                <div class="my-8"><h3>Contact Information</h3></div>
-                <div class="flex flex-col gap-4">
-                    <h5><strong>Email</strong></h5>
-                    <a href="mailto:${email}" class="email">${email}</a>
-                    <h5><strong>Phone</strong></h5>
-                    <a href="tel:${phone}">${phone}</a>
-                </div>`;
+    if (!contactInfoContainer) {
+        console.log("Contact info container not found.");
+        return;
+    }
+    contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
 }
 
 async function editContact(contactEmail) {
@@ -162,51 +143,94 @@ async function editContact(contactEmail) {
     if (editContactForm) {
         editContactForm.classList.remove("hidden");
         editContactForm.classList.add("bg-blur");
+        editContactForm.dataset.bgColor = foundContact.bgColor;
     }
+
     editContactForm.dataset.currentEmail = contactEmail;
 }
 
 async function saveEditedContact() {
-    const nameInput = document.getElementById("editContactName");
-    const emailInput = document.getElementById("editContactEmail");
-    const phoneInput = document.getElementById("editContactPhone");
-    const form = document.getElementById("editContactForm");
-    if (!nameInput || !emailInput || !phoneInput || !form) return console.log("Missing form fields.");    
-    const newName = nameInput.value, newEmail = emailInput.value, newPhone = phoneInput.value;
-    const currentEmail = form.dataset.currentEmail;    
-    if (!newName || !newEmail || !newPhone) return alert("Please fill in all fields.");
-    const response = await fetch(BASE_URL + "Contacts.json");
-    const contacts = await response.json();
-    if (!contacts) return console.log("No contacts found in Firebase.");
-    let updatedContact = null;
-    for (const letter in contacts) {
-        const group = contacts[letter];
-        const index = group.findIndex(c => c.email === currentEmail);
-        if (index !== -1) {
-            updatedContact = { ...group[index], name: newName, email: newEmail, phone: newPhone };
-            group[index] = updatedContact;
-            break;
-        }
+    const { name, email, phone, currentEmail, bgColor } = getEditedContactInputs();
+    if (!name || !email || !phone || !currentEmail) {
+        alert("Please fill in all fields.");
+        return;
     }
-    if (!updatedContact) return console.log("Contact not found.");
+    const contacts = await fetchContacts();
+    if (!contacts) return console.log("No contacts found in Firebase.");
+    const updatedContact = { name, email, phone, bgColor };
+    const { oldLetter, newLetter } = getLetterGroups(contacts, name, currentEmail);
+    modifyContacts(contacts, updatedContact, oldLetter, newLetter, currentEmail);
+    await saveContacts(contacts);
+    finalizeContactEditing(updatedContact);
+}
+
+function getEditedContactInputs() {
+    const form = document.getElementById("editContactForm");
+    return {
+        name: document.getElementById("editContactName")?.value.trim(),
+        email: document.getElementById("editContactEmail")?.value.trim(),
+        phone: document.getElementById("editContactPhone")?.value.trim(),
+        bgColor: form?.dataset.bgColor,
+        currentEmail: form?.dataset.currentEmail,
+    };
+}
+
+async function fetchContacts() {
+    const response = await fetch(BASE_URL + "Contacts.json");
+    return response.json() || {};
+}
+
+function getLetterGroups(contacts, newName, currentEmail) {
+    const oldLetter = findCurrentLetter(contacts, currentEmail);
+    const newLetter = newName.charAt(0).toUpperCase();
+    return { oldLetter, newLetter };
+}
+
+function findCurrentLetter(contacts, currentEmail) {
+    return Object.keys(contacts).find(letter =>
+        contacts[letter]?.some(c => c.email === currentEmail)
+    );
+}
+
+function modifyContacts(contacts, updatedContact, oldLetter, newLetter, currentEmail) {
+    removeFromOldGroup(contacts, oldLetter, currentEmail);
+    addToNewGroup(contacts, newLetter, updatedContact);
+}
+
+function removeFromOldGroup(contacts, oldLetter, currentEmail) {
+    contacts[oldLetter] = contacts[oldLetter].filter(c => c.email !== currentEmail);
+    if (!contacts[oldLetter].length) delete contacts[oldLetter];
+}
+
+function addToNewGroup(contacts, newLetter, updatedContact) {
+    if (!contacts[newLetter]) contacts[newLetter] = [];
+    contacts[newLetter].push(updatedContact);
+}
+
+async function saveContacts(contacts) {
     await fetch(BASE_URL + "Contacts.json", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contacts),
     });
+}
+
+function finalizeContactEditing(updatedContact) {
+    const form = document.getElementById("editContactForm");
     form.classList.add("hidden");
-    await loadContacts();
-    const initials = getInitials(updatedContact.name);
-    displayContactInfo(updatedContact.name, updatedContact.email, updatedContact.phone, initials, updatedContact.bgColor);
+    loadContacts();
+    displayContactInfo(
+        updatedContact.name,
+        updatedContact.email,
+        updatedContact.phone,
+        getInitials(updatedContact.name),
+        updatedContact.bgColor
+    );
 }
 
 async function deleteContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
-    if (!contacts) {
-        console.log("Keine Kontakte in Firebase.");
-        return;
-    }
     const letters = Object.keys(contacts);
     for (let i = 0; i < letters.length; i++) {
         const letter = letters[i];
@@ -225,7 +249,7 @@ async function deleteContact(contactEmail) {
         },
         body: JSON.stringify(contacts),
     });
-    loadContacts();
+    loadAll()
 }
 
 (async function main() {

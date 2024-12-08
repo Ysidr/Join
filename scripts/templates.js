@@ -132,7 +132,7 @@ function renderDetails(indexTaskFields, indexTaskCount) {
     }
 }
 
-function getContactsTemplate(){
+function getContactsTemplate(contactEmail){
     return /*html*/ `
     <div class="flex">
         <div class="contacts">
@@ -241,7 +241,7 @@ function getContactsTemplate(){
                             <img src="assets/icons/call.png" alt="">
                         </div>
                         <div class="new-contact-button-container">
-                        <div class="cancel cursor-pointer" onclick="deleteContact(contactEmail)">
+                        <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact(this)">
                             <button>Delete</button>
                         </div>
                         <div class="create btnGray" onclick="saveEditedContact()">
@@ -270,4 +270,27 @@ function getLoadContactTemplate(contact , initials){
             </div>
         </div>
     `;
+}
+
+function getContactInfoTemplate(name, email, phone, initials, bgColor){
+    return /*html*/`
+        <div class="contact-info-container">
+            <div class="flex gap-8">
+                <div class="initials" style="background-color: ${bgColor};">${initials}</div>
+                <div>
+                    <h2>${name}</h2>
+                    <div class="flex gap-8 pt-4">
+                        <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
+                        <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
+                    </div>
+                </div>
+            </div>                    
+        </div>
+        <div class="my-8"><h3>Contact Information</h3></div>
+        <div class="flex flex-col gap-4">
+            <h5><strong>Email</strong></h5>
+            <a href="mailto:${email}" class="email">${email}</a>
+            <h5><strong>Phone</strong></h5>
+            <a href="tel:${phone}">${phone}</a>
+        </div>`;
 }
