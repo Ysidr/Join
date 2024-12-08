@@ -260,3 +260,14 @@ function getContactsTemplate(){
     </div>
     `;
 }
+
+function getLoadContactTemplate(contact , initials){
+    return /*html*/`
+        <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
+            <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
+            <div>
+                <p><strong>${contact.name}</strong><br></p><p class="email">${contact.email}</p>
+            </div>
+        </div>
+    `;
+}

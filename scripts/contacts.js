@@ -80,14 +80,7 @@ async function loadContacts() {
         for (let j = 0; j < contacts[letter].length; j++) {
             const contact = contacts[letter][j];
             const initials = getInitials(contact.name);
-            letterHTML += /*html*/`
-                <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
-                    <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
-                    <div>
-                        <p><strong>${contact.name}</strong><br></p><p class="email">${contact.email}</p>
-                    </div>
-                </div>
-            `;
+            letterHTML += getLoadContactTemplate(contact , initials);
         }
         letterHTML += '</div>';
         contactContainer.innerHTML += letterHTML;
