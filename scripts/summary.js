@@ -1,6 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    await initSummary();
-});
+
 
 async function initSummary() {
     await updateAllTaskCounts();

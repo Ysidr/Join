@@ -1,5 +1,3 @@
-
-
 .sepreratorHeader {
     background-color: #29ABE2;
     width: 3px;
@@ -51,6 +49,12 @@ display: flex;
     filter: drop-shadow(0px 0px 5px rgba(164, 163, 163, 0.265));
 }
 
+.divRow1:hover {
+    background-color: #2A3647;
+    color: white;
+    filter: drop-shadow(5px 5px 5px #2A3647);
+}
+
 .divRow1 img {
     width: 69px;
     height: 69px;
@@ -75,6 +79,11 @@ display: flex;
     filter: drop-shadow(0px 0px 5px rgba(164, 163, 163, 0.265));
 
 }
+.SummaryRow3Style:hover {
+    background-color: #2A3647;
+    color: white;
+    filter: drop-shadow(5px 5px 5px #2A3647);
+}
 
 .summaryRow2 {
     width: 100%;
@@ -86,6 +95,11 @@ display: flex;
     justify-content: space-around;
     align-items: center;
 
+}
+.summaryRow2:hover{
+    background-color: #2A3647;
+    color: white;
+    filter: drop-shadow(5px 5px 5px #2A3647);
 }
 
 .SummaryRow3Left {

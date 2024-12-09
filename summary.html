@@ -7,22 +7,22 @@
 
     <div class="summaryRows">
         <div class="summaryRow1">
-            <div class="divRow1">
+            <div class="divRow1" onclick="loadPage('board')">
                 <div class="toDoImg"><img src="./assets/icons/Pencil.svg" alt=""></div>
                 <div class="toDoRest">
                     <p id="toDoCount"></p>
                     <p>To-do</p>
                 </div>
             </div>
-            <div class="divRow1">
-                <div class="doneImg"><img src="./assets/icons/checkmark.svg" alt=""></div>
+            <div class="divRow1" onclick="loadPage('board')">
+                <div class="doneImg" ><img src="./assets/icons/checkmark.svg" alt=""></div>
                 <div class="doneRest">
                     <p id="doneCount"></p>
                     <p>Done</p>
                 </div>
             </div>
         </div>
-        <div class="summaryRow2">
+        <div class="summaryRow2" onclick="loadPage('board')">
             <div class="SummaryRow3Left">
                 <img src="./assets/icons/urgent.svg" alt="">
                 <div class="SummaryRow3TextLeft">
@@ -37,15 +37,15 @@
             </div>
         </div>
         <div class="summaryRow3">
-            <div class="SummaryRow3Style">
+            <div class="SummaryRow3Style" onclick="loadPage('board')">
                 <p id="allTasks"></p>
                 <p>Tasks in <br> Board</p>
             </div>
-            <div class="SummaryRow3Style">
+            <div class="SummaryRow3Style" onclick="loadPage('board')">
                 <p id="inProgressTasks"></p>
                 <p>Tasks in <br> Progress</p>
             </div>
-            <div class="SummaryRow3Style">
+            <div class="SummaryRow3Style" onclick="loadPage('board')">
                 <p id="awaitFeedbackTasks"></p>
                 <p>Awaiting <br> Feedback</p>
             </div>
