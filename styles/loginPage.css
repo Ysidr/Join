@@ -116,3 +116,51 @@ header img {
     height: 20px; /* Größe des Icons anpassen */
     pointer-events: none; /* Klicks werden nicht auf das Bild übertragen */
 }
+
+/* Startzustand für den Container */
+#logoAnimationContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: fadeOutContainer 3s ease-in-out forwards; /* Verblasst während der Logo-Animation */
+}
+
+/* Startzustand für das Logo */
+#animatedLogo {
+    width: 150px; /* Startgröße */
+    animation: moveLogoToCorner 3s ease-in-out forwards;
+}
+
+/* Keyframe-Animation: Logo-Bewegung */
+@keyframes moveLogoToCorner {
+    0% {
+        transform: translate(-50%, -50%) scale(1); /* Mitte, Originalgröße */
+        top: 50%;
+        left: 50%;
+        position: absolute;
+    }
+    100% {
+        transform: translate(0, 0) scale(0.7); /* Zielposition und Skalierung */
+        top: 80px;
+        left: 77px;
+        position: absolute;
+    }
+}
+
+/* Keyframe-Animation: Container-Verblassen */
+@keyframes fadeOutContainer {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
