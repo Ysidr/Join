@@ -53,6 +53,15 @@ async function loadPage(page) {
         await loadHtml(page);
         await loadCss(page);
         await loadScript(page);
+        if (page === "summary" && typeof initSummary === "function") {
+            initSummary();
+        }
+        if (page === "board" && typeof initBoards === "function") {
+            initBoards();
+        }
+        if (page === "addTask" && typeof initaddTask === "function") {
+            initBoards();
+        }
     } catch (error) {
         content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
     }

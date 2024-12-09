@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function initSummary() {
     await updateAllTaskCounts();
     displayCounts();
+    getGreeting();
 }
+
 
 async function updateAllTaskCounts() {
     await updateToDoTaskCount()

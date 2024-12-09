@@ -6,6 +6,7 @@ async function initBoards() {
     await getToDoTasks();
 }
 
+
 function addDNone(id) {
     document.getElementById(id).classList.add("d-none")
 }
