@@ -1,3 +1,5 @@
+const validScripts = ["startseite", "contact", "about"];
+
 window.onload = loadUserData;
 const content = document.getElementById("main-content");
 const navbarLinks = [
@@ -48,30 +50,59 @@ function getInitials(name) {
 
 async function loadPage(page) {
     try {
-        const response = await fetch(`${page}.html`);
-        if (response.ok) {
-            const html = await response.text();
-            content.innerHTML = html;
-            console.log(`Seite ${page}.html erfolgreich geladen.`);
-        } else {
-            content.innerHTML = `<p>Seite ${page} konnte nicht geladen werden.</p>`;
-            return;
-        }
+        await loadHtml(page);
+        await loadCss(page);
+        await loadScript(page);
+    } catch (error) {
+        content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
+    }
+}
+
+async function loadHtml(page) {
+    const response = await fetch(`${page}.html`);
+    if (response.ok) {
+        const html = await response.text();
+        content.innerHTML = html;
+        console.log(`Seite ${page}.html erfolgreich geladen.`);
+    } else {
+        throw new Error(`Seite ${page}.html konnte nicht geladen werden.`);
+    }
+}
+
+async function loadCss(page) {
+    const cssResponse = await fetch(`./styles/${page}.css`);
+    if (cssResponse.ok) {
         const dynamicCss = document.getElementById("dynamic-css");
         if (dynamicCss) {
             dynamicCss.href = `./styles/${page}.css`;
         } else {
             document.head.innerHTML += `<link id="dynamic-css" rel="stylesheet" href="./styles/${page}.css">`;
         }
+        console.log(`CSS-Datei für ${page} erfolgreich geladen.`);
+    } else {
+        console.log(`Keine CSS-Datei für ${page} gefunden.`);
+    }
+}
+
+async function loadScript(page) {
+    if (!validScripts.includes(page)) {
+        console.log(`Kein JavaScript für ${page} vorgesehen.`);
+        return;
+    }
+    try {
         const scriptResponse = await fetch(`./scripts/${page}.js`);
         if (scriptResponse.ok) {
             const scriptText = await scriptResponse.text();
             eval(scriptText);
+            console.log(`JavaScript für ${page} erfolgreich geladen.`);
+        } else {
+            console.log(`Kein JavaScript für ${page} gefunden.`);
         }
     } catch (error) {
-        content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
+        console.log(`Fehler beim Laden des JavaScripts für ${page}: ${error.message}`);
     }
 }
+
 
 navbarLinks.forEach((link) => {
     if (link) {
