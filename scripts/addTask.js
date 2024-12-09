@@ -164,8 +164,16 @@ function resetAllVars() {
 }
 
 async function reloadPage() {
-    document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
-    console.log(1);
-    await new Promise(r => setTimeout(r, 2000));
-    loadPage('addTask')
+    if (document.getElementById("AddTaskSection") == undefined) {
+        document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
+        console.log(1);
+        await new Promise(r => setTimeout(r, 2000));
+        loadPage('addTask')
+    } else {
+        document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
+        console.log(1);
+        await new Promise(r => setTimeout(r, 2000));
+        loadPage('board')
+    }
+
 }

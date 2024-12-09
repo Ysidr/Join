@@ -1,4 +1,6 @@
-<div class="boardHeader" onclick="initBoards()">
+
+<link rel="stylesheet" href="./styles/addTask.css">
+<div class="boardHeader">
     <h1>Board</h1>
     <div class="boardHeaderInputs">
         <div class="boardHeaderSearch">
@@ -8,14 +10,14 @@
                 <img src="./assets/icons/search.svg" alt="" onclick="searchTasksInBoard()">
             </button>
         </div>
-        <button class="btnGray boardHeaderAddTaskBtn">Add task <img src="./assets/icons/add.svg" alt=""></button>
+        <button class="btnGray boardHeaderAddTaskBtn" onclick="addTaskInBoard()">Add task <img src="./assets/icons/add.svg" alt=""></button>
     </div>
 </div>
 <div class="taskRows">
     <div class="taskRow toDoRow">
         <div class="rowHeader">
             <p class="rowHeaderText">To do</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
+            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
         </div>
         <div id="ToDoTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
             <div class="singleTaskBoard defaultNoTasks">
@@ -26,7 +28,7 @@
     <div class="taskRow inProgressRow" class="tasksInRow">
         <div class="rowHeader">
             <p class="rowHeaderText">In Progress</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
+            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
         </div>
         <div id="InProgressTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
             <div class="singleTaskBoard defaultNoTasks">
@@ -37,7 +39,7 @@
     <div class="taskRow awaitFeedbackRow">
         <div class="rowHeader">
             <p class="rowHeaderText"> Await feedback</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
+            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
         </div>
         <div id="AwaitFeedbackTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
             <div class="singleTaskBoard defaultNoTasks">
@@ -98,3 +100,8 @@
     </div>
 
 </section>
+<section id="AddTaskSection" class="AddTaskSection d-none" onclick="addDNone('AddTaskSection')">
+    <div class="AddTaskInBoardMain" id="AddTaskInBoardMain" onclick="stopEventBubbling(event)">
+
+    </div>
+    </section>

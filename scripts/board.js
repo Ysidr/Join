@@ -119,5 +119,35 @@ function dropHandler(ev) {
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
     console.log("Dropped:", droppedElement, "Into:", ev.currentTarget.id);
-    ev.currentTarget.appendChild(droppedElement);  
+    ev.currentTarget.appendChild(droppedElement);
 }
+
+function addTaskInBoard() {
+    // Clear any existing content in the task section
+    const taskSection = document.getElementById("AddTaskInBoardMain");
+    taskSection.innerHTML = ''; 
+
+    // Dynamisch HTML laden
+    fetch('./addTask.html')
+        .then(response => response.text())
+        .then(html => {
+            taskSection.innerHTML = html;
+
+            // Dynamisch CSS einfügen
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = './styles/addTask.css';
+            document.head.appendChild(cssLink);
+
+            // Dynamisch JS einfügen
+            const script = document.createElement('script');
+            script.src = './scripts/addTask.js';
+            document.body.appendChild(script);
+
+            // Anzeige der AddTaskSection sicherstellen
+            document.getElementById("AddTaskSection").classList.remove("d-none");
+        })
+        .catch(err => console.error('Error loading addTask.html:', err));
+}
+
+
