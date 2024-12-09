@@ -55,7 +55,7 @@ function renderContact(responseToJson, indexContactWithLetter) {
 
 function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
     document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
-        `<div class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
+        `<div class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')" ondragstart="dragstartHandler(event)">
             <div class="category" id="divCategory${responseToJson.title}">
             </div>
             <div class="textSingleTask">
