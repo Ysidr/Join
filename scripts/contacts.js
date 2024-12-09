@@ -149,15 +149,6 @@ async function editContact(contactEmail) {
     await getCurrentMailForButtons(contactEmail)
 }
 
-function getCurrentMailForButtons(contactEmail) {
-    document.getElementById("new-contact-button-container").innerHTML = ` <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
-                            <button>Delete</button>
-                        </div>
-                        <div class="create btnGray" onclick="saveEditedContact()">
-                        <button>Save</button>
-                            <img src="assets/icons/check.png" alt="">
-                        </div>`
-}
 
 async function saveEditedContact() {
     const { name, email, phone, currentEmail, bgColor } = getEditedContactInputs();
