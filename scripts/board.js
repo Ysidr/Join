@@ -119,5 +119,5 @@ function dropHandler(ev) {
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
     console.log("Dropped:", droppedElement, "Into:", ev.currentTarget.id);
-    ev.currentTarget.appendChild(droppedElement);
+    ev.currentTarget.appendChild(droppedElement);  
 }

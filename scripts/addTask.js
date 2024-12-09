@@ -29,7 +29,8 @@ async function createTask() {
     getNewTaskInfo()
     await putTaskToServer();
     await setToDoTaskCount();
-    resetAllVars()
+    resetAllVars();
+    reloadPage();
 }
 
 function getNewTaskInfo() {
@@ -90,9 +91,9 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
         "assignedBgColor": newAssignedBgColor,
         "priority": newPrio,
         "category": newCategory,
-        "subtasks" : {
-            "addedTask":  addedSubtasks,
-            "subtasksDone" : addedSubtaskDone,
+        "subtasks": {
+            "addedTask": addedSubtasks,
+            "subtasksDone": addedSubtaskDone,
         },
     };
     return newTaskData;
@@ -144,20 +145,27 @@ function addSubtask() {
         `<div id="${subtaskName}">
         <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p>
         </div>`
-        addedSubtasks.push(`${subtaskName}`)
-        addedSubtaskDone.push(false)
-        console.log(addedSubtasks);
-        
+    addedSubtasks.push(`${subtaskName}`)
+    addedSubtaskDone.push(false)
+    console.log(addedSubtasks);
+
 }
 
 function subtasksHover(subtaskName) {
     console.log("okay");
-    
+
     document.getElementById(subtaskName).innerHTML = ` <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p> <img src="./assets/icons/delete.svg" alt="">`
 }
 
 function resetAllVars() {
-firstLetters = [];
-selectedContatct = [];
-addedSubtasks = [];
+    firstLetters = [];
+    selectedContatct = [];
+    addedSubtasks = [];
+}
+
+async function reloadPage() {
+    document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
+    console.log(1);
+    await new Promise(r => setTimeout(r, 2000));
+    loadPage('addTask')
 }
