@@ -8,15 +8,14 @@
 }
 
 .tasksInRow {
-    max-height: 688px;
+    overflow-y: scroll !important;
+    max-height: 75vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    gap: 8px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    width: 252px;
-    overflow-y: scroll;
-
+    width: 270px;
 }
 
 .taskRow {
