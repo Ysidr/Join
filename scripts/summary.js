@@ -47,9 +47,12 @@ getGreeting();
 async function checkToDo() {
     let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
     responseToJson = await response.json();
-    for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-        if (responseToJson[indexIterate1Task].priority == "high") {
-            urgentAmount++
+    if (responseToJson != null) {
+        for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
+            if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
+                urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
+            }
         }
     }
 
@@ -57,18 +60,26 @@ async function checkToDo() {
 async function checkAwait() {
     let response = await fetch(BASE_URL + `Tasks/AwaitFeedback.json`);
     responseToJson = await response.json();
-    for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-        if (responseToJson[indexIterate1Task].priority == "high") {
-            urgentAmount++
+    if (responseToJson != null) {
+        for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
+            if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
+                urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
+
+            }
         }
     }
 }
 async function checkInProgress() {
     let response = await fetch(BASE_URL + `Tasks/InProgress.json`);
     responseToJson = await response.json();
-    for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-        if (responseToJson[indexIterate1Task].priority == "high") {
-            urgentAmount++
+    if (responseToJson != null) {
+        for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
+            if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
+                urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
+
+            }
         }
     }
 }

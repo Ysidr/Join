@@ -10,6 +10,7 @@ let awaitFeedbackTaskCount = 0;
 let doneTaskCount = 0;
 let inProgressTaskCount = 0;
 let urgentAmount = 0;
+let urgentAmountDeadlines = [];
 
 
 let mailIsUsed = false;

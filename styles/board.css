@@ -28,6 +28,7 @@
     width: 100%;
     justify-content: space-between;
     height: 24px;
+    margin-bottom: 32px;
 }
 
 .rowHeaderText {
