@@ -78,11 +78,11 @@ function renderSubtasks(responseToJson) {
     document.getElementById(responseToJson.title).innerHTML =
         `<div class="subtaskProgressBar">
                             <div class="subtaskProgressBarInner" style="width: ${progressPercentage}%;"></div>
-</div>
-                        <div class="subtaskCountSingleCard">
-                            <p class="amountSubtaskSingleCard">${doneCount}/${responseToJson.subtasks.addedTask.length}</p>
-                            <p class="subtaskTextSingleCard">Subtasks</p>
-                        </div>`
+                            </div>
+                            <div class="subtaskCountSingleCard">
+                                <p class="amountSubtaskSingleCard">${doneCount}/${responseToJson.subtasks.addedTask.length}</p>
+                                <p class="subtaskTextSingleCard">Subtasks</p>
+                            </div>`;
 
 }
 
@@ -151,7 +151,7 @@ function getContactsTemplate(contactEmail){
             </div>
         </div>
     </div>
-    <div id="newContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
+    <div id="newContactForm" class="newContactForm hidden aninmation" onclick="cancelCreateContact()">
         <div class="new-contact-container" onclick="event.stopPropagation()">
             <div class="bg-main">
                 <div class="join-contact-container">
@@ -205,7 +205,7 @@ function getContactsTemplate(contactEmail){
         </div>
     </div>
     <div id="editContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
-        <div class="new-contact-container" onclick="event.stopPropagation()">
+        <div class="new-contact-container  aninmation" onclick="event.stopPropagation()">
             <div class="bg-main">
                 <div class="join-contact-container">
                     <img src="assets/icons/Capa 1.png" alt="">
