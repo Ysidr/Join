@@ -1,60 +1,64 @@
-<div class="contentSummary">
-    <div class="summaryHeader">
-        <h1 class="h1Summary">Join 360</h1>
-        <div class="sepreratorHeader"></div>
-        <p class="secondHeader">Key Metrics at a Glance</p>
-    </div>
+<div class="flex">
+    <div class="contentSummary">
+        <div class="summaryHeader">
+            <h1 class="h1Summary">Join 360</h1>
+            <div class="sepreratorHeader"></div>
+            <p class="secondHeader">Key Metrics at a Glance</p>
+        </div>
+    
+        <div class="summaryRows">
+            <div class="summaryRow1">
+                <div class="divRow1" onclick="loadPage('board')">
+                    <div class="toDoImg"><img src="./assets/icons/Pencil.svg" alt=""></div>
+                    <div class="toDoRest">
+                        <p id="toDoCount"></p>
+                        <p>To-do</p>
+                    </div>
+                </div>
+                <div class="divRow1" onclick="loadPage('board')">
+                    <div class="doneImg" ><img src="./assets/icons/checkmark.svg" alt=""></div>
+                    <div class="doneRest">
+                        <p id="doneCount"></p>
+                        <p>Done</p>
+                    </div>
+                </div>
+            </div>
+            <div class="summaryRow2" onclick="loadPage('board')">
+                <div class="SummaryRow3Left">
+                    <img src="./assets/icons/urgent.svg" alt="">
+                    <div class="SummaryRow3TextLeft">
+                        <p id="urgentTasks"></p>
+                        <p>Urgent</p>
+                    </div>
+                </div>
+                <div class="dividerRow2"></div>
+                <div class="SummaryRow3TextRight">
+                    <p id="Date"></p>
+                    <p>Upcoming Deadline</p>
+                </div>
+            </div>
+            <div class="summaryRow3">
+                <div class="SummaryRow3Style" onclick="loadPage('board')">
+                    <p id="allTasks"></p>
+                    <p>Tasks in <br> Board</p>
+                </div>
+                <div class="SummaryRow3Style" onclick="loadPage('board')">
+                    <p id="inProgressTasks"></p>
+                    <p>Tasks in <br> Progress</p>
+                </div>
+                <div class="SummaryRow3Style" onclick="loadPage('board')">
+                    <p id="awaitFeedbackTasks"></p>
+                    <p>Awaiting <br> Feedback</p>
+                </div>
+                <h1 class="taskAmount"></h1>
+    
+            </div>
+        </div>
 
-    <div class="summaryRows">
-        <div class="summaryRow1">
-            <div class="divRow1" onclick="loadPage('board')">
-                <div class="toDoImg"><img src="./assets/icons/Pencil.svg" alt=""></div>
-                <div class="toDoRest">
-                    <p id="toDoCount"></p>
-                    <p>To-do</p>
-                </div>
-            </div>
-            <div class="divRow1" onclick="loadPage('board')">
-                <div class="doneImg" ><img src="./assets/icons/checkmark.svg" alt=""></div>
-                <div class="doneRest">
-                    <p id="doneCount"></p>
-                    <p>Done</p>
-                </div>
-            </div>
-        </div>
-        <div class="summaryRow2" onclick="loadPage('board')">
-            <div class="SummaryRow3Left">
-                <img src="./assets/icons/urgent.svg" alt="">
-                <div class="SummaryRow3TextLeft">
-                    <p id="urgentTasks"></p>
-                    <p>Urgent</p>
-                </div>
-            </div>
-            <div class="dividerRow2"></div>
-            <div class="SummaryRow3TextRight">
-                <p id="Date"></p>
-                <p>Upcoming Deadline</p>
-            </div>
-        </div>
-        <div class="summaryRow3">
-            <div class="SummaryRow3Style" onclick="loadPage('board')">
-                <p id="allTasks"></p>
-                <p>Tasks in <br> Board</p>
-            </div>
-            <div class="SummaryRow3Style" onclick="loadPage('board')">
-                <p id="inProgressTasks"></p>
-                <p>Tasks in <br> Progress</p>
-            </div>
-            <div class="SummaryRow3Style" onclick="loadPage('board')">
-                <p id="awaitFeedbackTasks"></p>
-                <p>Awaiting <br> Feedback</p>
-            </div>
-            <h1 class="taskAmount"></h1>
-
-        </div>
     </div>
     <div class="greetings">
-        <p class="timeOfDay" id="greeting"></p>
+        <div class="timeOfDay" id="greeting"></div>
         <p class="userName"></p>
     </div>
 </div>
+

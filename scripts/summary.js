@@ -35,15 +35,21 @@ async function getUrgentAmount() {
 function getGreeting() {
     const now = new Date();
     const hour = now.getHours();
-    if (hour >= 6 && hour < 12) {
-        document.getElementById('greeting').innerHTML = 'Good morning,';
-    } else if (hour >= 12 && hour < 18) {
-        document.getElementById('greeting').innerHTML = 'Good afternoon,';
-    } else {
-        document.getElementById('greeting').innerHTML = 'Good evening,';
+    const greetingElement = document.getElementById('greeting');
+    
+    // Überprüfen, ob das Element existiert
+    if (greetingElement) {
+        if (hour >= 6 && hour < 12) {
+            greetingElement.innerHTML = 'Good morning,';
+        } else if (hour >= 12 && hour < 18) {
+            greetingElement.innerHTML = 'Good afternoon,';
+        } else if (hour >= 12 && hour < 18){
+            greetingElement.innerHTML = 'Good evening,';
+        } else {
+            greetingElement.innerHTML = 'Good night,';
+        }
     }
 }
-getGreeting();
 
 async function checkToDo() {
     let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
@@ -87,8 +93,6 @@ async function checkAwait() {
 
         if (urgentAmountDeadlines.length > 0) {
             console.log("Nächstes Fälligkeitsdatum:", urgentAmountDeadlines[0]);
-        } else {
-            console.log("Keine Aufgaben mit hoher Priorität gefunden.");
         }
     }
 }
@@ -107,11 +111,5 @@ async function checkInProgress() {
         urgentAmountDeadlines.sort((a, b) => {
             return new Date(a) - new Date(b);
         });
-
-        if (urgentAmountDeadlines.length > 0) {
-            console.log("Nächstes Fälligkeitsdatum:", urgentAmountDeadlines[0]);
-        } else {
-            console.log("Keine Aufgaben mit hoher Priorität gefunden.");
-        }
     }
 }
