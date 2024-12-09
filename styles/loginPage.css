@@ -111,7 +111,6 @@ header img {
 .input-container img {
     position: absolute; /* Absolute Positionierung innerhalb des Containers */
     right: 10px; /* Abstand zum rechten Rand */
-    top: 50%; /* Vertikale Zentrierung */
     transform: translateY(-50%); /* Zentrierung korrigieren */
     height: 20px; /* Größe des Icons anpassen */
     pointer-events: none; /* Klicks werden nicht auf das Bild übertragen */
