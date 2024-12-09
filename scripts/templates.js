@@ -156,8 +156,8 @@ function getContactsTemplate(contactEmail) {
             </div>
         </div>
     </div>
-    <div id="newContactForm" class="newContactForm hidden aninmation" onclick="cancelCreateContact()">
-        <div class="new-contact-container" onclick="event.stopPropagation()">
+    <div id="newContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
+        <div class="new-contact-container aninmation" onclick="event.stopPropagation()">
             <div class="bg-main">
                 <div class="join-contact-container">
                     <img src="assets/icons/Capa 1.png" alt="">
