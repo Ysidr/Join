@@ -39,7 +39,7 @@ function getGreeting() {
     
     // Überprüfen, ob das Element existiert
     if (greetingElement) {
-        if (hour >= 6 && hour < 12) {
+        if (hour >= 0 && hour < 12) {
             greetingElement.innerHTML = 'Good morning,';
         } else if (hour >= 12 && hour < 18) {
             greetingElement.innerHTML = 'Good afternoon,';
