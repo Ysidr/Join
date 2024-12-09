@@ -15,20 +15,23 @@ async function getToDoTasks() {
     responseToJson = await response.json();
     allCurrentTasksObj = responseToJson;
     for (let indexTaskFields = 0; indexTaskFields < Object.keys(responseToJson).length; indexTaskFields++) {
-        currentlyRenderingTasks = Object.keys(responseToJson)[indexTaskFields]
-        document.getElementById(Object.keys(responseToJson)[indexTaskFields] + "Tasks").innerHTML = "";
+        currentlyRenderingTasks = Object.keys(responseToJson)[indexTaskFields];
+        document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML = "";
         for (let indexTaskCount = 1; indexTaskCount < Object.values(responseToJson)[indexTaskFields].length; indexTaskCount++) {
-            let getCurrentTask = Object.values(Object.values(responseToJson)[indexTaskFields])[indexTaskCount];
-            renderTasksinBoard(getCurrentTask, indexTaskFields, indexTaskCount);
-            checkForSubtasks(getCurrentTask);
-            checkForCategory(getCurrentTask);
-            checkForImportance(getCurrentTask);
-            checkForAddedUsers(getCurrentTask);
+            let currentTask = Object.values(Object.values(responseToJson)[indexTaskFields])[indexTaskCount];
+            let taskTitle = currentTask.title.toLocaleLowerCase();
+            let searchTask = currentSearchInBoard.toLocaleLowerCase();
+            if (currentSearchInBoard === "" || taskTitle.includes(searchTask)) {
+                renderTasksinBoard(currentTask, indexTaskFields, indexTaskCount);
+                checkForSubtasks(currentTask);
+                checkForCategory(currentTask);
+                checkForImportance(currentTask);
+                checkForAddedUsers(currentTask);
+            }
         }
     }
-
-
 }
+
 
 function checkForAddedUsers(getCurrentTask) {
     if (getCurrentTask.assigned.length != 0) {

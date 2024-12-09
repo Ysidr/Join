@@ -49,47 +49,21 @@ function renderContact(responseToJson, indexContactWithLetter) {
 //Render tasks in Board functions
 
 function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
-    if (currentSearchInBoard == "") {
-        document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
+    document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
         `<div class="singleTaskBoard" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
-                    <div class="category" id="divCategory${responseToJson.title}">
-                    </div>
-                    <div class="textSingleTask">
-                        <p class="titleSingleCard">${responseToJson.title}</p>
-                        <p class="descriptionSingleCard">${responseToJson.description}</p>
-                    </div>
-                    <div class="subtasksSingleCard" id="${responseToJson.title}">
-                        
-                    </div>
-                    <div class="bottomDivSingleCard">
-                        <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
-                        <div id="prioImg${responseToJson.title}" class="prioImg">
-                        </div>
-                    </div>
-                </div>`
-    }else{
-        let compareName = responseToJson.title.toLocaleLowerCase()
-        let compareSearch = currentSearchInBoard.toLocaleLowerCase()
-        if (compareName.includes(compareSearch)) {
-            document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
-        `<div class="singleTaskBoard" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
-                    <div class="category" id="divCategory${responseToJson.title}">
-                    </div>
-                    <div class="textSingleTask">
-                        <p class="titleSingleCard">${responseToJson.title}</p>
-                        <p class="descriptionSingleCard">${responseToJson.description}</p>
-                    </div>
-                    <div class="subtasksSingleCard" id="${responseToJson.title}">
-                        
-                    </div>
-                    <div class="bottomDivSingleCard">
-                        <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
-                        <div id="prioImg${responseToJson.title}" class="prioImg">
-                        </div>
-                    </div>
-                </div>`
-        }
-    }
+            <div class="category" id="divCategory${responseToJson.title}">
+            </div>
+            <div class="textSingleTask">
+                <p class="titleSingleCard">${responseToJson.title}</p>
+                <p class="descriptionSingleCard">${responseToJson.description}</p>
+            </div>
+            <div class="subtasksSingleCard" id="${responseToJson.title}">
+            </div>
+            <div class="bottomDivSingleCard">
+                <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
+                <div id="prioImg${responseToJson.title}" class="prioImg"></div>
+            </div>
+        </div>`;
 }
 
 function renderSubtasks(responseToJson) {
