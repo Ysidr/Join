@@ -238,8 +238,8 @@ function getContactsTemplate(contactEmail){
                             <input type="tel" id="editContactPhone" placeholder="Phone">
                             <img src="assets/icons/call.png" alt="">
                         </div>
-                        <div class="new-contact-button-container">
-                        <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact(this)">
+                        <div class="new-contact-button-container" id="new-contact-button-container">
+                        <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
                             <button>Delete</button>
                         </div>
                         <div class="create btnGray" onclick="saveEditedContact()">
