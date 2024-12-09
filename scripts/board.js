@@ -1,5 +1,6 @@
 let currentlyRenderingTasks = "";
 let allCurrentTasksObj = {};
+let currentSearchInBoard = "";
 
 async function initBoards() {
     await getToDoTasks();
@@ -89,4 +90,12 @@ function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
         responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = true;
     renderSubtasks(responseToJson);
     }
+}
+
+//Search for Tasks
+
+
+function searchTasksInBoard() {
+    currentSearchInBoard = document.getElementById("boardHeaderSearch").value;
+    getToDoTasks()
 }

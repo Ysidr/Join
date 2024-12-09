@@ -202,3 +202,54 @@
     flex-direction: column;
     justify-content: start;
 }
+
+.boardHeaderSearch {
+    background-color: white;
+    display: flex;
+    width: 312px;
+    border-radius: 10px;
+    justify-content: space-between;
+    height: 48px;
+    align-items: center;
+    padding: 0 16px ;
+}
+
+.boardHeaderInputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 504px;
+}
+
+.boardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1,056px;
+}
+
+.boardHeaderDevider {
+    width: 1px;
+    height: 31px;
+    background-color: #D1D1D1;
+}
+
+.boardHeaderSearch input {
+    background-color: transparent;
+    flex: 1;
+    height: 32px;
+}
+
+.boardHeaderSearchBtn {
+    width: 48px;
+    display: flex;
+    justify-content: end;
+}
+
+.boardHeaderAddTaskBtn {
+    width: 160px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

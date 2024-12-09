@@ -1,7 +1,14 @@
 <div class="boardHeader" onclick="initBoards()">
     <h1>Board</h1>
     <div class="boardHeaderInputs">
-
+        <div class="boardHeaderSearch">
+            <input type="search" placeholder="Find Task" id="boardHeaderSearch">
+            <div class="boardHeaderDevider"></div>
+            <button class="boardHeaderSearchBtn">
+                <img src="./assets/icons/search.svg" alt="" onclick="searchTasksInBoard()">
+            </button>
+        </div>
+        <button class="btnGray boardHeaderAddTaskBtn">Add task <img src="./assets/icons/add.svg" alt=""></button>
     </div>
 </div>
 <div class="taskRows">
@@ -83,4 +90,3 @@
     </div>
 
 </section>
-
