@@ -13,7 +13,6 @@ async function renderContacts() {
 async function cancelCreateContact() {
     const newContactForm = document.getElementById("newContactForm");
     const editContactForm = document.getElementById("editContactForm");
-
     if (newContactForm) newContactForm.classList.add("hidden");
     if (editContactForm) editContactForm.classList.add("hidden");
 }

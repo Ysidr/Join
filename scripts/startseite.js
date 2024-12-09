@@ -1,3 +1,5 @@
+const pagesWithScripts = ["summary", "addTask", "board", "contacts"];
+
 window.onload = loadUserData;
 const content = document.getElementById("main-content");
 const navbarLinks = [
@@ -81,14 +83,20 @@ async function loadCss(page) {
 }
 
 async function loadScript(page) {
-    const scriptResponse = await fetch(`./scripts/${page}.js`);
-    if (scriptResponse.ok) {
-        const scriptText = await scriptResponse.text();
-        eval(scriptText);
+    try {
+        if (!pagesWithScripts.includes(page)) {
+            return;
+        }
+        const scriptUrl = `./scripts/${page}.js`;
+        const scriptResponse = await fetch(scriptUrl);
+        if (scriptResponse.ok) {
+            const scriptText = await scriptResponse.text();
+            eval(scriptText);
+        }
+    } catch (error) {
+        console.error(`Fehler beim Laden von JS für ${page}:`, error);
     }
 }
-
-
 
 navbarLinks.forEach((link) => {
     if (link) {
