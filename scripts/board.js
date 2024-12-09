@@ -90,9 +90,9 @@ function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
     if (responseToJson.subtasks.subtasksDone[indexAddedSubtasks] == true) {
         responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = false;
         renderSubtasks(responseToJson);
-    }else{
+    } else {
         responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = true;
-    renderSubtasks(responseToJson);
+        renderSubtasks(responseToJson);
     }
 }
 
@@ -118,11 +118,6 @@ function dropHandler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
-    if (ev.target.classList.contains("tasksInRow")) {
-        console.log("Dropped:", droppedElement, "Into:", ev.target.id);
-        ev.target.appendChild(droppedElement);
-    } else {
-        console.log("Invalid drop target:", ev.target.id);
-    }
+    console.log("Dropped:", droppedElement, "Into:", ev.currentTarget.id);
+    ev.currentTarget.appendChild(droppedElement);
 }
-
