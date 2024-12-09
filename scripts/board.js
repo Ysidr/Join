@@ -104,15 +104,13 @@ function searchTasksInBoard() {
     getToDoTasks()
 }
 
-//drag and drop
-
 function dragstartHandler(ev) {
-    ev.dataTransfer.setData("text/plain", ev.target.id); // Setze die ID
+    ev.dataTransfer.setData("text/plain", ev.target.id);
     console.log("Dragging:", ev.target.id);
 }
 
 function dragoverHandler(ev) {
-    ev.preventDefault(); // Erlaubt das Droppen
+    ev.preventDefault();
     ev.dataTransfer.dropEffect = "move";
 }
 
@@ -120,9 +118,11 @@ function dropHandler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
-    console.log("Dropped:", droppedElement, "Into:", ev.target.id);
-    if (droppedElement) {
+    if (ev.target.classList.contains("tasksInRow")) {
+        console.log("Dropped:", droppedElement, "Into:", ev.target.id);
         ev.target.appendChild(droppedElement);
+    } else {
+        console.log("Invalid drop target:", ev.target.id);
     }
 }
 
