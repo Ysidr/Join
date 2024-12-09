@@ -4,6 +4,7 @@ let selectedContatctBgColor = [];
 let addedSubtasks = [];
 let addedSubtaskDone = [];
 
+
 async function getContacts() {
     resetContactList()
     let response = await fetch(BASE_URL + "Contacts.json");

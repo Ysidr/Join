@@ -3,6 +3,8 @@ const BASE_URL = "https://join-7cb80-default-rtdb.europe-west1.firebasedatabase.
 let UsersAmountViaId = 0;
 let currentTime = new Date()
 
+let currentDraggedId;
+
 
 
 let toDoTaskCount = 0;
