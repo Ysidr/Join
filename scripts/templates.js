@@ -24,6 +24,11 @@ function renderAwaitFeedback() {
     document.getElementById("awaitFeedbackTasks").innerHTML =
         `<h1 class="taskAmount">${awaitFeedbackTaskCount}</h1>`
 }
+function renderClosestDate() {
+    let s = nextDeadline;
+    const niceDisplayOfDate = s.split('-').reverse().join('-');
+    document.getElementById("Date").innerHTML = `<h2>${niceDisplayOfDate}</h2>`
+}
 
 //Render Contacts in Add Task functions
 
@@ -50,7 +55,7 @@ function renderContact(responseToJson, indexContactWithLetter) {
 
 function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
     document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
-        `<div class="singleTaskBoard" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
+        `<div class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')">
             <div class="category" id="divCategory${responseToJson.title}">
             </div>
             <div class="textSingleTask">
@@ -130,7 +135,7 @@ function renderDetails(indexTaskFields, indexTaskCount) {
     }
 }
 
-function getContactsTemplate(contactEmail){
+function getContactsTemplate(contactEmail) {
     return /*html*/ `
     <div class="flex">
         <div class="contacts">
@@ -259,7 +264,7 @@ function getContactsTemplate(contactEmail){
     `;
 }
 
-function getLoadContactTemplate(contact , initials){
+function getLoadContactTemplate(contact, initials) {
     return /*html*/`
         <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
             <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
@@ -270,7 +275,7 @@ function getLoadContactTemplate(contact , initials){
     `;
 }
 
-function getContactInfoTemplate(name, email, phone, initials, bgColor){
+function getContactInfoTemplate(name, email, phone, initials, bgColor) {
     return /*html*/`
         <div class="contact-info-container">
             <div class="flex gap-8">

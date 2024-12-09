@@ -11,6 +11,7 @@ let doneTaskCount = 0;
 let inProgressTaskCount = 0;
 let urgentAmount = 0;
 let urgentAmountDeadlines = [];
+let nextDeadline = "";
 
 
 let mailIsUsed = false;

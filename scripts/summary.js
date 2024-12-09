@@ -22,6 +22,7 @@ function displayCounts() {
     renderAllTasks()
     renderInProgress()
     renderAwaitFeedback()
+    renderClosestDate()
 }
 
 async function getUrgentAmount() {
@@ -52,6 +53,7 @@ async function checkToDo() {
 
         for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
             if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
             }
         }
@@ -60,7 +62,7 @@ async function checkToDo() {
         });
 
         if (urgentAmountDeadlines.length > 0) {
-            console.log("Nächstes Fälligkeitsdatum:", urgentAmountDeadlines[0]);
+            nextDeadline = urgentAmountDeadlines[0];
         } else {
             console.log("Keine Aufgaben mit hoher Priorität gefunden.");
         }
@@ -75,6 +77,7 @@ async function checkAwait() {
 
         for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
             if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
             }
         }
@@ -100,6 +103,15 @@ async function checkInProgress() {
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
 
             }
+        }
+        urgentAmountDeadlines.sort((a, b) => {
+            return new Date(a) - new Date(b);
+        });
+
+        if (urgentAmountDeadlines.length > 0) {
+            console.log("Nächstes Fälligkeitsdatum:", urgentAmountDeadlines[0]);
+        } else {
+            console.log("Keine Aufgaben mit hoher Priorität gefunden.");
         }
     }
 }

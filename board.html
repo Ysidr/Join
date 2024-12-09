@@ -17,10 +17,10 @@
             <p class="rowHeaderText">To do</p>
             <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
         </div>
-        <div id="ToDoTasks" class="tasksInRow">
-<div class="singleTaskBoard defaultNoTasks">
-    <p class="noCurrentTasksText">No tasks To do</p>
-</div>
+        <div id="ToDoTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+            <div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks To do</p>
+            </div>
         </div>
     </div>
     <div class="taskRow inProgressRow">
@@ -28,10 +28,10 @@
             <p class="rowHeaderText">In Progress</p>
             <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
         </div>
-        <div id="InProgressTasks" class="tasksInRow">
-<div class="singleTaskBoard defaultNoTasks">
-    <p class="noCurrentTasksText">No tasks In Progress</p>
-</div>
+        <div id="InProgressTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+            <div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks In Progress</p>
+            </div>
         </div>
     </div>
     <div class="taskRow awaitFeedbackRow">
@@ -39,20 +39,20 @@
             <p class="rowHeaderText"> Await feedback</p>
             <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask"></button>
         </div>
-        <div id="AwaitFeedbackTasks" class="tasksInRow">
-<div class="singleTaskBoard defaultNoTasks">
-    <p class="noCurrentTasksText">No tasks Await Feedback</p>
-</div>
+        <div id="AwaitFeedbackTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+            <div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks Await Feedback</p>
+            </div>
         </div>
     </div>
     <div class="taskRow doneRow">
         <div class="rowHeader">
             <p class="rowHeaderText">Done</p>
         </div>
-        <div id="DoneTasks" class="tasksInRow">
-<div class="singleTaskBoard defaultNoTasks">
-    <p class="noCurrentTasksText">No tasks Done</p>
-</div>
+        <div id="DoneTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+            <div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks Done</p>
+            </div>
         </div>
     </div>
 </div>

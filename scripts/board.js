@@ -102,3 +102,42 @@ function searchTasksInBoard() {
     currentSearchInBoard = document.getElementById("boardHeaderSearch").value;
     getToDoTasks()
 }
+
+//drag and drop
+
+function dragstartHandler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+  }
+
+  window.addEventListener("DOMContentLoaded", (idOfDiv) => {
+    // Get the element by id
+    const element = document.getElementById(idOfDiv);
+    // Add the ondragstart event listener
+    element.addEventListener("dragstart", dragstartHandler);
+  });
+
+  function dragstartHandler(ev) {
+    // Add different types of drag data
+    ev.dataTransfer.setData("text/plain", ev.target.innerText);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    ev.dataTransfer.setData(
+      "text/uri-list",
+      ev.target.ownerDocument.location.href,
+    );
+  }
+
+  function dragstartHandler(ev) {
+    ev.dataTransfer.dropEffect = "copy";
+  }
+
+  function dragoverHandler(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+  }
+  function dropHandler(ev) {
+    ev.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = ev.dataTransfer.getData("text/plain");
+    ev.target.appendChild(document.getElementById(data));
+  }
