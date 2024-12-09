@@ -150,6 +150,7 @@ async function editContact(contactEmail) {
 }
 
 
+
 async function saveEditedContact() {
     const { name, email, phone, currentEmail, bgColor } = getEditedContactInputs();
     if (!name || !email || !phone || !currentEmail) {
