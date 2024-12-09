@@ -12,6 +12,12 @@ header img {
     width: 100px;
     margin: 80px 0 0 77px;
 }
+
+.link{
+    color: #29ABE2 !important;
+    text-decoration: none;
+}
+
 .signUpBox{
     z-index: 0;
     background:transparent;
