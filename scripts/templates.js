@@ -133,6 +133,10 @@ function renderDetails(indexTaskFields, indexTaskCount) {
             }
         }
     }
+    document.getElementById("detailBtns").innerHTML = `
+    <button onclick="deleteTaskFromBoard('${indexTaskFields}', '${indexTaskCount}')"> <img src="./assets/icons/delete.svg" alt=""></button>
+            <div class="detailBtnSeperator"></div>
+            <button><img src="./assets/icons/pencilSmall.svg" alt=""></button>`
 }
 
 function getContactsTemplate(contactEmail) {
