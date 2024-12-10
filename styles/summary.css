@@ -150,3 +150,15 @@ display: flex;
     justify-content: center;
     gap: 3px;
 }
+
+.userName {
+    font-weight: 700;
+    font-size: 64px;
+    color: #29ABE2;
+}
+
+.timeOfDay {
+    font-weight: 500;
+    font-size: 47px;
+    color: #2A3647;
+}

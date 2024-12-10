@@ -3,6 +3,7 @@ async function initSummary() {
     await updateAllTaskCounts();
     displayCounts();
     getGreeting();
+    getAndDisplayName();
 }
 
 
@@ -29,6 +30,10 @@ async function getUrgentAmount() {
     await checkToDo()
     await checkAwait()
     await checkInProgress()
+}
+
+function getAndDisplayName() {
+    document.getElementById("userNameSummary").innerHTML = `${currentUserName}`
 }
 
 function getGreeting() {

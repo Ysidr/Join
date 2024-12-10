@@ -1,4 +1,5 @@
 const pagesWithScripts = ["summary", "addTask", "board", "contacts"];
+let currentUserName = "";
 
 window.onload = loadUserData;
 const content = document.getElementById("main-content");
