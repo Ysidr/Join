@@ -40,33 +40,23 @@ function getGreeting() {
     const now = new Date();
     const hour = now.getHours();
     const greetingElement = document.getElementById('greeting');
-
+    let comma = "";
     // Überprüfen, ob das Element existiert
     if (currentUserName == "") {
-        if (greetingElement) {
-            if (hour >= 6 && hour < 12) {
-                greetingElement.innerHTML = 'Good morning';
-            } else if (hour >= 12 && hour < 18) {
-                greetingElement.innerHTML = 'Good afternoon';
-            } else if (hour >= 12 && hour < 18) {
-                greetingElement.innerHTML = 'Good evening';
-            } else {
-                greetingElement.innerHTML = 'Good night';
-            }
-        }
-    } else {
-        if (greetingElement) {
-            if (hour >= 6 && hour < 12) {
-                greetingElement.innerHTML = 'Good morning,';
-            } else if (hour >= 12 && hour < 18) {
-                greetingElement.innerHTML = 'Good afternoon,';
-            } else if (hour >= 12 && hour < 18) {
-                greetingElement.innerHTML = 'Good evening,';
-            } else {
-                greetingElement.innerHTML = 'Good night,';
-            }
+        let comma = ","
+    }
+    if (greetingElement) {
+        if (hour >= 6 && hour < 12) {
+            greetingElement.innerHTML = `Good morning${comma}`;
+        } else if (hour >= 12 && hour < 18) {
+            greetingElement.innerHTML = `Good afternoon${comma}`;
+        } else if (hour >= 12 && hour < 18) {
+            greetingElement.innerHTML = `Good evening${comma}`;
+        } else {
+            greetingElement.innerHTML = `Good night${comma}`;
         }
     }
+
 }
 
 async function checkToDo() {
