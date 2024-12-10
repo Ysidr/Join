@@ -7,8 +7,24 @@ async function initBoards() {
 }
 
 
-function addDNone(id) {
+async function addDNone(id) {
+    if (id == `taskDetailSection`) {
+        await putAllTasksToServer()
+    }
     document.getElementById(id).classList.add("d-none")
+}
+
+
+async function putAllTasksToServer() {
+    let response = await fetch(BASE_URL + `Tasks.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(allCurrentTasksObj)
+        });
+    return responseToJson = await response.json();
 }
 
 async function getToDoTasks() {
@@ -127,7 +143,7 @@ function dropHandler(ev) {
 function addTaskInBoard() {
     // Clear any existing content in the task section
     const taskSection = document.getElementById("AddTaskInBoardMain");
-    taskSection.innerHTML = ''; 
+    taskSection.innerHTML = '';
 
     // Dynamisch HTML laden
     fetch('./addTask.html')
@@ -153,3 +169,58 @@ function addTaskInBoard() {
 }
 
 
+async function deleteTaskFromBoard(indexTaskFields, indexTaskCount) {
+    Object.values(allCurrentTasksObj)[indexTaskFields].splice(indexTaskCount, 1);
+    await addDNone("taskDetailSection");
+    await getToDoTasks();
+    await updateAndUploadAllTaskCounts()
+
+}
+
+async function updateAndUploadAllTaskCounts(){
+    await updateAllTaskCounts()  
+    await uploadAllTaskCounts()  
+}
+
+async function uploadAllTaskCounts() {
+    setToDoTaskCount()
+    setAwaitFeedbackTaskCount()
+    setDoneTaskCount()
+    setInProgressTaskCount()
+}
+
+async function setAwaitFeedbackTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/AwaitFeedbackTaskCount/.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(awaitFeedbackTaskCount)
+        });
+    return responseToJson = await response.json();
+}
+
+async function setDoneTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/DoneTaskCount/.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(doneTaskCount)
+        });
+    return responseToJson = await response.json();
+}
+
+async function setInProgressTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/InProgressTaskCount/.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inProgressTaskCount)
+        });
+    return responseToJson = await response.json();
+}
