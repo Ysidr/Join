@@ -201,7 +201,6 @@ height: 14px;
     height: 24px;
 }
 
-
 .prioLabels {
     display: flex;
     align-items: center;
@@ -212,19 +211,23 @@ height: 14px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.prioLabels:hover {
-    color: white; /* Ändert die Textfarbe auf Weiß */
+input[type="radio"] {
+    display: none; /* Versteckt die Radio-Buttons */
 }
 
-.high:hover {
+input[type="radio"]:checked + .prioLabels {
+    color: white;
+}
+
+input[type="radio"]:checked + .prioLabels.high {
     background-color: #FF3D00;
 }
 
-.medium:hover {
+input[type="radio"]:checked + .prioLabels.medium {
     background-color: #FFA800;
 }
 
-.low:hover {
+input[type="radio"]:checked + .prioLabels.low {
     background-color: #7AE229;
 }
 
@@ -232,9 +235,8 @@ height: 14px;
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
-.high:hover svg path,
-.medium:hover svg path,
-.low:hover svg path {
+input[type="radio"]:checked + .prioLabels svg path {
     fill: white; /* Setzt die SVG-Farben auf Weiß */
     stroke: white; /* Für SVGs mit Stroke-Eigenschaft */
 }
+
