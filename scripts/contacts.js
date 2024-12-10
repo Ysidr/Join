@@ -85,7 +85,9 @@ function loadContactsSecondFunction(letter, contactsForLetter, contactContainer)
     contactContainer.innerHTML += letterHTML;
 }
 function getInitials(name) {
-    currentUserName = name;
+    if (currentUserName == "") {
+        currentUserName = name;
+    }
     const nameParts = name.split(' ');
     let initials = '';
     for (let i = 0; i < nameParts.length; i++) {
