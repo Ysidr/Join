@@ -40,17 +40,31 @@ function getGreeting() {
     const now = new Date();
     const hour = now.getHours();
     const greetingElement = document.getElementById('greeting');
-    
+
     // Überprüfen, ob das Element existiert
-    if (greetingElement) {
-        if (hour >= 6 && hour < 12) {
-            greetingElement.innerHTML = 'Good morning,';
-        } else if (hour >= 12 && hour < 18) {
-            greetingElement.innerHTML = 'Good afternoon,';
-        } else if (hour >= 12 && hour < 18){
-            greetingElement.innerHTML = 'Good evening,';
-        } else {
-            greetingElement.innerHTML = 'Good night,';
+    if (currentUserName == "") {
+        if (greetingElement) {
+            if (hour >= 6 && hour < 12) {
+                greetingElement.innerHTML = 'Good morning';
+            } else if (hour >= 12 && hour < 18) {
+                greetingElement.innerHTML = 'Good afternoon';
+            } else if (hour >= 12 && hour < 18) {
+                greetingElement.innerHTML = 'Good evening';
+            } else {
+                greetingElement.innerHTML = 'Good night';
+            }
+        }
+    } else {
+        if (greetingElement) {
+            if (hour >= 6 && hour < 12) {
+                greetingElement.innerHTML = 'Good morning,';
+            } else if (hour >= 12 && hour < 18) {
+                greetingElement.innerHTML = 'Good afternoon,';
+            } else if (hour >= 12 && hour < 18) {
+                greetingElement.innerHTML = 'Good evening,';
+            } else {
+                greetingElement.innerHTML = 'Good night,';
+            }
         }
     }
 }
