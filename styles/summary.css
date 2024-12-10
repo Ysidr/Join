@@ -47,6 +47,7 @@ display: flex;
     align-items: center;
     background-color: white;
     filter: drop-shadow(0px 0px 5px rgba(164, 163, 163, 0.265));
+    transition: background-color 0.3s ease, filter 0.3s ease;
 }
 
 .divRow1:hover {
@@ -55,9 +56,27 @@ display: flex;
     filter: drop-shadow(5px 5px 5px #2A3647);
 }
 
-.divRow1 img {
+.divRow1 svg {
     width: 69px;
     height: 69px;
+    transition: fill 0.3s ease;
+}
+
+.svg-fill-todo:hover circle{
+    fill: white; /* Füllt den Kreis mit Weiß beim Hover */
+}
+
+.svg-fill-todo:hover path{
+    fill: #2A3647; /* Färbt den Stift (Pfad) in Blau (#2A3647) */
+}
+
+/* Hover-Effekte */
+.svg-fill-done:hover svg circle {
+    fill: white; /* Der Kreis wird weiß */
+}
+
+.svg-fill-done:hover svg path {
+    stroke: #2A3647; /* Die Outline des Pfads wird Blau */
 }
 
 .summaryRow3 {
