@@ -102,6 +102,8 @@ function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
 function searchTasksInBoard() {
     currentSearchInBoard = document.getElementById("boardHeaderSearch").value;
     getToDoTasks()
+    document.getElementById("boardHeaderSearch").value = "";
+
 }
 
 function dragstartHandler(ev) {
