@@ -148,7 +148,7 @@ function addSubtask() {
     addedSubtasks.push(`${subtaskName}`)
     addedSubtaskDone.push(false)
     console.log(addedSubtasks);
-
+    document.getElementById("subtaskInput").value = "";
 }
 
 function subtasksHover(subtaskName) {
@@ -175,4 +175,23 @@ async function reloadPage() {
         await new Promise(r => setTimeout(r, 2000));
         loadPage('board')
     }
+}
+
+function clearInputs() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("subtaskInput").value = "";
+    document.getElementById("dateIput").value = "";
+    document.getElementById("categorytSelector").value = "";
+    document.getElementById("addedSubtasks").innerHTML = "";
+    firstLetters = [];
+    selectedContatct = [];
+    selectedContatctBgColor = [];
+    addedSubtasks = [];
+    addedSubtaskDone = [];
+    newAssigned = "";
+    newAssignedBgColor = "";
+    newPrio = "";
+    newCategory = "";
+    newTaskData = {};
 }
