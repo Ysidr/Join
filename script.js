@@ -5,8 +5,6 @@ let currentTime = new Date()
 
 let currentDraggedId;
 
-
-
 let toDoTaskCount = 0;
 let awaitFeedbackTaskCount = 0;
 let doneTaskCount = 0;
@@ -14,7 +12,6 @@ let inProgressTaskCount = 0;
 let urgentAmount = 0;
 let urgentAmountDeadlines = [];
 let nextDeadline = "";
-
 
 let mailIsUsed = false;
 
@@ -66,7 +63,7 @@ async function updateAwaitFeedbackTaskCount() {
             localTaskCount++;
         }
     }
-    AwaitFeedbackTaskCount = localTaskCount;
+    awaitFeedbackTaskCount = localTaskCount;
 }
 async function updateDoneTaskCount() {
     let response = await fetch(BASE_URL + `Tasks/Done.json`);
@@ -77,7 +74,7 @@ async function updateDoneTaskCount() {
             localTaskCount++;
         }
     }
-    DoneTaskCount = localTaskCount;
+    doneTaskCount = localTaskCount;
 }
 async function updateInProgressTaskCount() {
     let response = await fetch(BASE_URL + `Tasks/InProgress.json`);
@@ -88,5 +85,5 @@ async function updateInProgressTaskCount() {
             localTaskCount++;
         }
     }
-    InProgressTaskCount = localTaskCount;
+    inProgressTaskCount = localTaskCount;
 }

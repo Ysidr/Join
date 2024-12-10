@@ -1,5 +1,4 @@
 
-
 async function initSummary() {
     await updateAllTaskCounts();
     displayCounts();
