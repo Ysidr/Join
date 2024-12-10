@@ -236,7 +236,45 @@ input[type="radio"]:checked + .prioLabels.low {
 }
 
 input[type="radio"]:checked + .prioLabels svg path {
-    fill: white; /* Setzt die SVG-Farben auf Weiß */
-    stroke: white; /* Für SVGs mit Stroke-Eigenschaft */
+    fill: white;
+    stroke: white;
+}
+
+/* Container für jede Subtask */
+.addedSubtaskContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.addedSubtaskContainer:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.addedSubtask {
+    margin: 0;
+}
+
+.addedSubtaskContainer img {
+    width: 20px;
+    height: 20px;
+    display: none;
+    cursor: pointer;
+}
+
+.addedSubtaskContainer:hover img {
+    display: inline-block;
+}
+
+.addedSubtaskContainer .delete-icon {
+    margin-left: 10px;
+}
+
+.addedSubtaskContainer .edit-icon {
+    margin-left: 10px;
 }
 

@@ -154,7 +154,7 @@ function addSubtask() {
 function subtasksHover(subtaskName) {
     console.log("okay");
 
-    document.getElementById(subtaskName).innerHTML = ` <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p> <img src="./assets/icons/delete.svg" alt="">`
+    document.getElementById(subtaskName).innerHTML = ` <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p><img src="./assets/icons/pencilSmall.svg" alt=""> <img src="./assets/icons/delete.svg" alt="">`
 }
 
 function resetAllVars() {
@@ -195,3 +195,19 @@ function clearInputs() {
     newCategory = "";
     newTaskData = {};
 }
+
+function addSubtask() {
+    let subtaskName = document.getElementById("subtaskInput").value.trim();
+    if (subtaskName === "") return;
+    let subtaskContainer = document.createElement('div');
+    subtaskContainer.classList.add('addedSubtaskContainer');
+    subtaskContainer.id = `subtask-${subtaskName}`;
+    let subtaskText = `<p class="addedSubtask">- ${subtaskName}</p>`;
+    let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon">`;
+    let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
+    subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
+    document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+    addedSubtasks.push(subtaskName);
+    document.getElementById("subtaskInput").value = "";
+}
+
