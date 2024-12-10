@@ -27,6 +27,9 @@
     background-color: #FFFFFF;
     min-width: 456px;
     height: 928px;
+    position: relative;
+    top: -110px;
+    left: -96px;
 }
 
 .contacts button{
