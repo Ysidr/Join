@@ -87,3 +87,13 @@ async function updateInProgressTaskCount() {
     }
     inProgressTaskCount = localTaskCount;
 }
+
+async function checkForPage() {
+    if (document.getElementById("main-content") != undefined) {
+        loadPage('summary')
+    } else {
+        history.back()
+    }
+}
+
+

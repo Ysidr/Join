@@ -175,5 +175,4 @@ async function reloadPage() {
         await new Promise(r => setTimeout(r, 2000));
         loadPage('board')
     }
-
 }
