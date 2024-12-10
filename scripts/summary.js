@@ -77,8 +77,6 @@ async function checkToDo() {
 
         if (urgentAmountDeadlines.length > 0) {
             nextDeadline = urgentAmountDeadlines[0];
-        } else {
-            console.log("Keine Aufgaben mit hoher Priorität gefunden.");
         }
     }
 }
@@ -98,10 +96,6 @@ async function checkAwait() {
         urgentAmountDeadlines.sort((a, b) => {
             return new Date(a) - new Date(b);
         });
-
-        if (urgentAmountDeadlines.length > 0) {
-            console.log("Nächstes Fälligkeitsdatum:", urgentAmountDeadlines[0]);
-        }
     }
 }
 

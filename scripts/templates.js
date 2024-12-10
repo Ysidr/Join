@@ -278,8 +278,8 @@ function getLoadContactTemplate(contact, initials) {
 function getContactInfoTemplate(name, email, phone, initials, bgColor) {
     return /*html*/`
         <div class="contact-info-container">
-            <div class="flex gap-8">
-                <div class="initials" style="background-color: ${bgColor};">${initials}</div>
+            <div class="flex gap-8 items-center">
+                <div class="initials contact-details-img" style="background-color: ${bgColor};">${initials}</div>
                 <div>
                     <h2>${name}</h2>
                     <div class="flex gap-8 pt-4">

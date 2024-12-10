@@ -285,3 +285,13 @@
     text-decoration: dashed !important;
     color: #3D9AEF;
 }
+
+.contact-details-img{
+    width: 120px;
+    height: 120px;
+    font-size: 47px;
+}
+
+.contact-info-container h2{
+    font-size: 47px !important;
+}
