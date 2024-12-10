@@ -42,8 +42,8 @@ function getGreeting() {
     const greetingElement = document.getElementById('greeting');
     let comma = "";
     // Überprüfen, ob das Element existiert
-    if (currentUserName == "") {
-        let comma = ","
+    if (currentUserName != "") {
+        comma = ","
     }
     if (greetingElement) {
         if (hour >= 6 && hour < 12) {
