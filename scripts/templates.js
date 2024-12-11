@@ -35,19 +35,21 @@ function renderClosestDate() {
 function resetContactList() {
     document.getElementById("openContactsDiv").innerHTML =
         `<div class="singleContact">
-                    <input type="checkbox" id="vehicle1" value="basicText">
+                    <input type="checkbox" name="namevehicle1" id="vehicle1" value="basicText">
                     <label for="vehicle1">Select contacts to assign</label><br>
                 </div>`
 }
 
 function renderContact(responseToJson, indexContactWithLetter) {
+    let name = responseToJson[indexContactWithLetter].name;
+    let color = responseToJson[indexContactWithLetter].bgColor;
     document.getElementById("openContactsDiv").innerHTML +=
-        `<div class="singleContact" id="${responseToJson[indexContactWithLetter].name}">
-                    <input type="checkbox" id="${responseToJson[indexContactWithLetter].name}" value="${responseToJson[indexContactWithLetter].name}" onclick="contactSelected('${responseToJson[indexContactWithLetter].name}')">
-                    <label for="${responseToJson[indexContactWithLetter].name}" onclick="contactSelected('${responseToJson[indexContactWithLetter].name}', '${responseToJson[indexContactWithLetter].bgColor}')">${responseToJson[indexContactWithLetter].name}</label><br>
-                </div>`
-    if (selectedContatct.includes(responseToJson[indexContactWithLetter].name)) {
-        document.getElementById(responseToJson[indexContactWithLetter].name).classList.add("selectedContact")
+        `<div class="singleContact" id="${name}">
+            <input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')">
+             <label for="ID${name}">${name}</label><br>
+        </div>`
+    if (selectedContatct.includes(name)) {
+        document.getElementById(name).classList.add("selectedContact")
     }
 }
 
