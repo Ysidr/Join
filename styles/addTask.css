@@ -278,3 +278,7 @@ input[type="radio"]:checked + .prioLabels svg path {
     margin-left: 10px;
 }
 
+.showAddedContacts {
+    display: flex;
+}
+
