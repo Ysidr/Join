@@ -11,6 +11,7 @@ main {
     display: flex;
     flex-direction: column; /* Flexibles Layout */
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .d-none {
@@ -24,6 +25,7 @@ html, body {
     overflow: hidden; /* Keine Scrollleisten für das gesamte Dokument */
     display: flex;
     flex-direction: column;
+    background-color: #F6F7F8;
 }
 
 

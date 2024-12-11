@@ -1,13 +1,28 @@
 async function loadAll() {
-    renderContacts();
     await loadContacts();
 }
 
-async function renderContacts() {
-    const contactsContainer = document.getElementById("contacts");
-    if (contactsContainer) {
-        contactsContainer.innerHTML = getContactsTemplate();
+async function loadContacts() {
+    const response = await fetch(BASE_URL + "Contacts.json");
+    const contacts = await response.json();
+    const contactContainer = document.getElementById("showContacts");
+    if (!contactContainer) return;    
+    contactContainer.innerHTML = "";
+    const letters = Object.keys(contacts).sort();    
+    for (let i = 0; i < letters.length; i++) {
+        loadContactsSecondFunction(letters[i], contacts[letters[i]], contactContainer);
     }
+}
+
+function loadContactsSecondFunction(letter, contactsForLetter, contactContainer) {
+    let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
+    for (let j = 0; j < contactsForLetter.length; j++) {
+        const contact = contactsForLetter[j];
+        const initials = getInitials(contact.name);
+        letterHTML += getLoadContactTemplate(contact, initials);
+    }
+    letterHTML += '</div>';
+    contactContainer.innerHTML += letterHTML;
 }
 
 async function cancelCreateContact() {
@@ -62,28 +77,6 @@ async function createContact() {
     }
 }
 
-async function loadContacts() {
-    const response = await fetch(BASE_URL + "Contacts.json");
-    const contacts = await response.json();
-    const contactContainer = document.getElementById("showContacts");
-    if (!contactContainer) return;    
-    contactContainer.innerHTML = "";
-    const letters = Object.keys(contacts).sort();    
-    for (let i = 0; i < letters.length; i++) {
-        loadContactsSecondFunction(letters[i], contacts[letters[i]], contactContainer);
-    }
-}
-
-function loadContactsSecondFunction(letter, contactsForLetter, contactContainer) {
-    let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
-    for (let j = 0; j < contactsForLetter.length; j++) {
-        const contact = contactsForLetter[j];
-        const initials = getInitials(contact.name);
-        letterHTML += getLoadContactTemplate(contact, initials);
-    }
-    letterHTML += '</div>';
-    contactContainer.innerHTML += letterHTML;
-}
 function getInitials(name) {
     if (currentUserName == "") {
         currentUserName = name;
