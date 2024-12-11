@@ -59,6 +59,9 @@ async function loadPage(page) {
         if (page === "board" && typeof initBoards === "function") {
             initBoards();
         }
+        if (page === "addTask" && typeof initAddTask === "function") {
+            initAddTask();
+        }
     } catch (error) {
         content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
     }

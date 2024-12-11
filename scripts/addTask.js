@@ -4,7 +4,9 @@ let selectedContatctBgColor = [];
 let addedSubtasks = [];
 let addedSubtaskDone = [];
 
-
+function initAddTask() {
+    clearInputs()
+}
 async function getContacts() {
     resetContactList()
     let response = await fetch(BASE_URL + "Contacts.json");
@@ -177,6 +179,7 @@ function getInitialsOfAddedUser(bgColor) {
         document.getElementById("dateIput").value = "";
         document.getElementById("categorytSelector").value = "";
         document.getElementById("addedSubtasks").innerHTML = "";
+        document.getElementById("showAddedContacts").innerHTML = "";
         firstLetters = [];
         selectedContatct = [];
         selectedContatctBgColor = [];
