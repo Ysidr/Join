@@ -140,9 +140,9 @@ function contactSelected(name, bgColor) {
     }
     document.getElementById(name).classList.toggle("selectedContact")
     document.getElementById("showAddedContacts").innerHTML = "";
-    getInitialsOfAddedUser(bgColor)
+    getInitialsOfAddedUser()
 }
-function getInitialsOfAddedUser(bgColor) {
+function getInitialsOfAddedUser() {
     for (let index = 0; index < selectedContatct.length; index++) {
         const nameParts = selectedContatct[index].split(' ');
         const firstInitial = nameParts[0]?.charAt(0).toUpperCase();
@@ -159,17 +159,10 @@ function getInitialsOfAddedUser(bgColor) {
     }
 
     async function reloadPage() {
-        if (document.getElementById("AddTaskSection") == undefined) {
-            document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
-            console.log(1);
-            await new Promise(r => setTimeout(r, 2000));
-            loadPage('addTask')
-        } else {
             document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
             console.log(1);
             await new Promise(r => setTimeout(r, 2000));
             loadPage('board')
-        }
     }
 
     function clearInputs() {
