@@ -59,10 +59,10 @@ function getAddedContacts() {
 }
 
 function getPriority() {
-    if (document.getElementById("high").checked) {
+    if (document.getElementById("IDhigh").checked) {
         newPrio = "high";
         return newPrio;
-    } else if (document.getElementById("medium").checked) {
+    } else if (document.getElementById("IDmedium").checked) {
         newPrio = "medium";
         return newPrio;
     } else {
