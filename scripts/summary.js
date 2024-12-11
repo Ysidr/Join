@@ -66,7 +66,7 @@ async function checkToDo() {
         let urgentAmountDeadlines = [];
 
         for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-            if (responseToJson.indexIterate1Task != null) {
+            if (responseToJson.indexIterate1Task != undefined) {
                 if (responseToJson[indexIterate1Task].priority == "high") {
                     urgentAmount++
                     urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
