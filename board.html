@@ -1,107 +1,108 @@
-
-<link rel="stylesheet" href="./styles/addTask.css">
-<div class="boardHeader">
-    <h1>Board</h1>
-    <div class="boardHeaderInputs">
-        <div class="boardHeaderSearch">
-            <input type="search" placeholder="Find Task" id="boardHeaderSearch">
-            <div class="boardHeaderDevider"></div>
-            <button class="boardHeaderSearchBtn">
-                <img src="./assets/icons/search.svg" alt="" onclick="searchTasksInBoard()" >
-            </button>
-        </div>
-        <button class="btnGray boardHeaderAddTaskBtn" onclick="addTaskInBoard()">Add task <img src="./assets/icons/add.svg" alt=""></button>
-    </div>
-</div>
-<div class="taskRows">
-    <div class="taskRow toDoRow">
-        <div class="rowHeader">
-            <p class="rowHeaderText">To do</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
-        </div>
-        <div id="ToDoTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
-            <div class="singleTaskBoard defaultNoTasks">
-                <p class="noCurrentTasksText">No tasks To do</p>
+<div class="board-container">
+    <link rel="stylesheet" href="./styles/addTask.css">
+    <div class="boardHeader">
+        <h1>Board</h1>
+        <div class="boardHeaderInputs">
+            <div class="boardHeaderSearch">
+                <input type="search" placeholder="Find Task" id="boardHeaderSearch">
+                <div class="boardHeaderDevider"></div>
+                <button class="boardHeaderSearchBtn">
+                    <img src="./assets/icons/search.svg" alt="" onclick="searchTasksInBoard()" >
+                </button>
             </div>
+            <button class="btnGray boardHeaderAddTaskBtn" onclick="addTaskInBoard()">Add task <img src="./assets/icons/add.svg" alt=""></button>
         </div>
     </div>
-    <div class="taskRow inProgressRow" class="tasksInRow">
-        <div class="rowHeader">
-            <p class="rowHeaderText">In Progress</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
-        </div>
-        <div id="InProgressTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
-            <div class="singleTaskBoard defaultNoTasks">
-                <p class="noCurrentTasksText">No tasks In Progress</p>
+    <div class="taskRows">
+        <div class="taskRow toDoRow">
+            <div class="rowHeader">
+                <p class="rowHeaderText">To do</p>
+                <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
             </div>
-        </div>
-    </div>
-    <div class="taskRow awaitFeedbackRow">
-        <div class="rowHeader">
-            <p class="rowHeaderText"> Await feedback</p>
-            <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
-        </div>
-        <div id="AwaitFeedbackTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
-            <div class="singleTaskBoard defaultNoTasks">
-                <p class="noCurrentTasksText">No tasks Await Feedback</p>
-            </div>
-        </div>
-    </div>
-    <div class="taskRow doneRow" >
-        <div class="rowHeader">
-            <p class="rowHeaderText">Done</p>
-        </div>
-        <div id="DoneTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
-            <div class="singleTaskBoard defaultNoTasks">
-                <p class="noCurrentTasksText">No tasks Done</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<section id="taskDetailSection" class="taskDetailSection d-none" onclick="addDNone('taskDetailSection')">
-    <div class="taskDetailMain" onclick="stopEventBubbling(event)">
-        <div class="detailCategory" id="detailCategory">
-
-        </div>
-        <div class="detailHeader" id="detailHeader">
-        </div>
-        <div class="detailInfos">
-            <div id="detailDetails">
-                <p></p>
-            </div>
-            <div id="detailDate">
-                <p>Due date:</p>
-                <p></p>
-            </div>
-            <div id="detailPrio">
-                <p>Priority:</p>
-                <p></p>
-            </div>
-            <div id="detailAssigned">
-                <p>Assigned To</p>
-                <div id="detailContacts">
+            <div id="ToDoTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                <div class="singleTaskBoard defaultNoTasks">
+                    <p class="noCurrentTasksText">No tasks To do</p>
                 </div>
             </div>
-            <div id="detailSubtasks">
-                <p>Subtasks</p>
+        </div>
+        <div class="taskRow inProgressRow" class="tasksInRow">
+            <div class="rowHeader">
+                <p class="rowHeaderText">In Progress</p>
+                <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
+            </div>
+            <div id="InProgressTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                <div class="singleTaskBoard defaultNoTasks">
+                    <p class="noCurrentTasksText">No tasks In Progress</p>
+                </div>
+            </div>
+        </div>
+        <div class="taskRow awaitFeedbackRow">
+            <div class="rowHeader">
+                <p class="rowHeaderText"> Await feedback</p>
+                <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
+            </div>
+            <div id="AwaitFeedbackTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                <div class="singleTaskBoard defaultNoTasks">
+                    <p class="noCurrentTasksText">No tasks Await Feedback</p>
+                </div>
+            </div>
+        </div>
+        <div class="taskRow doneRow" >
+            <div class="rowHeader">
+                <p class="rowHeaderText">Done</p>
+            </div>
+            <div id="DoneTasks" class="tasksInRow" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                <div class="singleTaskBoard defaultNoTasks">
+                    <p class="noCurrentTasksText">No tasks Done</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <section id="taskDetailSection" class="taskDetailSection d-none" onclick="addDNone('taskDetailSection')">
+        <div class="taskDetailMain" onclick="stopEventBubbling(event)">
+            <div class="detailCategory" id="detailCategory">
+    
+            </div>
+            <div class="detailHeader" id="detailHeader">
+            </div>
+            <div class="detailInfos">
+                <div id="detailDetails">
+                    <p></p>
+                </div>
+                <div id="detailDate">
+                    <p>Due date:</p>
+                    <p></p>
+                </div>
+                <div id="detailPrio">
+                    <p>Priority:</p>
+                    <p></p>
+                </div>
+                <div id="detailAssigned">
+                    <p>Assigned To</p>
+                    <div id="detailContacts">
+                    </div>
+                </div>
                 <div id="detailSubtasks">
+                    <p>Subtasks</p>
+                    <div id="detailSubtasks">
+                    </div>
                 </div>
+    
             </div>
-
+            <div class="detailBtns" id="detailBtns">
+                <button> <img src="./assets/icons/delete.svg" alt=""></button>
+                <div class="detailBtnSeperator"></div>
+                <button><img src="./assets/icons/pencilSmall.svg" alt=""></button>
+            </div>
         </div>
-        <div class="detailBtns" id="detailBtns">
-            <button> <img src="./assets/icons/delete.svg" alt=""></button>
-            <div class="detailBtnSeperator"></div>
-            <button><img src="./assets/icons/pencilSmall.svg" alt=""></button>
-        </div>
-    </div>
-
-</section>
-<section id="AddTaskSection" class="AddTaskSection d-none" onclick="addDNone('AddTaskSection')">
-    <div class="AddTaskInBoardMain" id="AddTaskInBoardMain" onclick="stopEventBubbling(event)">
-
-    </div>
+    
     </section>
+    <section id="AddTaskSection" class="AddTaskSection d-none" onclick="addDNone('AddTaskSection')">
+        <div class="AddTaskInBoardMain" id="AddTaskInBoardMain" onclick="stopEventBubbling(event)">
+    
+        </div>
+        </section>
+</div>
