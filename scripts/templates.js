@@ -139,137 +139,8 @@ function renderDetails(indexTaskFields, indexTaskCount) {
             <button><img src="./assets/icons/pencilSmall.svg" alt=""></button>`
 }
 
-function getContactsTemplate(contactEmail) {
-    return /*html*/ `
-    <div class="flex">
-        <div class="contacts">
-            <div class="contact-div">
-                <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
-            </div>
-            <div class="showContacts" id="showContacts" ></div>
-        </div>
-        <div class="contact-container">
-            <div class="padding">
-                <div class="headline-container">
-                    <h1>Contacts</h1>
-                    <span>
-                        <p>Better with a team</p>
-                    </span>
-                </div>
-                <div id="contactInfo"></div>
-            </div>
-        </div>
-    </div>
-    <div id="newContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
-        <div class="new-contact-container aninmation" onclick="event.stopPropagation()">
-            <div class="bg-main">
-                <div class="join-contact-container">
-                    <img src="assets/icons/Capa 1.png" alt="">
-                </div>
-                <div class="join-contact-container">
-                    <h2>Add Contact</h2>
-                    <p>Tasks are better with a team!</p>
-                </div>
-            </div>
-            <div class="bg-white">
-                <div class="flex justify-end mt-8">
-                    <div class="cursor-pointer">
-                        <img src="assets/icons/Vector.png" alt="" onclick="cancelCreateContact()">
-                    </div>
-                </div>
-                <div class="flex margin gap-24 items-center">
-                    <div>
-                        <img src="assets/icons/Group13.png" alt="">
-                    </div>
-                    <div class="contact-inuptfield-container">
-                        <div class="input-container">
-                            <input type="text" id="newContactName" placeholder="Name">
-                            <img src="assets/icons/person.png" alt="">
-                        </div>
-                        <div class="input-container">
-                            <input type="email" id="newContactEmail" placeholder="Email">
-                            <img src="assets/icons/mail.svg" alt="">
-                        </div>
-                        <div class="input-container">
-                            <input type="tel" id="newContactPhone" placeholder="Phone">
-                            <img src="assets/icons/call.png" alt="">
-                        </div>
-                        <div class="new-contact-button-container">
-                        <div class="cancel cursor-pointer" onclick="cancelCreateContact()">
-                            <button>Cancel</button>
-                            <img src="assets/icons/Vector.png" alt="">
-                        </div>
-                        <div class="create btnGray" onclick="createContact()">
-                            <button>Create Contact</button>
-                            <img src="assets/icons/check.png" alt="">
-                        </div>
-                    </div>
-                    </div>
-
-                </div>
-                <div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="editContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
-        <div class="new-contact-container  aninmation" onclick="event.stopPropagation()">
-            <div class="bg-main">
-                <div class="join-contact-container">
-                    <img src="assets/icons/Capa 1.png" alt="">
-                </div>
-                <div class="join-contact-container">
-                    <h2>Edit Contact</h2>
-                    <p class="border-bottom"></p>
-                </div>
-            </div>
-            <div class="bg-white">
-                <div class="flex justify-end mt-8">
-                    <div class="cursor-pointer">
-                        <img src="assets/icons/Vector.png" alt="" onclick="cancelCreateContact()">
-                    </div>
-                </div>
-                <div class="flex margin gap-24 items-center">
-                    <div>
-                        <img src="assets/icons/Group13.png" alt="">
-                    </div>
-                    <div class="contact-inuptfield-container">
-                        <div class="input-container">
-                            <input type="text" id="editContactName" placeholder="Name">
-                            <img src="assets/icons/person.png" alt="">
-                        </div>
-                        <div class="input-container">
-                            <input type="email" id="editContactEmail" placeholder="Email">
-                            <img src="assets/icons/mail.svg" alt="">
-                        </div>
-                        <div class="input-container">
-                            <input type="tel" id="editContactPhone" placeholder="Phone">
-                            <img src="assets/icons/call.png" alt="">
-                        </div>
-                        <div class="new-contact-button-container" id="new-contact-button-container">
-                        <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
-                            <button>Delete</button>
-                        </div>
-                        <div class="create btnGray" onclick="saveEditedContact()">
-                        <button>Save</button>
-                            <img src="assets/icons/check.png" alt="">
-                        </div>
-                    </div>
-                    </div>
-
-                </div>
-                <div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
-}
-
 function getLoadContactTemplate(contact, initials) {
-    return /*html*/`
+    return `
         <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
             <div class="initials" style="background-color: ${contact.bgColor};">${initials}</div>
             <div>
@@ -280,7 +151,7 @@ function getLoadContactTemplate(contact, initials) {
 }
 
 function getContactInfoTemplate(name, email, phone, initials, bgColor) {
-    return /*html*/`
+    return `
         <div class="contact-info-container">
             <div class="flex gap-8 items-center">
                 <div class="initials contact-details-img" style="background-color: ${bgColor};">${initials}</div>
@@ -301,6 +172,7 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
             <a href="tel:${phone}">${phone}</a>
         </div>`;
 }
+
 
 function getCurrentMailForButtons(contactEmail) {
     document.getElementById("new-contact-button-container").innerHTML = ` <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
