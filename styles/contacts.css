@@ -2,17 +2,18 @@
     font-size: 46px;
 }
 
-.contact-container{
+.contact-container {
     display: flex;
-    position: relative;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     background-color: #F6F7F8;
-    height: 100vh;
-    width: 100%;
-    top: -56px;
-    left: -100px;
+    flex: 1; /* Passt sich dynamisch an die Höhe von main an */
+    box-sizing: border-box;
+    overflow-y: auto; /* Scrollen bei Überlauf ermöglichen */
+    height: calc(100vh - 96px);
 }
+
+
 
 .contact-container span{
     display: flex;
@@ -30,9 +31,6 @@
     background-color: #FFFFFF;
     min-width: 456px;
     height: 928px;
-    position: relative;
-    top: -110px;
-    left: -96px;
 }
 
 .contacts button{
@@ -51,7 +49,6 @@
     align-items: center;
 }
 
-/* Anzeige der Kontakte */
 .showContacts {
     margin-top: 20px;
     padding: 32px;
@@ -60,6 +57,8 @@
     overflow-y: auto;
     box-sizing: border-box;
 }
+
+
 
 .showContacts::-webkit-scrollbar {
     width: 8px;
