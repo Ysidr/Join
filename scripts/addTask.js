@@ -217,3 +217,7 @@ function renderallSubtasks() {
     }
 }
 
+function clearInuptField() {
+    document.getElementById("subtaskInput").value = "";
+}
+
