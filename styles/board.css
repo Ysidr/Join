@@ -1,7 +1,7 @@
 .board-container{
     display: flex;
     flex-direction: column;
-    margin: 104px 0 0 64px;
+    padding: 4rem 2rem 1rem 4rem;
 }
 
 .d-none {
@@ -264,8 +264,6 @@
     position: relative;
     align-items: center;
     justify-content: space-between;
-    max-width: 1,056px;
-    top: -56px;
     
 }
 

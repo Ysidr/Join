@@ -11,6 +11,7 @@ main {
     display: flex;
     flex-direction: column; /* Flexibles Layout */
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .d-none {
