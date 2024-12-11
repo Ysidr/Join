@@ -25,6 +25,7 @@ html, body {
     overflow: hidden; /* Keine Scrollleisten für das gesamte Dokument */
     display: flex;
     flex-direction: column;
+    background-color: #F6F7F8;
 }
 
 
