@@ -67,6 +67,11 @@ header img {
     flex-direction: column;
     gap: 8px;
 }
+
+.loginData{
+    width: 400px;
+}
+
 .loginData img{
     height: 20px;
 }
@@ -88,8 +93,9 @@ header img {
     justify-content: space-around;
     font-size: 21px;
 }
-.loginButtons input {
+.loginButtons button {
     font-size: 20px;
+    width: 160px;
 }
 
 

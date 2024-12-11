@@ -28,20 +28,21 @@
                 <h1>Sign up</h1>
                 <div class="underlineBlue"></div>
             </div>
-            <form class="dataInput">
-                <input type="name" required placeholder="Name" id="nameInput">
+            <form class="dataInput" id="signUpForm" onsubmit="event.preventDefault(); addAccountData();">
+                <input type="text" required placeholder="Name" id="nameInput">
                 <input type="email" required placeholder="Email" id="mailInput">
                 <input type="password" required placeholder="Password" id="passwordInput">
                 <input type="password" required placeholder="Confirm Password" id="confirmInput">
-                <input type="password" required placeholder="" id="confirmInput2" style="display: none;">
                 <div class="accept">
-                    <input type="checkbox" class="checkbox" required  id="checkbox">
+                    <input type="checkbox" class="checkbox" required id="checkbox">
                     <label for="checkbox"><p>I accept the <a href="PrivacyPolicy.html" class="link">Privacy policy</a></p></label>
                 </div>
-                <input type="submit" class="btnGray" value="Sign up" onclick="addAccountData()">
+                <!-- Button zum Absenden -->
+                <button type="submit" class="btnGray">Sign Up</button>
             </form>
         </div>
     </section>
+    
 
 </body>
 

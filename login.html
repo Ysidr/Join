@@ -32,24 +32,22 @@
                 <h1>Log in</h1>
                 <div class="underlineBlue"></div>
             </div>
-
-
             <div class="loginData">
-                <form>
+                <form onsubmit="event.preventDefault(); loginWithAccount()">
                     <div class="input-container">
-                        <input type="email" placeholder="Email" required name="" id="emailLogin">
+                        <input type="email" placeholder="Email" name="username" id="emailLogin" required>
                         <img src="assets/icons/mail.svg" alt="">
                     </div>
                     <div class="input-container">
-                        <input type="password" placeholder="Password" name="" id="passwordLogin">
+                        <input type="password" placeholder="Password" name="password" id="passwordLogin" required>
                         <img src="assets/icons/mail.svg" alt="">
+                    </div>
+                    <div class="loginButtons">
+                        <button type="submit" class="btnGray">Log in</button>
+                        <button type="button" class="btnClear" onclick="openGuestAccount()">Guest Log in</button>
                     </div>
                 </form>
-            </div>
-            <div class="loginButtons">
-                <input type="submit" class="btnGray" value="Log in" onclick="loginWithAccount()">
-                <button class="btnClear" onclick="openGuestAccount()">Guest Log in</button>
-            </div>
+            </div>            
         </div>
         <div class="login-links-container">
             <a href="PrivacyPolicy.html" class="login-links cursor-pointer">Privacy Policy</a>

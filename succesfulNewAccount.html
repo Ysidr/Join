@@ -12,14 +12,24 @@
     <script>
         function openLogin() {
             window.location.href = "login.html";
-
+        }
+        function showSuccessMessage() {
+            const successDiv = document.getElementById("successMessage");
+            successDiv.style.display = "block";
+            setTimeout(() => {
+                successDiv.style.display = "none";
+                window.location.href = "login.html";
+            }, 3000);
         }
     </script>
+</head>
+<body style="background-color: #f5f6f7; display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div id="successMessage" style="display: none; padding: 20px; background-color: #4CAF50; color: white; border-radius: 5px; font-size: 20px; text-align: center;">
+        You Signed Up Successfully!
+    </div>
 
-</head>
-</head>
-<body style="background-color: #f5f6f7; display: flex;">
-<button class="btnGray" onclick="openLogin()">You Signed Up succesfully</button>
-    
+    <script>
+        showSuccessMessage();
+    </script>
 </body>
 </html>
