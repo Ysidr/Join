@@ -139,23 +139,6 @@ function contactSelected(name, bgColor) {
     document.getElementById(name).classList.toggle("selectedContact")
 }
 
-function addSubtask() {
-    let subtaskName = document.getElementById("subtaskInput").value;
-    document.getElementById("addedSubtasks").innerHTML +=
-        `<div id="${subtaskName}">
-        <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p>
-        </div>`
-    addedSubtasks.push(`${subtaskName}`)
-    addedSubtaskDone.push(false)
-    console.log(addedSubtasks);
-    document.getElementById("subtaskInput").value = "";
-}
-
-function subtasksHover(subtaskName) {
-    console.log("okay");
-
-    document.getElementById(subtaskName).innerHTML = ` <p class="addedSubtask" onmouseover="subtasksHover(${subtaskName})">- ${subtaskName} </p><img src="./assets/icons/pencilSmall.svg" alt=""> <img src="./assets/icons/delete.svg" alt="">`
-}
 
 function resetAllVars() {
     firstLetters = [];
@@ -203,11 +186,34 @@ function addSubtask() {
     subtaskContainer.classList.add('addedSubtaskContainer');
     subtaskContainer.id = `subtask-${subtaskName}`;
     let subtaskText = `<p class="addedSubtask">- ${subtaskName}</p>`;
-    let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon">`;
+    let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${subtaskName}')">`;
     let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
     subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
     document.getElementById("addedSubtasks").appendChild(subtaskContainer);
     addedSubtasks.push(subtaskName);
+    addedSubtaskDone.push(false)
     document.getElementById("subtaskInput").value = "";
+}
+
+function deleteSubtask(subtaskName) {
+    let index = addedSubtasks.indexOf(subtaskName);
+    addedSubtasks.splice(index, 1);
+    addedSubtaskDone.splice(index, 1);
+    renderallSubtasks()
+}
+
+function renderallSubtasks() {
+    document.getElementById("addedSubtasks").innerHTML = "";
+    for (let indexAllSubtasks = 0; indexAllSubtasks < addedSubtasks.length; indexAllSubtasks++) {
+        let subtaskContainer = document.createElement('div');
+        subtaskContainer.classList.add('addedSubtaskContainer');
+        subtaskContainer.id = `subtask-${addedSubtasks[indexAllSubtasks]}`;
+        let subtaskText = `<p class="addedSubtask">- ${addedSubtasks[indexAllSubtasks]}</p>`;
+        let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${addedSubtasks[indexAllSubtasks]}')">`;
+        let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
+        subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
+        document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+        
+    }
 }
 
