@@ -32,6 +32,9 @@
     background-color: #2A3D59;
 }
 
+header img{
+    display: none;
+}
 /* Header */
 header {
     margin-left: 232px; /* Platz für die fixierte Navbar */

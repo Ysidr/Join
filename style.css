@@ -5,13 +5,12 @@ a {
 
 main {
     margin-left: 232px;
-    width: calc(100% - 232px); /* Restliche Breite */
-    height: calc(100vh - 96px); /* Restliche Höhe */
     overflow-y: auto; /* Ermöglicht Scrollen bei langen Inhalten */
     display: flex;
     flex-direction: column; /* Flexibles Layout */
     box-sizing: border-box;
     overflow: hidden;
+    height: 100vh;
 }
 
 .d-none {
