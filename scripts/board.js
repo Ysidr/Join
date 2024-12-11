@@ -172,6 +172,7 @@ function addTaskInBoard() {
 async function deleteTaskFromBoard(indexTaskFields, indexTaskCount) {
     Object.values(allCurrentTasksObj)[indexTaskFields].splice(indexTaskCount, 1);
     await addDNone("taskDetailSection");
+    resetAllBoards();
     await getToDoTasks();
     await updateAndUploadAllTaskCounts()
 
@@ -183,10 +184,10 @@ async function updateAndUploadAllTaskCounts(){
 }
 
 async function uploadAllTaskCounts() {
-    setToDoTaskCount()
-    setAwaitFeedbackTaskCount()
-    setDoneTaskCount()
-    setInProgressTaskCount()
+    await setToDoTaskCount()
+    await setAwaitFeedbackTaskCount()
+    await setDoneTaskCount()
+    await setInProgressTaskCount()
 }
 
 async function setAwaitFeedbackTaskCount() {

@@ -311,3 +311,18 @@ function getCurrentMailForButtons(contactEmail) {
                             <img src="assets/icons/check.png" alt="">
                         </div>`
 }
+
+function resetAllBoards() {
+    document.getElementById("InProgressTasks").innerHTML = `<div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks In Progress</p>
+            </div>`
+    document.getElementById("ToDoTasks").innerHTML = `<div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks In Progress</p>
+            </div>`
+    document.getElementById("DoneTasks").innerHTML = `<div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks In Progress</p>
+            </div>`
+    document.getElementById("AwaitFeedbackTasks").innerHTML = `<div class="singleTaskBoard defaultNoTasks">
+                <p class="noCurrentTasksText">No tasks In Progress</p>
+            </div>`
+}
