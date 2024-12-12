@@ -107,6 +107,11 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
     contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
 }
 
+function closeContactInfo(){
+    const contactContainer = document.getElementById("contactContainer");
+    contactContainer.classList.add ('hidden')
+}
+
 async function editContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();

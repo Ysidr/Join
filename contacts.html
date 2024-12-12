@@ -6,19 +6,25 @@
             </div>
             <div class="showContacts" id="showContacts"></div>
         </div>
-        <div class="contact-container">
+        <div class="contact-container" id="contactContainer">
             <div class="padding">
                 <div class="headline-container">
-                    <h1>Contacts</h1>
-                    <span>
-                        <p>Better with a team</p>
-                        <div class="seperator"></div>
-                    </span>
+                    <div>
+                        <h1>Contacts</h1>
+                        <span>
+                            <p>Better with a team</p>
+                            <div class="seperator"></div>
+                        </span>
+                    </div>
+                    <div>
+                        <img src="assets/icons/arrow-left-line.png" alt="" onclick="closeContactInfo()"  class="img-help cursor-pointer">
+                    </div>
+
                 </div>
                 <div id="contactInfo"></div>
             </div>
         </div>
-    </div>
+    </div>    
     
     <div id="newContactForm" class="newContactForm hidden" onclick="cancelCreateContact()">
         <div class="new-contact-container aninmation" onclick="event.stopPropagation()">

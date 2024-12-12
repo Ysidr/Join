@@ -10,7 +10,7 @@
     flex: 1; /* Passt sich dynamisch an die Höhe von main an */
     box-sizing: border-box;
     overflow-y: auto; /* Scrollen bei Überlauf ermöglichen */
-    height: calc(100vh - 96px);
+    height: 100vh;
 }
 
 
