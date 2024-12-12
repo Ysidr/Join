@@ -175,7 +175,7 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
             <h5><strong>Email</strong></h5>
             <a href="mailto:${email}" class="email">${email}</a>
             <h5><strong>Phone</strong></h5>
-            <a href="tel:${phone}">${phone}</a>
+            <a href="tel:${phone}" class="phone-number">${phone}</a>
         </div>`;
 }
 

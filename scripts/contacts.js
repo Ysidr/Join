@@ -100,17 +100,32 @@ function getRandomColor() {
 
 async function displayContactInfo(name, email, phone, initials, bgColor) {
     const contactInfoContainer = document.getElementById("contactInfo");
+    const contactContainer = document.getElementById("contactContainer");
     if (!contactInfoContainer) {
         console.log("Contact info container not found.");
         return;
     }
     contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
+    contactContainer.classList.remove("hidden");
+    contactContainer.classList.add("show");
 }
 
-function closeContactInfo(){
+function closeContactInfo() {
     const contactContainer = document.getElementById("contactContainer");
-    contactContainer.classList.add ('hidden')
+    contactContainer.classList.add("hidden");
+    contactContainer.classList.remove("show");
 }
+
+window.addEventListener("resize", () => {
+    const contactContainer = document.getElementById("contactContainer");
+    if (window.innerWidth > 790) {
+        contactContainer.classList.remove("hidden");
+        contactContainer.classList.remove("show");
+    } else {
+        contactContainer.classList.add("hidden");
+    }
+});
+
 
 async function editContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");

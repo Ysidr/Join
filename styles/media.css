@@ -164,18 +164,28 @@
 }
 
 @media (max-width: 790px){
-    .contact-container{
+
+    .contact-container {
         position: absolute;
-        width: 100%;
-        height: 100vh;
-        background-color: #f6f7f8;
-        margin: 0;
-        z-index: 10;
         top: 0;
         left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        visibility: hidden;
+        transform: translateX(100%);
+    }
+
+    .contact-container.show {
+        visibility: visible;
+        transform: translateX(0);
     }
 
     .summary-container{
         padding: 0 !important;
+    }
+
+    .close-contact-info{
+        display: block !important;
     }
 }
