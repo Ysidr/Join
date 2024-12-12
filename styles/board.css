@@ -321,3 +321,17 @@
     justify-content: center;
     width: 144px;
 }
+
+#detailDate {
+    display: flex;
+    gap: 40px;
+}
+
+#detailPrio {
+    display: flex;
+    gap: 54px;
+}
+
+.AssignedTo {
+    margin-bottom: 24px;
+}
