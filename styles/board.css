@@ -1,4 +1,4 @@
-.board-container{
+.board-container {
     display: flex;
     flex-direction: column;
     padding: 4rem 2rem 1rem 4rem;
@@ -41,12 +41,13 @@
     display: flex;
     flex: 1;
 }
-.titleSingleCard{
- font-weight: 700;
+
+.titleSingleCard {
+    font-weight: 700;
 }
 
 .defaultNoTasks {
-    background-color: #E7E7E7!important;
+    background-color: #E7E7E7 !important;
     border: dashed #A8A8A8 !important;
     color: #A8A8A8;
 }
@@ -97,13 +98,14 @@
 .addedContactsSingleCard {
     display: flex;
     flex: 1;
-overflow-x: scroll;
-overflow-y: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .prioImg {
     width: 32px;
 }
+
 #detailContacts {
     max-height: 240px;
     overflow-y: scroll;
@@ -131,9 +133,10 @@ overflow-y: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln */
-    z-index: 100; 
-}  
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Hintergrund abdunkeln */
+    z-index: 100;
+}
 
 .AddTaskSection {
     position: fixed;
@@ -144,8 +147,9 @@ overflow-y: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln */
-    z-index: 100; 
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Hintergrund abdunkeln */
+    z-index: 100;
 }
 
 .AddTaskInBoardMain {
@@ -171,6 +175,7 @@ overflow-y: hidden;
 
 .detailCategory {
     width: 445px;
+    margin-top: 32px;
 }
 
 .detailHeader {
@@ -264,7 +269,7 @@ overflow-y: hidden;
     justify-content: space-between;
     height: 48px;
     align-items: center;
-    padding: 0 16px ;
+    padding: 0 16px;
 }
 
 .boardHeaderInputs {
@@ -279,7 +284,7 @@ overflow-y: hidden;
     position: relative;
     align-items: center;
     justify-content: space-between;
-    
+
 }
 
 .boardHeaderDevider {
@@ -306,4 +311,13 @@ overflow-y: hidden;
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.pDetailCategory {
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 144px;
 }

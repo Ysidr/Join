@@ -111,7 +111,11 @@ function renderDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("detailSubtasks").innerHTML = "";
     let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
     let specificObject = Object.values(objectAllTasks)[indexTaskCount];
-    document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory">${specificObject.category}</p>`
+    if (specificObject.category == "user") {
+        document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory" style="background-color: #0038FF">User Story</p>`
+    }else{
+        document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory" style="background-color: #1FD7C1">Technical Task</p>`
+    }
     document.getElementById("detailHeader").innerHTML = `<h1 class="hTitleCategory">${specificObject.title}</h1>`
     document.getElementById("detailDetails").innerHTML = `<p>${specificObject.description}</p>`
     document.getElementById("detailDate").innerHTML = `<p>Due date:</p><p>${specificObject.date}</p>`
