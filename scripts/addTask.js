@@ -152,78 +152,78 @@ function getInitialsOfAddedUser() {
 }
 
 
-    function resetAllVars() {
-        firstLetters = [];
-        selectedContatct = [];
-        addedSubtasks = [];
-    }
+function resetAllVars() {
+    firstLetters = [];
+    selectedContatct = [];
+    addedSubtasks = [];
+}
 
-    async function reloadPage() {
-            document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
-            console.log(1);
-            await new Promise(r => setTimeout(r, 2000));
-            loadPage('board')
-    }
+async function reloadPage() {
+    document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`
+    console.log(1);
+    await new Promise(r => setTimeout(r, 2000));
+    loadPage('board')
+}
 
-    function clearInputs() {
-        document.getElementById("titleInput").value = "";
-        document.getElementById("descriptionInput").value = "";
-        document.getElementById("subtaskInput").value = "";
-        document.getElementById("dateIput").value = "";
-        document.getElementById("categorytSelector").value = "";
-        document.getElementById("addedSubtasks").innerHTML = "";
-        document.getElementById("showAddedContacts").innerHTML = "";
-        firstLetters = [];
-        selectedContatct = [];
-        selectedContatctBgColor = [];
-        addedSubtasks = [];
-        addedSubtaskDone = [];
-        newAssigned = "";
-        newAssignedBgColor = "";
-        newPrio = "";
-        newCategory = "";
-        newTaskData = {};
-    }
+function clearInputs() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("subtaskInput").value = "";
+    document.getElementById("dateIput").value = "";
+    document.getElementById("categorytSelector").value = "";
+    document.getElementById("addedSubtasks").innerHTML = "";
+    document.getElementById("showAddedContacts").innerHTML = "";
+    firstLetters = [];
+    selectedContatct = [];
+    selectedContatctBgColor = [];
+    addedSubtasks = [];
+    addedSubtaskDone = [];
+    newAssigned = "";
+    newAssignedBgColor = "";
+    newPrio = "";
+    newCategory = "";
+    newTaskData = {};
+}
 
-    function addSubtask() {
-        let subtaskName = document.getElementById("subtaskInput").value.trim();
-        if (subtaskName === "") return;
+function addSubtask() {
+    let subtaskName = document.getElementById("subtaskInput").value.trim();
+    if (subtaskName === "") return;
+    let subtaskContainer = document.createElement('div');
+    subtaskContainer.classList.add('addedSubtaskContainer');
+    subtaskContainer.id = `subtask-${subtaskName}`;
+    let subtaskText = `<p class="addedSubtask">- ${subtaskName}</p>`;
+    let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${subtaskName}')">`;
+    let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
+    subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
+    document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+    addedSubtasks.push(subtaskName);
+    addedSubtaskDone.push(false)
+    document.getElementById("subtaskInput").value = "";
+}
+
+function deleteSubtask(subtaskName) {
+    let index = addedSubtasks.indexOf(subtaskName);
+    addedSubtasks.splice(index, 1);
+    addedSubtaskDone.splice(index, 1);
+    renderallSubtasks()
+}
+
+function renderallSubtasks() {
+    document.getElementById("addedSubtasks").innerHTML = "";
+    for (let indexAllSubtasks = 0; indexAllSubtasks < addedSubtasks.length; indexAllSubtasks++) {
         let subtaskContainer = document.createElement('div');
         subtaskContainer.classList.add('addedSubtaskContainer');
-        subtaskContainer.id = `subtask-${subtaskName}`;
-        let subtaskText = `<p class="addedSubtask">- ${subtaskName}</p>`;
-        let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${subtaskName}')">`;
+        subtaskContainer.id = `subtask-${addedSubtasks[indexAllSubtasks]}`;
+        let subtaskText = `<p class="addedSubtask">- ${addedSubtasks[indexAllSubtasks]}</p>`;
+        let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${addedSubtasks[indexAllSubtasks]}')">`;
         let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
         subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
         document.getElementById("addedSubtasks").appendChild(subtaskContainer);
-        addedSubtasks.push(subtaskName);
-        addedSubtaskDone.push(false)
-        document.getElementById("subtaskInput").value = "";
-    }
 
-    function deleteSubtask(subtaskName) {
-        let index = addedSubtasks.indexOf(subtaskName);
-        addedSubtasks.splice(index, 1);
-        addedSubtaskDone.splice(index, 1);
-        renderallSubtasks()
     }
+}
 
-    function renderallSubtasks() {
-        document.getElementById("addedSubtasks").innerHTML = "";
-        for (let indexAllSubtasks = 0; indexAllSubtasks < addedSubtasks.length; indexAllSubtasks++) {
-            let subtaskContainer = document.createElement('div');
-            subtaskContainer.classList.add('addedSubtaskContainer');
-            subtaskContainer.id = `subtask-${addedSubtasks[indexAllSubtasks]}`;
-            let subtaskText = `<p class="addedSubtask">- ${addedSubtasks[indexAllSubtasks]}</p>`;
-            let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${addedSubtasks[indexAllSubtasks]}')">`;
-            let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
-            subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
-            document.getElementById("addedSubtasks").appendChild(subtaskContainer);
-
-        }
-    }
-
-    function clearInuptField() {
-        document.getElementById("subtaskInput").value = "";
-    }
+function clearInuptField() {
+    document.getElementById("subtaskInput").value = "";
+}
 

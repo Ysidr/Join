@@ -1,6 +1,9 @@
 let currentlyRenderingTasks = "";
 let allCurrentTasksObj = {};
 let currentSearchInBoard = "";
+let taskFieldIndexOfMoved = 0;
+let taskIndexOfMoved = 0;
+
 
 async function initBoards() {
     await getToDoTasks();
@@ -124,7 +127,6 @@ function searchTasksInBoard() {
 
 function dragstartHandler(ev) {
     ev.dataTransfer.setData("text/plain", ev.target.id);
-    console.log("Dragging:", ev.target.id);
 }
 
 function dragoverHandler(ev) {
@@ -132,13 +134,48 @@ function dragoverHandler(ev) {
     ev.dataTransfer.dropEffect = "move";
 }
 
-function dropHandler(ev) {
+async function dropHandler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
-    console.log("Dropped:", droppedElement, "Into:", ev.currentTarget.id);
+    let changedToID = ev.currentTarget.id.slice(0, ev.currentTarget.id.length - 5 )
     ev.currentTarget.appendChild(droppedElement);
+    await changeToDropOffJson(data, changedToID)
 }
+
+async function changeToDropOffJson(data, changedToID) {
+    let titleMoved = data.toString()
+    titleMoved = titleMoved.slice(15)
+    getCurrentMovedTask(titleMoved, changedToID)
+
+
+}
+
+async function getCurrentMovedTask(titleMoved, changedToID) {
+    for (let indexTaskFields = 0; indexTaskFields < Object.keys(allCurrentTasksObj).length; indexTaskFields++) {
+        for (let indexTaskCount = 1; indexTaskCount < Object.values(allCurrentTasksObj)[indexTaskFields].length; indexTaskCount++) {
+            if (Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount].title == titleMoved) {
+                let currentChangedObject = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount]
+                taskFieldIndexOfMoved = indexTaskFields;
+                taskIndexOfMoved = indexTaskCount;
+                changeTaskFields(currentChangedObject, changedToID)
+            }
+        }
+    } 
+}
+
+async function changeTaskFields(currentChangedObject, changedToID) {
+    Object.values(allCurrentTasksObj)[taskFieldIndexOfMoved].splice(taskIndexOfMoved, 1);
+    if (allCurrentTasksObj[changedToID] == undefined) {
+        allCurrentTasksObj[changedToID] = [null];
+    }
+    allCurrentTasksObj[changedToID].push(currentChangedObject)
+    await putAllTasksToServer()
+    resetAllBoards();
+    await getToDoTasks();
+    await updateAndUploadAllTaskCounts()
+}
+
 
 function addTaskInBoard() {
     // Clear any existing content in the task section
@@ -178,9 +215,9 @@ async function deleteTaskFromBoard(indexTaskFields, indexTaskCount) {
 
 }
 
-async function updateAndUploadAllTaskCounts(){
-    await updateAllTaskCounts()  
-    await uploadAllTaskCounts()  
+async function updateAndUploadAllTaskCounts() {
+    await updateAllTaskCounts()
+    await uploadAllTaskCounts()
 }
 
 async function uploadAllTaskCounts() {
