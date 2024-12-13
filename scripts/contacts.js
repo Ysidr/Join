@@ -106,25 +106,33 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
         return;
     }
     contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
-    contactContainer.classList.remove("hidden");
+    contactContainer.classList.remove("sehr-hidden");
     contactContainer.classList.add("show");
 }
 
 function closeContactInfo() {
     const contactContainer = document.getElementById("contactContainer");
-    contactContainer.classList.add("hidden");
+    if (!contactContainer) {
+        console.warn("Contact container not found during close.");
+        return;
+    }
+    contactContainer.classList.add("sehr-hidden");
     contactContainer.classList.remove("show");
 }
 
 window.addEventListener("resize", () => {
     const contactContainer = document.getElementById("contactContainer");
+    if (!contactContainer) {
+        console.warn("Contact container not found during resize.");
+        return;
+    }
     if (window.innerWidth > 790) {
-        contactContainer.classList.remove("hidden");
-        contactContainer.classList.remove("show");
+        contactContainer.classList.remove("sehr-hidden", "show");
     } else {
-        contactContainer.classList.add("hidden");
+        contactContainer.classList.add("sehr-hidden");
     }
 });
+
 
 
 async function editContact(contactEmail) {

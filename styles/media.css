@@ -66,6 +66,10 @@
     .taskRows{
         height: 63vh;
     }
+
+    .showContacts{
+        height: 71vh;
+    }
 }
 
 @media (max-width: 1100px) {
