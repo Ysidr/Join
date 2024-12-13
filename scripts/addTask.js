@@ -191,37 +191,121 @@ function addSubtask() {
     let subtaskContainer = document.createElement('div');
     subtaskContainer.classList.add('addedSubtaskContainer');
     subtaskContainer.id = `subtask-${subtaskName}`;
-    let subtaskText = `<p class="addedSubtask">- ${subtaskName}</p>`;
-    let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${subtaskName}')">`;
-    let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
-    subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${subtaskName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(subtaskName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, subtaskName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+
     document.getElementById("addedSubtasks").appendChild(subtaskContainer);
     addedSubtasks.push(subtaskName);
-    addedSubtaskDone.push(false)
+    addedSubtaskDone.push(false);
     document.getElementById("subtaskInput").value = "";
 }
 
+// Funktion zum Löschen von Subtasks
 function deleteSubtask(subtaskName) {
     let index = addedSubtasks.indexOf(subtaskName);
     addedSubtasks.splice(index, 1);
     addedSubtaskDone.splice(index, 1);
-    renderallSubtasks()
+    renderAllSubtasks();
 }
 
-function renderallSubtasks() {
-    document.getElementById("addedSubtasks").innerHTML = "";
-    for (let indexAllSubtasks = 0; indexAllSubtasks < addedSubtasks.length; indexAllSubtasks++) {
+// Funktion zum Bearbeiten von Subtasks
+function editSubtask(subtaskContainer, oldName) {
+    let subtaskText = subtaskContainer.querySelector('.addedSubtask');
+    let editInput = document.createElement('input');
+    editInput.type = 'text';
+    editInput.value = oldName;
+    editInput.classList.add('editSubtaskInput');
+
+    subtaskContainer.innerHTML = "";
+
+    let saveButton = document.createElement('button');
+    saveButton.textContent = 'Speichern';
+    saveButton.onclick = () => saveSubtask(subtaskContainer, editInput.value, oldName);
+
+    subtaskContainer.appendChild(editInput);
+    subtaskContainer.appendChild(saveButton);
+}
+
+// Funktion zum Speichern eines bearbeiteten Subtasks
+function saveSubtask(subtaskContainer, newName, oldName) {
+    let index = addedSubtasks.indexOf(oldName);
+    if (index !== -1) {
+        addedSubtasks[index] = newName;
+    }
+    subtaskContainer.innerHTML = "";
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${newName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(newName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, newName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+}
+
+// Funktion zum Neurendern aller Subtasks
+function renderAllSubtasks() {
+    let container = document.getElementById("addedSubtasks");
+    container.innerHTML = "";
+    addedSubtasks.forEach(subtask => {
         let subtaskContainer = document.createElement('div');
         subtaskContainer.classList.add('addedSubtaskContainer');
-        subtaskContainer.id = `subtask-${addedSubtasks[indexAllSubtasks]}`;
-        let subtaskText = `<p class="addedSubtask">- ${addedSubtasks[indexAllSubtasks]}</p>`;
-        let deleteImg = `<img src="./assets/icons/delete.svg" alt="Delete" class="delete-icon" onclick="deleteSubtask('${addedSubtasks[indexAllSubtasks]}')">`;
-        let editImg = `<img src="./assets/icons/pencilSmall.svg" alt="Edit" class="edit-icon">`;
-        subtaskContainer.innerHTML = subtaskText + deleteImg + editImg;
-        document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+        subtaskContainer.id = `subtask-${subtask}`;
 
-    }
+        let subtaskText = document.createElement('p');
+        subtaskText.classList.add('addedSubtask');
+        subtaskText.textContent = `- ${subtask}`;
+
+        let deleteImg = document.createElement('img');
+        deleteImg.src = "./assets/icons/delete.svg";
+        deleteImg.alt = "Delete";
+        deleteImg.classList.add('delete-icon');
+        deleteImg.onclick = () => deleteSubtask(subtask);
+
+        let editImg = document.createElement('img');
+        editImg.src = "./assets/icons/pencilSmall.svg";
+        editImg.alt = "Edit";
+        editImg.classList.add('edit-icon');
+        editImg.onclick = () => editSubtask(subtaskContainer, subtask);
+
+        subtaskContainer.appendChild(subtaskText);
+        subtaskContainer.appendChild(deleteImg);
+        subtaskContainer.appendChild(editImg);
+
+        container.appendChild(subtaskContainer);
+    });
 }
+
 
 function clearInuptField() {
     document.getElementById("subtaskInput").value = "";
