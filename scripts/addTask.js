@@ -228,7 +228,6 @@ function deleteSubtask(subtaskName) {
 
 // Funktion zum Bearbeiten von Subtasks
 function editSubtask(subtaskContainer, oldName) {
-    let subtaskText = subtaskContainer.querySelector('.addedSubtask');
     let editInput = document.createElement('input');
     editInput.type = 'text';
     editInput.value = oldName;

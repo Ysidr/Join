@@ -112,28 +112,9 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
 
 function closeContactInfo() {
     const contactContainer = document.getElementById("contactContainer");
-    if (!contactContainer) {
-        console.warn("Contact container not found during close.");
-        return;
-    }
     contactContainer.classList.add("sehr-hidden");
     contactContainer.classList.remove("show");
 }
-
-window.addEventListener("resize", () => {
-    const contactContainer = document.getElementById("contactContainer");
-    if (!contactContainer) {
-        console.warn("Contact container not found during resize.");
-        return;
-    }
-    if (window.innerWidth > 790) {
-        contactContainer.classList.remove("sehr-hidden", "show");
-    } else {
-        contactContainer.classList.add("sehr-hidden");
-    }
-});
-
-
 
 async function editContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
@@ -170,7 +151,7 @@ async function editContact(contactEmail) {
     }
 
     editContactForm.dataset.currentEmail = contactEmail;
-    await getCurrentMailForButtons(contactEmail)
+    getCurrentMailForButtons(contactEmail)
 }
 
 

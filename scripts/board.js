@@ -262,3 +262,9 @@ async function setInProgressTaskCount() {
         });
     return responseToJson = await response.json();
 }
+
+async function editTaskInBoard(indexTaskFields, indexTaskCount) {
+    await addTaskInBoard()
+    await new Promise(r => setTimeout(r, 20));
+    document.getElementById("titleInput").value = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount].title
+}
