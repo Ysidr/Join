@@ -10,9 +10,11 @@
 
 .taskRows {
     display: flex;
-    overflow-y: auto;
+    overflow-y: auto !important;
     width: 100%;
     justify-content: space-evenly;
+    height: 70vh;
+
 }
 
 .tasksInRow {
