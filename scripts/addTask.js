@@ -139,10 +139,10 @@ function contactSelected(name, bgColor) {
 
     }
     document.getElementById(name).classList.toggle("selectedContact")
-    document.getElementById("showAddedContacts").innerHTML = "";
     getInitialsOfAddedUser()
 }
 function getInitialsOfAddedUser() {
+    document.getElementById("showAddedContacts").innerHTML = "";
     for (let index = 0; index < selectedContatct.length; index++) {
         const nameParts = selectedContatct[index].split(' ');
         const firstInitial = nameParts[0]?.charAt(0).toUpperCase();

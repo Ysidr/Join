@@ -138,7 +138,7 @@ async function dropHandler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text/plain");
     const droppedElement = document.getElementById(data);
-    let changedToID = ev.currentTarget.id.slice(0, ev.currentTarget.id.length - 5 )
+    let changedToID = ev.currentTarget.id.slice(0, ev.currentTarget.id.length - 5)
     ev.currentTarget.appendChild(droppedElement);
     await changeToDropOffJson(data, changedToID)
 }
@@ -161,7 +161,7 @@ async function getCurrentMovedTask(titleMoved, changedToID) {
                 changeTaskFields(currentChangedObject, changedToID)
             }
         }
-    } 
+    }
 }
 
 async function changeTaskFields(currentChangedObject, changedToID) {
@@ -261,4 +261,35 @@ async function setInProgressTaskCount() {
             body: JSON.stringify(inProgressTaskCount)
         });
     return responseToJson = await response.json();
+}
+
+async function editTaskInBoard(indexTaskFields, indexTaskCount) {
+    await addTaskInBoard()
+    await new Promise(r => setTimeout(r, 20));
+    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
+    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
+    renderNoteToEdit(specificObject)
+}
+
+function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
+    document.getElementById("titleInput").value = specificObject.title;
+    document.getElementById("descriptionInput").value = specificObject.description;
+    document.getElementById("dateIput").value = specificObject.date;
+    selectedContatct = specificObject.assigned;
+    selectedContatctBgColor = specificObject.assignedBgColor;
+    getInitialsOfAddedUser();
+    document.getElementById(`ID${specificObject.priority}`).checked = true;
+    addedSubtasks = specificObject.subtasks.addedTask
+    addedSubtaskDone = specificObject.subtasks.subtasksDone
+    renderAllSubtasks()
+    document.getElementById("categorytSelector").value = `${specificObject.category}+Story`
+    document.getElementById("addTaskBtn").innerHTML = `<button class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
+    <button class="btnGray" onclick="updateTask(${indexTaskFields, indexTaskCount})">Update Task</button>`
+    updateTask(indexTaskFields, indexTaskCount)
+}
+
+function updateTask(indexTaskFields, indexTaskCount) {
+    getNewTaskInfo()
+    allCurrentTasksObj[indexTaskFields].put(indexTaskCount, newTaskData)
+
 }
