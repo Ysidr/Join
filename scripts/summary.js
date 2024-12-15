@@ -67,14 +67,14 @@ async function checkToDo() {
     let responseToJson = await response.json();
     if (responseToJson != null) {
         let urgentAmountDeadlines = [];
+        checkForUrgent(responseToJson, urgentAmountDeadlines)
 
-        
     }
 }
 
-function checkForDeadline(responseToJson, urgentAmountDeadlines) {
+function checkForUrgent(responseToJson, urgentAmountDeadlines) {
     for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-        if (responseToJson.indexIterate1Task != undefined) {
+        if (responseToJson[indexIterate1Task] != undefined) {
             if (responseToJson[indexIterate1Task].priority == "high") {
                 urgentAmount++
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
@@ -84,6 +84,7 @@ function checkForDeadline(responseToJson, urgentAmountDeadlines) {
     urgentAmountDeadlines.sort((a, b) => {
         return new Date(a) - new Date(b);
     });
+
     if (urgentAmountDeadlines.length > 0) {
         nextDeadline = urgentAmountDeadlines[0];
     }
@@ -94,6 +95,7 @@ async function checkAwait() {
     let responseToJson = await response.json();
     if (responseToJson != null) {
         let urgentAmountDeadlines = [];
+
         for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
             if (responseToJson[indexIterate1Task].priority == "high") {
                 urgentAmount++
@@ -114,6 +116,7 @@ async function checkInProgress() {
             if (responseToJson[indexIterate1Task].priority == "high") {
                 urgentAmount++
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
+
             }
         }
         urgentAmountDeadlines.sort((a, b) => {
