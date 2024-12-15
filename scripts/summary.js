@@ -46,11 +46,11 @@ function getGreeting() {
         comma = ","
     }
     if (greetingElement) {
-        checkForGreeting(comma)
+        checkForGreeting(comma, hour, greetingElement)
     }
 }
 
-function checkForGreeting(comma) {
+function checkForGreeting(comma, hour, greetingElement) {
     if (hour >= 6 && hour < 12) {
         greetingElement.innerHTML = `Good morning${comma}`;
     } else if (hour >= 12 && hour < 18) {
