@@ -136,8 +136,6 @@ function contactSelected(name, bgColor) {
         console.log(selectedContatct);
     }
     document.getElementById(name).classList.toggle("selectedContact")
-    document.getElementById(name).selected = true
-
     getInitialsOfAddedUser()
 }
 

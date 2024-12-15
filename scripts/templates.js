@@ -43,14 +43,18 @@ function resetContactList() {
 function renderContact(responseToJson, indexContactWithLetter) {
     let name = responseToJson[indexContactWithLetter].name;
     let color = responseToJson[indexContactWithLetter].bgColor;
-    document.getElementById("openContactsDiv").innerHTML +=
+    if (selectedContatct.includes(name)) {
+        document.getElementById("openContactsDiv").innerHTML +=
+        `<div class="singleContact selectedContact" id="${name}">
+            <input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')" checked>
+             <label for="ID${name}">${name}</label><br>
+        </div>`
+    } else {
+        document.getElementById("openContactsDiv").innerHTML +=
         `<div class="singleContact" id="${name}">
             <input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')">
              <label for="ID${name}">${name}</label><br>
         </div>`
-    if (selectedContatct.includes(name)) {
-        document.getElementById(name).classList.add("selectedContact");
-        document.getElementById(`ID${name}`).checked = true;
     }
 }
 
