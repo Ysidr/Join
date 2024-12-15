@@ -309,7 +309,11 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
         addedSubtaskDone = specificObject.subtasks.subtasksDone
         renderAllSubtasks()
     }
-    document.getElementById("categorytSelector").value = specificObject.category
+    if (specificObject.category = "technical") {
+        document.getElementById("categorytSelector").selectedIndex = 1;
+    }else {
+        document.getElementById("categorytSelector").selectedIndex = 2;
+    }
     document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
     <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
 
