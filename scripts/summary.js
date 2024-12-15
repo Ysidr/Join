@@ -46,17 +46,20 @@ function getGreeting() {
         comma = ","
     }
     if (greetingElement) {
-        if (hour >= 6 && hour < 12) {
-            greetingElement.innerHTML = `Good morning${comma}`;
-        } else if (hour >= 12 && hour < 18) {
-            greetingElement.innerHTML = `Good afternoon${comma}`;
-        } else if (hour >= 12 && hour < 18) {
-            greetingElement.innerHTML = `Good evening${comma}`;
-        } else {
-            greetingElement.innerHTML = `Good night${comma}`;
-        }
+        checkForGreeting(comma)
     }
+}
 
+function checkForGreeting(comma) {
+    if (hour >= 6 && hour < 12) {
+        greetingElement.innerHTML = `Good morning${comma}`;
+    } else if (hour >= 12 && hour < 18) {
+        greetingElement.innerHTML = `Good afternoon${comma}`;
+    } else if (hour >= 12 && hour < 18) {
+        greetingElement.innerHTML = `Good evening${comma}`;
+    } else {
+        greetingElement.innerHTML = `Good night${comma}`;
+    }
 }
 
 async function checkToDo() {
@@ -65,21 +68,24 @@ async function checkToDo() {
     if (responseToJson != null) {
         let urgentAmountDeadlines = [];
 
-        for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
-            if (responseToJson.indexIterate1Task != undefined) {
-                if (responseToJson[indexIterate1Task].priority == "high") {
-                    urgentAmount++
-                    urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
-                }    
-            }
-        }
-        urgentAmountDeadlines.sort((a, b) => {
-            return new Date(a) - new Date(b);
-        });
+        
+    }
+}
 
-        if (urgentAmountDeadlines.length > 0) {
-            nextDeadline = urgentAmountDeadlines[0];
+function checkForDeadline(responseToJson, urgentAmountDeadlines) {
+    for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
+        if (responseToJson.indexIterate1Task != undefined) {
+            if (responseToJson[indexIterate1Task].priority == "high") {
+                urgentAmount++
+                urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date);
+            }    
         }
+    }
+    urgentAmountDeadlines.sort((a, b) => {
+        return new Date(a) - new Date(b);
+    });
+    if (urgentAmountDeadlines.length > 0) {
+        nextDeadline = urgentAmountDeadlines[0];
     }
 }
 
@@ -88,7 +94,6 @@ async function checkAwait() {
     let responseToJson = await response.json();
     if (responseToJson != null) {
         let urgentAmountDeadlines = [];
-
         for (let indexIterate1Task = 1; indexIterate1Task < responseToJson.length; indexIterate1Task++) {
             if (responseToJson[indexIterate1Task].priority == "high") {
                 urgentAmount++
@@ -109,7 +114,6 @@ async function checkInProgress() {
             if (responseToJson[indexIterate1Task].priority == "high") {
                 urgentAmount++
                 urgentAmountDeadlines.push(responseToJson[indexIterate1Task].date)
-
             }
         }
         urgentAmountDeadlines.sort((a, b) => {

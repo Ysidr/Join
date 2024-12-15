@@ -6,8 +6,6 @@ async function initLogin() {
 function logoSlideIn() {
     const logoContainer = document.getElementById('logoAnimationContainer');
     const animatedLogo = document.getElementById('animatedLogo');
-
-    // Nach Abschluss der Bewegung: Verblassen des Containers
     animatedLogo.addEventListener('animationend', () => {
         logoContainer.classList.add('fade-out');
     });

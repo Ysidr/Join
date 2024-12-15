@@ -42,14 +42,18 @@ async function getToDoTasks() {
             let taskTitle = currentTask.title.toLocaleLowerCase();
             let searchTask = currentSearchInBoard.toLocaleLowerCase();
             if (currentSearchInBoard === "" || taskTitle.includes(searchTask)) {
-                renderTasksinBoard(currentTask, indexTaskFields, indexTaskCount);
+                checkEverythingInTask(currentTask, indexTaskFields, indexTaskCount)
+            }
+        }
+    }
+}
+
+function checkEverythingInTask(currentTask, indexTaskFields, indexTaskCount) {
+    renderTasksinBoard(currentTask, indexTaskFields, indexTaskCount);
                 checkForSubtasks(currentTask);
                 checkForCategory(currentTask);
                 checkForImportance(currentTask);
                 checkForAddedUsers(currentTask);
-            }
-        }
-    }
 }
 
 
@@ -80,7 +84,6 @@ function checkForImportance(getCurrentTask) {
     }
 }
 
-
 function checkForCategory(getCurrentTask) {
     if (getCurrentTask.category == "technical") {
         renderCategoryTechnical(getCurrentTask);
@@ -98,7 +101,6 @@ function checkForSubtasks(getCurrentTask) {
 }
 
 //Detailed Window functions
-
 function toggleNoteDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("taskDetailSection").classList.toggle("d-none");
     renderDetails(indexTaskFields, indexTaskCount);
@@ -116,8 +118,6 @@ function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
 }
 
 //Search for Tasks
-
-
 function searchTasksInBoard() {
     currentSearchInBoard = document.getElementById("boardHeaderSearch").value;
     getToDoTasks()
@@ -176,37 +176,27 @@ async function changeTaskFields(currentChangedObject, changedToID) {
     await updateAndUploadAllTaskCounts()
 }
 
-
 function addTaskInBoard() {
-    // Clear any existing content in the task section
     const taskSection = document.getElementById("AddTaskInBoardMain");
     taskSection.innerHTML = '';
     selectedContatct = [];
     selectedContatctBgColor = [];
 
-    // Dynamisch HTML laden
     fetch('./addTask.html')
         .then(response => response.text())
         .then(html => {
             taskSection.innerHTML = html;
-
-            // Dynamisch CSS einfügen
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
             cssLink.href = './styles/addTask.css';
             document.head.appendChild(cssLink);
-
-            // Dynamisch JS einfügen
             const script = document.createElement('script');
             script.src = './scripts/addTask.js';
             document.body.appendChild(script);
-
-            // Anzeige der AddTaskSection sicherstellen
             document.getElementById("AddTaskSection").classList.remove("d-none");
         })
         .catch(err => console.error('Error loading addTask.html:', err));
 }
-
 
 async function deleteTaskFromBoard(indexTaskFields, indexTaskCount) {
     Object.values(allCurrentTasksObj)[indexTaskFields].splice(indexTaskCount, 1);
@@ -265,23 +255,6 @@ async function setInProgressTaskCount() {
     return responseToJson = await response.json();
 }
 
-function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
-    document.getElementById("titleInput").value = specificObject.title;
-    document.getElementById("descriptionInput").value = specificObject.description;
-    document.getElementById("dateIput").value = specificObject.date;
-    selectedContatct = specificObject.assigned;
-    selectedContatctBgColor = specificObject.assignedBgColor;
-    getInitialsOfAddedUser();
-    document.getElementById(`ID${specificObject.priority}`).checked = true;
-    addedSubtasks = specificObject.subtasks.addedTask
-    addedSubtaskDone = specificObject.subtasks.subtasksDone
-    renderAllSubtasks()
-    document.getElementById("categorytSelector").value = `${specificObject.category}+Story`
-    document.getElementById("addTaskBtn").innerHTML = `<button class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
-    <button class="btnGray" onclick="updateTask(${indexTaskFields, indexTaskCount})">Update Task</button>`
-    updateTask(indexTaskFields, indexTaskCount)
-}
-
 function updateTask(indexTaskFields, indexTaskCount) {
     getNewTaskInfo()
     allCurrentTasksObj[indexTaskFields].put(indexTaskCount, newTaskData)
@@ -294,29 +267,6 @@ async function editTaskInBoard(indexTaskFields, indexTaskCount) {
     let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
     let specificObject = Object.values(objectAllTasks)[indexTaskCount];
     renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount)
-}
-
-function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
-    document.getElementById("titleInput").value = specificObject.title;
-    document.getElementById("descriptionInput").value = specificObject.description;
-    document.getElementById("dateIput").value = specificObject.date;
-    selectedContatct = specificObject.assigned;
-    selectedContatctBgColor = specificObject.assignedBgColor;
-    getInitialsOfAddedUser();
-    document.getElementById(`ID${specificObject.priority}`).checked = true;
-    if (specificObject.subtasks) {
-        addedSubtasks = specificObject.subtasks.addedTask
-        addedSubtaskDone = specificObject.subtasks.subtasksDone
-        renderAllSubtasks()
-    }
-    if (specificObject.category = "technical") {
-        document.getElementById("categorytSelector").selectedIndex = 1;
-    }else {
-        document.getElementById("categorytSelector").selectedIndex = 2;
-    }
-    document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
-    <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
-
 }
 
 async function updateTask(indexTaskFields, indexTaskCount) {

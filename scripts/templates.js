@@ -206,3 +206,140 @@ function resetAllBoards() {
                 <p class="noCurrentTasksText">No tasks In Progress</p>
             </div>`
 }
+
+function clearInputs() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("subtaskInput").value = "";
+    document.getElementById("dateIput").value = "";
+    document.getElementById("categorytSelector").value = "";
+    document.getElementById("addedSubtasks").innerHTML = "";
+    document.getElementById("showAddedContacts").innerHTML = "";
+    firstLetters = [];
+    selectedContatct = [];
+    selectedContatctBgColor = [];
+    addedSubtasks = [];
+    addedSubtaskDone = [];
+    newAssigned = "";
+    newAssignedBgColor = "";
+    newPrio = "";
+    newCategory = "";
+    newTaskData = {};
+}
+
+function addSubtask() {
+    let subtaskName = document.getElementById("subtaskInput").value.trim();
+    if (subtaskName === "") return;
+    let subtaskContainer = document.createElement('div');
+    subtaskContainer.classList.add('addedSubtaskContainer');
+    subtaskContainer.id = `subtask-${subtaskName}`;
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${subtaskName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(subtaskName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, subtaskName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+
+    document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+    addedSubtasks.push(subtaskName);
+    addedSubtaskDone.push(false);
+    document.getElementById("subtaskInput").value = "";
+}
+
+function saveSubtask(subtaskContainer, newName, oldName) {
+    let index = addedSubtasks.indexOf(oldName);
+    if (index !== -1) {
+        addedSubtasks[index] = newName;
+    }
+    subtaskContainer.innerHTML = "";
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${newName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(newName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, newName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+}
+
+function renderAllSubtasks() {
+    let container = document.getElementById("addedSubtasks");
+    container.innerHTML = "";
+    addedSubtasks.forEach(subtask => {
+        let subtaskContainer = document.createElement('div');
+        subtaskContainer.classList.add('addedSubtaskContainer');
+        subtaskContainer.id = `subtask-${subtask}`;
+
+        let subtaskText = document.createElement('p');
+        subtaskText.classList.add('addedSubtask');
+        subtaskText.textContent = `- ${subtask}`;
+
+        let deleteImg = document.createElement('img');
+        deleteImg.src = "./assets/icons/delete.svg";
+        deleteImg.alt = "Delete";
+        deleteImg.classList.add('delete-icon');
+        deleteImg.onclick = () => deleteSubtask(subtask);
+
+        let editImg = document.createElement('img');
+        editImg.src = "./assets/icons/pencilSmall.svg";
+        editImg.alt = "Edit";
+        editImg.classList.add('edit-icon');
+        editImg.onclick = () => editSubtask(subtaskContainer, subtask);
+
+        subtaskContainer.appendChild(subtaskText);
+        subtaskContainer.appendChild(deleteImg);
+        subtaskContainer.appendChild(editImg);
+
+        container.appendChild(subtaskContainer);
+    });
+}
+
+function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
+    document.getElementById("titleInput").value = specificObject.title;
+    document.getElementById("descriptionInput").value = specificObject.description;
+    document.getElementById("dateIput").value = specificObject.date;
+    selectedContatct = specificObject.assigned;
+    selectedContatctBgColor = specificObject.assignedBgColor;
+    getInitialsOfAddedUser();
+    document.getElementById(`ID${specificObject.priority}`).checked = true;
+    if (specificObject.subtasks) {
+        addedSubtasks = specificObject.subtasks.addedTask
+        addedSubtaskDone = specificObject.subtasks.subtasksDone
+        renderAllSubtasks()
+    }
+    if (specificObject.category = "technical") {
+        document.getElementById("categorytSelector").selectedIndex = 1;
+    }else {
+        document.getElementById("categorytSelector").selectedIndex = 2;
+    }
+    document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
+    <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
+
+}
+

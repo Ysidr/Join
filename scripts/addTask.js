@@ -81,7 +81,6 @@ function getCategory() {
     } else {
         selectCategoryErr();
     }
-
 }
 
 function gatherAllTaskData(newTitle, newDescription, newDate) {
@@ -131,16 +130,15 @@ function contactSelected(name, bgColor) {
         selectedContatct.splice(index, 1);
         selectedContatctBgColor.splice(index, 1);
         console.log(selectedContatct);
-
     } else {
         selectedContatct.push(name);
         selectedContatctBgColor.push(bgColor);
         console.log(selectedContatct);
-
     }
     document.getElementById(name).classList.toggle("selectedContact")
     getInitialsOfAddedUser()
 }
+
 function getInitialsOfAddedUser() {
     document.getElementById("showAddedContacts").innerHTML = "";
     for (let index = 0; index < selectedContatct.length; index++) {
@@ -150,7 +148,6 @@ function getInitialsOfAddedUser() {
         document.getElementById("showAddedContacts").innerHTML += `<p class= "addedUserInitials" style="background-color: ${selectedContatctBgColor[index]};" >${firstInitial}${lastInitial}</p>`
     }
 }
-
 
 function resetAllVars() {
     firstLetters = [];
@@ -163,59 +160,6 @@ async function reloadPage() {
     console.log(1);
     await new Promise(r => setTimeout(r, 2000));
     loadPage('board')
-}
-
-function clearInputs() {
-    document.getElementById("titleInput").value = "";
-    document.getElementById("descriptionInput").value = "";
-    document.getElementById("subtaskInput").value = "";
-    document.getElementById("dateIput").value = "";
-    document.getElementById("categorytSelector").value = "";
-    document.getElementById("addedSubtasks").innerHTML = "";
-    document.getElementById("showAddedContacts").innerHTML = "";
-    firstLetters = [];
-    selectedContatct = [];
-    selectedContatctBgColor = [];
-    addedSubtasks = [];
-    addedSubtaskDone = [];
-    newAssigned = "";
-    newAssignedBgColor = "";
-    newPrio = "";
-    newCategory = "";
-    newTaskData = {};
-}
-
-function addSubtask() {
-    let subtaskName = document.getElementById("subtaskInput").value.trim();
-    if (subtaskName === "") return;
-    let subtaskContainer = document.createElement('div');
-    subtaskContainer.classList.add('addedSubtaskContainer');
-    subtaskContainer.id = `subtask-${subtaskName}`;
-
-    let subtaskText = document.createElement('p');
-    subtaskText.classList.add('addedSubtask');
-    subtaskText.textContent = `- ${subtaskName}`;
-
-    let deleteImg = document.createElement('img');
-    deleteImg.src = "./assets/icons/delete.svg";
-    deleteImg.alt = "Delete";
-    deleteImg.classList.add('delete-icon');
-    deleteImg.onclick = () => deleteSubtask(subtaskName);
-
-    let editImg = document.createElement('img');
-    editImg.src = "./assets/icons/pencilSmall.svg";
-    editImg.alt = "Edit";
-    editImg.classList.add('edit-icon');
-    editImg.onclick = () => editSubtask(subtaskContainer, subtaskName);
-
-    subtaskContainer.appendChild(subtaskText);
-    subtaskContainer.appendChild(deleteImg);
-    subtaskContainer.appendChild(editImg);
-
-    document.getElementById("addedSubtasks").appendChild(subtaskContainer);
-    addedSubtasks.push(subtaskName);
-    addedSubtaskDone.push(false);
-    document.getElementById("subtaskInput").value = "";
 }
 
 // Funktion zum Löschen von Subtasks
@@ -232,79 +176,13 @@ function editSubtask(subtaskContainer, oldName) {
     editInput.type = 'text';
     editInput.value = oldName;
     editInput.classList.add('editSubtaskInput');
-
     subtaskContainer.innerHTML = "";
-
     let saveButton = document.createElement('button');
     saveButton.textContent = 'Speichern';
     saveButton.onclick = () => saveSubtask(subtaskContainer, editInput.value, oldName);
-
     subtaskContainer.appendChild(editInput);
     subtaskContainer.appendChild(saveButton);
 }
-
-// Funktion zum Speichern eines bearbeiteten Subtasks
-function saveSubtask(subtaskContainer, newName, oldName) {
-    let index = addedSubtasks.indexOf(oldName);
-    if (index !== -1) {
-        addedSubtasks[index] = newName;
-    }
-    subtaskContainer.innerHTML = "";
-
-    let subtaskText = document.createElement('p');
-    subtaskText.classList.add('addedSubtask');
-    subtaskText.textContent = `- ${newName}`;
-
-    let deleteImg = document.createElement('img');
-    deleteImg.src = "./assets/icons/delete.svg";
-    deleteImg.alt = "Delete";
-    deleteImg.classList.add('delete-icon');
-    deleteImg.onclick = () => deleteSubtask(newName);
-
-    let editImg = document.createElement('img');
-    editImg.src = "./assets/icons/pencilSmall.svg";
-    editImg.alt = "Edit";
-    editImg.classList.add('edit-icon');
-    editImg.onclick = () => editSubtask(subtaskContainer, newName);
-
-    subtaskContainer.appendChild(subtaskText);
-    subtaskContainer.appendChild(deleteImg);
-    subtaskContainer.appendChild(editImg);
-}
-
-// Funktion zum Neurendern aller Subtasks
-function renderAllSubtasks() {
-    let container = document.getElementById("addedSubtasks");
-    container.innerHTML = "";
-    addedSubtasks.forEach(subtask => {
-        let subtaskContainer = document.createElement('div');
-        subtaskContainer.classList.add('addedSubtaskContainer');
-        subtaskContainer.id = `subtask-${subtask}`;
-
-        let subtaskText = document.createElement('p');
-        subtaskText.classList.add('addedSubtask');
-        subtaskText.textContent = `- ${subtask}`;
-
-        let deleteImg = document.createElement('img');
-        deleteImg.src = "./assets/icons/delete.svg";
-        deleteImg.alt = "Delete";
-        deleteImg.classList.add('delete-icon');
-        deleteImg.onclick = () => deleteSubtask(subtask);
-
-        let editImg = document.createElement('img');
-        editImg.src = "./assets/icons/pencilSmall.svg";
-        editImg.alt = "Edit";
-        editImg.classList.add('edit-icon');
-        editImg.onclick = () => editSubtask(subtaskContainer, subtask);
-
-        subtaskContainer.appendChild(subtaskText);
-        subtaskContainer.appendChild(deleteImg);
-        subtaskContainer.appendChild(editImg);
-
-        container.appendChild(subtaskContainer);
-    });
-}
-
 
 function clearInuptField() {
     document.getElementById("subtaskInput").value = "";
