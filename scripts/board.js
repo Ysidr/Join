@@ -304,7 +304,7 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     selectedContatctBgColor = specificObject.assignedBgColor;
     getInitialsOfAddedUser();
     document.getElementById(`ID${specificObject.priority}`).checked = true;
-    if (specificObject.subtasks != undefined) {
+    if (specificObject.subtasks) {
         addedSubtasks = specificObject.subtasks.addedTask
         addedSubtaskDone = specificObject.subtasks.subtasksDone
         renderAllSubtasks()
@@ -314,7 +314,7 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     }else {
         document.getElementById("categorytSelector").selectedIndex = 2;
     }
-    document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
+    document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
     <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
 
 }
@@ -339,4 +339,9 @@ async function putEditedTaskToServer(TaskFieldName, indexTaskCount) {
             body: JSON.stringify(newTaskData)
         });
     return responseToJson = await response.json();
+}
+
+function cancelEdit() {
+    document.getElementById("AddTaskSection").classList.add("d-none")
+
 }
