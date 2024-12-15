@@ -181,6 +181,8 @@ function addTaskInBoard() {
     // Clear any existing content in the task section
     const taskSection = document.getElementById("AddTaskInBoardMain");
     taskSection.innerHTML = '';
+    selectedContatct = [];
+    selectedContatctBgColor = [];
 
     // Dynamisch HTML laden
     fetch('./addTask.html')
@@ -263,14 +265,6 @@ async function setInProgressTaskCount() {
     return responseToJson = await response.json();
 }
 
-async function editTaskInBoard(indexTaskFields, indexTaskCount) {
-    await addTaskInBoard()
-    await new Promise(r => setTimeout(r, 20));
-    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
-    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
-    renderNoteToEdit(specificObject)
-}
-
 function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     document.getElementById("titleInput").value = specificObject.title;
     document.getElementById("descriptionInput").value = specificObject.description;
@@ -297,5 +291,48 @@ function updateTask(indexTaskFields, indexTaskCount) {
 async function editTaskInBoard(indexTaskFields, indexTaskCount) {
     await addTaskInBoard()
     await new Promise(r => setTimeout(r, 20));
-    document.getElementById("titleInput").value = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount].title
+    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
+    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
+    renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount)
+}
+
+function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
+    document.getElementById("titleInput").value = specificObject.title;
+    document.getElementById("descriptionInput").value = specificObject.description;
+    document.getElementById("dateIput").value = specificObject.date;
+    selectedContatct = specificObject.assigned;
+    selectedContatctBgColor = specificObject.assignedBgColor;
+    getInitialsOfAddedUser();
+    document.getElementById(`ID${specificObject.priority}`).checked = true;
+    if (specificObject.subtasks != undefined) {
+        addedSubtasks = specificObject.subtasks.addedTask
+        addedSubtaskDone = specificObject.subtasks.subtasksDone
+        renderAllSubtasks()
+    }
+    document.getElementById("categorytSelector").value = specificObject.category
+    document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
+    <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
+
+}
+
+async function updateTask(indexTaskFields, indexTaskCount) {
+    getNewTaskInfo()
+    let TaskFieldName = Object.keys(allCurrentTasksObj)[indexTaskFields]
+    await putEditedTaskToServer(TaskFieldName, indexTaskCount)
+    await getToDoTasks()
+    document.getElementById("taskDetailSection").classList.add("d-none");
+    toggleNoteDetails(indexTaskFields, indexTaskCount)
+    document.getElementById("AddTaskSection").classList.add("d-none")
+}
+
+async function putEditedTaskToServer(TaskFieldName, indexTaskCount) {
+    let response = await fetch(BASE_URL + `Tasks/${TaskFieldName}/${indexTaskCount}.json`,
+        {
+            method: "put",
+            header: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTaskData)
+        });
+    return responseToJson = await response.json();
 }

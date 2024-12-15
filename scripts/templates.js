@@ -49,7 +49,8 @@ function renderContact(responseToJson, indexContactWithLetter) {
              <label for="ID${name}">${name}</label><br>
         </div>`
     if (selectedContatct.includes(name)) {
-        document.getElementById(name).classList.add("selectedContact")
+        document.getElementById(name).classList.add("selectedContact");
+        document.getElementById(`ID${name}`).checked = true;
     }
 }
 
