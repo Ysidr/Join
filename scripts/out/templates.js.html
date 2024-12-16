@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: templates.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: templates.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Renders the count of tasks in the "To Do" section.
+ */
+function renderToDo() {
+    document.getElementById("toDoCount").innerHTML =
+        `&lt;h1 class="taskAmount">${toDoTaskCount}&lt;/h1>`
+}
+
+/**
+ * Renders the count of tasks in the "Done" section.
+ */
+function renderDone() {
+    document.getElementById("doneCount").innerHTML =
+        `&lt;h1 class="taskAmount">${doneTaskCount}&lt;/h1>`
+}
+
+/**
+ * Renders the count of tasks in the "Urgent" section.
+ */
+function renderUrgent() {
+    document.getElementById("urgentTasks").innerHTML =
+        `&lt;h1 class="taskAmount">${urgentAmount}&lt;/h1>`
+}
+
+/**
+ * Renders the total count of all tasks across different categories.
+ */
+function renderAllTasks() {
+    document.getElementById("allTasks").innerHTML =
+        `&lt;h1 class="taskAmount">${toDoTaskCount + awaitFeedbackTaskCount + doneTaskCount + inProgressTaskCount}&lt;/h1>`
+}
+
+/**
+ * Renders the count of tasks in the "In Progress" section.
+ */
+function renderInProgress() {
+    document.getElementById("inProgressTasks").innerHTML =
+        `&lt;h1 class="taskAmount">${inProgressTaskCount}&lt;/h1>`
+}
+
+/**
+ * Renders the count of tasks awaiting feedback.
+ */
+function renderAwaitFeedback() {
+    document.getElementById("awaitFeedbackTasks").innerHTML =
+        `&lt;h1 class="taskAmount">${awaitFeedbackTaskCount}&lt;/h1>`
+}
+
+/**
+ * Renders the closest deadline date in a formatted way (DD-MM-YYYY).
+ */
+function renderClosestDate() {
+    let s = nextDeadline;
+    const niceDisplayOfDate = s.split('-').reverse().join('-');
+    document.getElementById("Date").innerHTML = `&lt;h2>${niceDisplayOfDate}&lt;/h2>`
+}
+
+/**
+ * Resets the contact list in the "Add Task" section to its default state.
+ */
+function resetContactList() {
+    document.getElementById("openContactsDiv").innerHTML =
+        `&lt;div class="singleContact">
+                    &lt;input type="checkbox" name="namevehicle1" id="vehicle1" value="basicText">
+                    &lt;label for="vehicle1">Select contacts to assign&lt;/label>&lt;br>
+                &lt;/div>`
+}
+
+/**
+ * Renders individual contacts in the "Add Task" section.
+ * @param {Object} responseToJson - The JSON response containing the contact data.
+ * @param {number} indexContactWithLetter - The index of the contact in the response data.
+ */
+function renderContact(responseToJson, indexContactWithLetter) {
+    let name = responseToJson[indexContactWithLetter].name;
+    let color = responseToJson[indexContactWithLetter].bgColor;
+    if (selectedContatct.includes(name)) {
+        document.getElementById("openContactsDiv").innerHTML +=
+        `&lt;div class="singleContact selectedContact" id="${name}">
+            &lt;input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')" checked>
+             &lt;label for="ID${name}">${name}&lt;/label>&lt;br>
+        &lt;/div>`
+    } else {
+        document.getElementById("openContactsDiv").innerHTML +=
+        `&lt;div class="singleContact" id="${name}">
+            &lt;input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')">
+             &lt;label for="ID${name}">${name}&lt;/label>&lt;br>
+        &lt;/div>`
+    }
+}
+
+/**
+ * Renders a task in the board view.
+ * @param {Object} responseToJson - The JSON response containing the task data.
+ * @param {number} indexTaskFields - The index of the task's field in the response data.
+ * @param {number} indexTaskCount - The index of the task in the response data.
+ */
+function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
+    document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
+        `&lt;span class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')" ondragstart="dragstartHandler(event)">
+            &lt;div class="category" id="divCategory${responseToJson.title}">
+            &lt;/div>
+            &lt;div class="textSingleTask">
+                &lt;p class="titleSingleCard">${responseToJson.title}&lt;/p>
+                &lt;p class="descriptionSingleCard">${responseToJson.description}&lt;/p>
+            &lt;/div>
+            &lt;div class="subtasksSingleCard" id="${responseToJson.title}">
+            &lt;/div>
+            &lt;div class="bottomDivSingleCard">
+                &lt;div class="addedContactsSingleCard" id="contacts${responseToJson.title}">&lt;/div>
+                &lt;div id="prioImg${responseToJson.title}" class="prioImg">&lt;/div>
+            &lt;/div>
+        &lt;/span>`;
+}
+
+/**
+ * Renders subtasks for a specific task.
+ * @param {Object} responseToJson - The JSON response containing the task data with subtasks.
+ */
+function renderSubtasks(responseToJson) {
+    let doneCount = 0;
+    for (let indexSubtasks = 0; indexSubtasks &lt; responseToJson.subtasks.addedTask.length; indexSubtasks++) {
+        if (responseToJson.subtasks.subtasksDone[indexSubtasks] == true) {
+            doneCount++;
+        }
+    }
+    const totalSubtasks = responseToJson.subtasks.addedTask.length;
+    const progressPercentage = (doneCount / totalSubtasks) * 100;
+    document.getElementById(responseToJson.title).innerHTML =
+        `&lt;div class="subtaskProgressBar">
+                            &lt;div class="subtaskProgressBarInner" style="width: ${progressPercentage}%;">&lt;/div>
+                            &lt;/div>
+                            &lt;div class="subtaskCountSingleCard">
+                                &lt;p class="amountSubtaskSingleCard">${doneCount}/${responseToJson.subtasks.addedTask.length}&lt;/p>
+                                &lt;p class="subtaskTextSingleCard">Subtasks&lt;/p>
+                            &lt;/div>`;
+}
+
+/**
+ * Renders a "Technical Task" category for a task.
+ * @param {Object} getCurrentTask - The task object.
+ */
+function renderCategoryTechnical(getCurrentTask) {
+    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML =
+        `&lt;p class="categorySingleCard" id="category${getCurrentTask.title}">Technical Task&lt;/p>`
+}
+
+/**
+ * Renders a "User Story" category for a task.
+ * @param {Object} getCurrentTask - The task object.
+ */
+function renderCategoryUser(getCurrentTask) {
+    document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `&lt;p class="categorySingleCard" id="category${getCurrentTask.title}">User Story&lt;/p>`
+}
+
+/**
+ * Renders the initials of a contact assigned to a task.
+ * @param {string} firstInitial - The first initial of the contact's name.
+ * @param {string} lastInitial - The last initial of the contact's name.
+ * @param {string} title - The task's title.
+ * @param {Object} currentTask - The current task object.
+ * @param {number} index - The index of the assigned contact.
+ */
+function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
+    document.getElementById(`contacts${title}`).innerHTML += `&lt;p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}&lt;/p>`
+}
+
+/**
+ * Renders task details in the details view.
+ * @param {number} indexTaskFields - The index of the task's field in the task data.
+ * @param {number} indexTaskCount - The index of the task.
+ */
+function renderDetails(indexTaskFields, indexTaskCount) {
+    document.getElementById("detailContacts").innerHTML = "";
+    document.getElementById("detailSubtasks").innerHTML = "";
+    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
+    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
+    if (specificObject.category == "user") {
+        document.getElementById("detailCategory").innerHTML = `&lt;p class="pDetailCategory" style="background-color: #0038FF">User Story&lt;/p>`
+    }else{
+        document.getElementById("detailCategory").innerHTML = `&lt;p class="pDetailCategory" style="background-color: #1FD7C1">Technical Task&lt;/p>`
+    }
+    document.getElementById("detailHeader").innerHTML = `&lt;h1 class="hTitleCategory">${specificObject.title}&lt;/h1>`
+    document.getElementById("detailDetails").innerHTML = `&lt;p>${specificObject.description}&lt;/p>`
+    document.getElementById("detailDate").innerHTML = `&lt;p>Due date:&lt;/p>&lt;p>${specificObject.date}&lt;/p>`
+    document.getElementById("detailPrio").innerHTML = `&lt;p>Priority:&lt;/p>&lt;p>${specificObject.priority}&lt;/p>`
+    if (specificObject.assigned != null) {
+        for (let indexAddedContacts = 0; indexAddedContacts &lt; specificObject.assigned.length; indexAddedContacts++) {
+            const nameParts = specificObject.assigned[indexAddedContacts].split(' ');
+            const firstInitial = nameParts[0]?.charAt(0).toUpperCase();
+            const lastInitial = nameParts[1]?.charAt(0).toUpperCase();
+            document.getElementById("detailContacts").innerHTML += `&lt;div class="divSingleContactDetail">&lt;p class="detailSingleContact" style="background-color:${specificObject.assignedBgColor[indexAddedContacts]};">${firstInitial}${lastInitial}&lt;/p> &lt;p>${specificObject.assigned[indexAddedContacts]}&lt;/p> &lt;/div>`
+        }
+    }
+    if (specificObject.subtasks != null) {
+        for (let indexAddedSubtasks = 0; indexAddedSubtasks &lt; specificObject.subtasks.addedTask.length; indexAddedSubtasks++) {
+            if (specificObject.subtasks.subtasksDone[indexAddedSubtasks] == true) {
+                document.getElementById("detailSubtasks").innerHTML += `&lt;div class="subtaskDetailDiv">&lt;input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" checked onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+            &lt;label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}&lt;/label>&lt;/div>`
+            } else {
+                document.getElementById("detailSubtasks").innerHTML += `&lt;div class="subtaskDetailDiv">&lt;input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+            &lt;label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}&lt;/label>&lt;/div>`
+            }
+        }
+    }
+    document.getElementById("detailBtns").innerHTML = `
+    &lt;button onclick="deleteTaskFromBoard('${indexTaskFields}', '${indexTaskCount}')"> &lt;img src="./assets/icons/delete.svg" alt="">&lt;/button>
+            &lt;div class="detailBtnSeperator">&lt;/div>
+            &lt;button onclick="editTaskInBoard('${indexTaskFields}', '${indexTaskCount}')" >&lt;img src="./assets/icons/pencilSmall.svg" alt="">&lt;/button>`
+}
+
+
+/**
+ * Generates the HTML template for displaying a contact in a contact list.
+ * The contact's initials, name, email, and background color are dynamically inserted into the template.
+ * 
+ * @param {Object} contact - The contact object containing the details (name, email, phone, bgColor).
+ * @param {string} initials - The initials of the contact to be displayed.
+ * @returns {string} The HTML template for a contact item.
+ */
+function getLoadContactTemplate(contact, initials) {
+    return `
+        &lt;div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
+            &lt;div class="initials" style="background-color: ${contact.bgColor};">${initials}&lt;/div>
+            &lt;div>
+                &lt;p>&lt;strong>${contact.name}&lt;/strong>&lt;br>&lt;/p>&lt;p class="email">${contact.email}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+    `;
+}
+
+/**
+ * Generates the HTML template for displaying detailed information of a contact.
+ * This template includes options to edit or delete the contact, as well as the contact's email and phone number.
+ * 
+ * @param {string} name - The name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone number of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} bgColor - The background color of the contact's initials.
+ * @returns {string} The HTML template for contact details.
+ */
+function getContactInfoTemplate(name, email, phone, initials, bgColor) {
+    return `
+        &lt;div class="contact-info-container">
+            &lt;div class="flex gap-8 items-center">
+                &lt;div class="initials contact-details-img" style="background-color: ${bgColor};">${initials}&lt;/div>
+                &lt;div>
+                    &lt;h2>${name}&lt;/h2>
+                    &lt;div class="flex gap-8 pt-4">
+                        &lt;button class="flex" onclick="editContact('${email}')">&lt;img src="assets/icons/edit.png" alt=""> Edit&lt;/button>
+                        &lt;button class="flex" onclick="deleteContact('${email}')">&lt;img src="assets/icons/delete.png" alt=""> Delete&lt;/button>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>                    
+        &lt;/div>
+        &lt;div class="my-8">&lt;h3>Contact Information&lt;/h3>&lt;/div>
+        &lt;div class="flex flex-col gap-4">
+            &lt;h5>&lt;strong>Email&lt;/strong>&lt;/h5>
+            &lt;a href="mailto:${email}" class="email">${email}&lt;/a>
+            &lt;h5>&lt;strong>Phone&lt;/strong>&lt;/h5>
+            &lt;a href="tel:${phone}" class="phone-number">${phone}&lt;/a>
+        &lt;/div>`;
+}
+
+/**
+ * Updates the UI with buttons for deleting or saving the edited contact.
+ * 
+ * @param {string} contactEmail - The email of the contact being edited.
+ */
+function getCurrentMailForButtons(contactEmail) {
+    document.getElementById("new-contact-button-container").innerHTML = ` &lt;div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
+                            &lt;button>Delete&lt;/button>
+                        &lt;/div>
+                        &lt;div class="create btnGray" onclick="saveEditedContact()">
+                        &lt;button>Save&lt;/button>
+                            &lt;img src="assets/icons/check.png" alt="">
+                        &lt;/div>`
+}
+
+/**
+ * Resets all task boards to their default state with no tasks displayed.
+ * This function clears the contents of all task categories (In Progress, To Do, Done, Await Feedback).
+ */
+function resetAllBoards() {
+    document.getElementById("InProgressTasks").innerHTML = `&lt;div class="singleTaskBoard defaultNoTasks">
+                &lt;p class="noCurrentTasksText">No tasks In Progress&lt;/p>
+            &lt;/div>`
+    document.getElementById("ToDoTasks").innerHTML = `&lt;div class="singleTaskBoard defaultNoTasks">
+                &lt;p class="noCurrentTasksText">No tasks In Progress&lt;/p>
+            &lt;/div>`
+    document.getElementById("DoneTasks").innerHTML = `&lt;div class="singleTaskBoard defaultNoTasks">
+                &lt;p class="noCurrentTasksText">No tasks In Progress&lt;/p>
+            &lt;/div>`
+    document.getElementById("AwaitFeedbackTasks").innerHTML = `&lt;div class="singleTaskBoard defaultNoTasks">
+                &lt;p class="noCurrentTasksText">No tasks In Progress&lt;/p>
+            &lt;/div>`
+}
+
+/**
+ * Clears the values in all input fields related to task creation.
+ * It also resets various task-related state variables, preparing the UI for a new task.
+ */
+function clearInputs() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("subtaskInput").value = "";
+    document.getElementById("dateIput").value = "";
+    document.getElementById("categorytSelector").value = "";
+    document.getElementById("addedSubtasks").innerHTML = "";
+    document.getElementById("showAddedContacts").innerHTML = "";
+    firstLetters = [];
+    selectedContatct = [];
+    selectedContatctBgColor = [];
+    addedSubtasks = [];
+    addedSubtaskDone = [];
+    newAssigned = "";
+    newAssignedBgColor = "";
+    newPrio = "";
+    newCategory = "";
+    newTaskData = {};
+}
+
+/**
+ * Adds a new subtask to the task creation UI.
+ * The subtask is displayed with options to delete or edit it.
+ * 
+ * @throws {Error} If the subtask name is empty or only consists of spaces.
+ */
+function addSubtask() {
+    let subtaskName = document.getElementById("subtaskInput").value.trim();
+    if (subtaskName === "") return;
+    let subtaskContainer = document.createElement('div');
+    subtaskContainer.classList.add('addedSubtaskContainer');
+    subtaskContainer.id = `subtask-${subtaskName}`;
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${subtaskName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(subtaskName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, subtaskName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+
+    document.getElementById("addedSubtasks").appendChild(subtaskContainer);
+    addedSubtasks.push(subtaskName);
+    addedSubtaskDone.push(false);
+    document.getElementById("subtaskInput").value = "";
+}
+
+/**
+ * Saves the updated name for an existing subtask after editing.
+ * 
+ * @param {HTMLElement} subtaskContainer - The container of the subtask to be updated.
+ * @param {string} newName - The new name for the subtask.
+ * @param {string} oldName - The original name of the subtask.
+ */
+function saveSubtask(subtaskContainer, newName, oldName) {
+    let index = addedSubtasks.indexOf(oldName);
+    if (index !== -1) {
+        addedSubtasks[index] = newName;
+    }
+    subtaskContainer.innerHTML = "";
+
+    let subtaskText = document.createElement('p');
+    subtaskText.classList.add('addedSubtask');
+    subtaskText.textContent = `- ${newName}`;
+
+    let deleteImg = document.createElement('img');
+    deleteImg.src = "./assets/icons/delete.svg";
+    deleteImg.alt = "Delete";
+    deleteImg.classList.add('delete-icon');
+    deleteImg.onclick = () => deleteSubtask(newName);
+
+    let editImg = document.createElement('img');
+    editImg.src = "./assets/icons/pencilSmall.svg";
+    editImg.alt = "Edit";
+    editImg.classList.add('edit-icon');
+    editImg.onclick = () => editSubtask(subtaskContainer, newName);
+
+    subtaskContainer.appendChild(subtaskText);
+    subtaskContainer.appendChild(deleteImg);
+    subtaskContainer.appendChild(editImg);
+}
+
+/**
+ * Renders all the added subtasks to the UI for a specific task.
+ * Each subtask is displayed with options to delete or edit it.
+ */
+function renderAllSubtasks() {
+    let container = document.getElementById("addedSubtasks");
+    container.innerHTML = "";
+    addedSubtasks.forEach(subtask => {
+        let subtaskContainer = document.createElement('div');
+        subtaskContainer.classList.add('addedSubtaskContainer');
+        subtaskContainer.id = `subtask-${subtask}`;
+
+        let subtaskText = document.createElement('p');
+        subtaskText.classList.add('addedSubtask');
+        subtaskText.textContent = `- ${subtask}`;
+
+        let deleteImg = document.createElement('img');
+        deleteImg.src = "./assets/icons/delete.svg";
+        deleteImg.alt = "Delete";
+        deleteImg.classList.add('delete-icon');
+        deleteImg.onclick = () => deleteSubtask(subtask);
+
+        let editImg = document.createElement('img');
+        editImg.src = "./assets/icons/pencilSmall.svg";
+        editImg.alt = "Edit";
+        editImg.classList.add('edit-icon');
+        editImg.onclick = () => editSubtask(subtaskContainer, subtask);
+
+        subtaskContainer.appendChild(subtaskText);
+        subtaskContainer.appendChild(deleteImg);
+        subtaskContainer.appendChild(editImg);
+
+        container.appendChild(subtaskContainer);
+    });
+}
+
+/**
+ * Fills in the task input fields with the details of a specific task that is being edited.
+ * This includes the task's title, description, date, subtasks, and category.
+ * 
+ * @param {Object} specificObject - The task object containing the data to be rendered.
+ * @param {number} indexTaskFields - The index of the task in the list of fields.
+ * @param {number} indexTaskCount - The index of the task in the list of tasks.
+ */
+function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
+    document.getElementById("titleInput").value = specificObject.title;
+    document.getElementById("descriptionInput").value = specificObject.description;
+    document.getElementById("dateIput").value = specificObject.date;
+    selectedContatct = specificObject.assigned;
+    selectedContatctBgColor = specificObject.assignedBgColor;
+    getInitialsOfAddedUser();
+    document.getElementById(`ID${specificObject.priority}`).checked = true;
+    if (specificObject.subtasks) {
+        addedSubtasks = specificObject.subtasks.addedTask
+        addedSubtaskDone = specificObject.subtasks.subtasksDone
+        renderAllSubtasks()
+    }
+    if (specificObject.category = "technical") {
+        document.getElementById("categorytSelector").selectedIndex = 1;
+    } else {
+        document.getElementById("categorytSelector").selectedIndex = 2;
+    }
+    document.getElementById("addTasksBtn").innerHTML = `&lt;button class="btnClear clearBtn" onclick="cancelEdit()">Cancel&lt;/button>
+    &lt;button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task&lt;/button>`
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="window.html#event:onload">onload</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAccountData">addAccountData</a></li><li><a href="global.html#addDNone">addDNone</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTaskInBoard">addTaskInBoard</a></li><li><a href="global.html#addToNewGroup">addToNewGroup</a></li><li><a href="global.html#cancelCreateContact">cancelCreateContact</a></li><li><a href="global.html#cancelEdit">cancelEdit</a></li><li><a href="global.html#changeTaskFields">changeTaskFields</a></li><li><a href="global.html#changeToDropOffJson">changeToDropOffJson</a></li><li><a href="global.html#checkAndPutToServer">checkAndPutToServer</a></li><li><a href="global.html#checkAwait">checkAwait</a></li><li><a href="global.html#checkEverythingInTask">checkEverythingInTask</a></li><li><a href="global.html#checkForAddedUsers">checkForAddedUsers</a></li><li><a href="global.html#checkForCategory">checkForCategory</a></li><li><a href="global.html#checkForExistingAccount">checkForExistingAccount</a></li><li><a href="global.html#checkForGreeting">checkForGreeting</a></li><li><a href="global.html#checkForImportance">checkForImportance</a></li><li><a href="global.html#checkForLoadedPage">checkForLoadedPage</a></li><li><a href="global.html#checkForMailAdress">checkForMailAdress</a></li><li><a href="global.html#checkForSubtasks">checkForSubtasks</a></li><li><a href="global.html#checkForUrgent">checkForUrgent</a></li><li><a href="global.html#checkInProgress">checkInProgress</a></li><li><a href="global.html#checkToDo">checkToDo</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#clearInuptField">clearInuptField</a></li><li><a href="global.html#closeContactInfo">closeContactInfo</a></li><li><a href="global.html#contactSelected">contactSelected</a></li><li><a href="global.html#content">content</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentUserName">currentUserName</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTaskFromBoard">deleteTaskFromBoard</a></li><li><a href="global.html#displayContactInfo">displayContactInfo</a></li><li><a href="global.html#displayCounts">displayCounts</a></li><li><a href="global.html#dragoverHandler">dragoverHandler</a></li><li><a href="global.html#dragstartHandler">dragstartHandler</a></li><li><a href="global.html#dropHandler">dropHandler</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTaskInBoard">editTaskInBoard</a></li><li><a href="global.html#fetchContacts">fetchContacts</a></li><li><a href="global.html#fetchUserFromFirebase">fetchUserFromFirebase</a></li><li><a href="global.html#finalizeContactEditing">finalizeContactEditing</a></li><li><a href="global.html#findCurrentLetter">findCurrentLetter</a></li><li><a href="global.html#gatherAllTaskData">gatherAllTaskData</a></li><li><a href="global.html#getAddedContacts">getAddedContacts</a></li><li><a href="global.html#getAndDisplayName">getAndDisplayName</a></li><li><a href="global.html#getCategory">getCategory</a></li><li><a href="global.html#getContactInfoTemplate">getContactInfoTemplate</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getContactsWithThisLetter">getContactsWithThisLetter</a></li><li><a href="global.html#getCurrentMailForButtons">getCurrentMailForButtons</a></li><li><a href="global.html#getCurrentMovedTask">getCurrentMovedTask</a></li><li><a href="global.html#getEditedContactInputs">getEditedContactInputs</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getInitialsOfAddedUser">getInitialsOfAddedUser</a></li><li><a href="global.html#getInitialsOfAddedUsers">getInitialsOfAddedUsers</a></li><li><a href="global.html#getLetterGroups">getLetterGroups</a></li><li><a href="global.html#getLoadContactTemplate">getLoadContactTemplate</a></li><li><a href="global.html#getNewTaskInfo">getNewTaskInfo</a></li><li><a href="global.html#getPriority">getPriority</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getToDoTasks">getToDoTasks</a></li><li><a href="global.html#getUrgentAmount">getUrgentAmount</a></li><li><a href="global.html#getUserCount">getUserCount</a></li><li><a href="global.html#goToSignUp">goToSignUp</a></li><li><a href="global.html#initAddTask">initAddTask</a></li><li><a href="global.html#initBoards">initBoards</a></li><li><a href="global.html#initLogin">initLogin</a></li><li><a href="global.html#initStartPage">initStartPage</a></li><li><a href="global.html#initSummary">initSummary</a></li><li><a href="global.html#loadAll">loadAll</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadContactsSecondFunction">loadContactsSecondFunction</a></li><li><a href="global.html#loadCss">loadCss</a></li><li><a href="global.html#loadHtml">loadHtml</a></li><li><a href="global.html#loadPage">loadPage</a></li><li><a href="global.html#loadScript">loadScript</a></li><li><a href="global.html#loadUserData">loadUserData</a></li><li><a href="global.html#loginWithAccount">loginWithAccount</a></li><li><a href="global.html#logoSlideIn">logoSlideIn</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#modifyContacts">modifyContacts</a></li><li><a href="global.html#navbarLinks">navbarLinks</a></li><li><a href="global.html#pagesWithScripts">pagesWithScripts</a></li><li><a href="global.html#postAccoundData">postAccoundData</a></li><li><a href="global.html#putAllTasksToServer">putAllTasksToServer</a></li><li><a href="global.html#putEditedTaskToServer">putEditedTaskToServer</a></li><li><a href="global.html#putTaskToServer">putTaskToServer</a></li><li><a href="global.html#putToServer">putToServer</a></li><li><a href="global.html#putUserAmountToServer">putUserAmountToServer</a></li><li><a href="global.html#reloadPage">reloadPage</a></li><li><a href="global.html#removeFromOldGroup">removeFromOldGroup</a></li><li><a href="global.html#renderAddContactForm">renderAddContactForm</a></li><li><a href="global.html#renderAllSubtasks">renderAllSubtasks</a></li><li><a href="global.html#renderAllTasks">renderAllTasks</a></li><li><a href="global.html#renderAwaitFeedback">renderAwaitFeedback</a></li><li><a href="global.html#renderCategoryTechnical">renderCategoryTechnical</a></li><li><a href="global.html#renderCategoryUser">renderCategoryUser</a></li><li><a href="global.html#renderClosestDate">renderClosestDate</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDone">renderDone</a></li><li><a href="global.html#renderInProgress">renderInProgress</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderNoteToEdit">renderNoteToEdit</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderTasksinBoard">renderTasksinBoard</a></li><li><a href="global.html#renderToDo">renderToDo</a></li><li><a href="global.html#renderUrgent">renderUrgent</a></li><li><a href="global.html#resetAllBoards">resetAllBoards</a></li><li><a href="global.html#resetAllVars">resetAllVars</a></li><li><a href="global.html#resetContactList">resetContactList</a></li><li><a href="global.html#saveContacts">saveContacts</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveSubtask">saveSubtask</a></li><li><a href="global.html#searchTasksInBoard">searchTasksInBoard</a></li><li><a href="global.html#setAwaitFeedbackTaskCount">setAwaitFeedbackTaskCount</a></li><li><a href="global.html#setDoneTaskCount">setDoneTaskCount</a></li><li><a href="global.html#setInProgressTaskCount">setInProgressTaskCount</a></li><li><a href="global.html#setToDoTaskCount">setToDoTaskCount</a></li><li><a href="global.html#setUsersAmount">setUsersAmount</a></li><li><a href="global.html#subtaskSelected">subtaskSelected</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleNoteDetails">toggleNoteDetails</a></li><li><a href="global.html#updateAllTaskCounts">updateAllTaskCounts</a></li><li><a href="global.html#updateAndUploadAllTaskCounts">updateAndUploadAllTaskCounts</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#uploadAllTaskCounts">uploadAllTaskCounts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 16 2024 16:12:52 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

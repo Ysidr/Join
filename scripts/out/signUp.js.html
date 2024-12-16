@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: signUp.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: signUp.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Collects new account data from input fields and processes it for account creation.
+ * Checks if the email is already in use before proceeding.
+ * @async
+ * @function addAccountData
+ * @returns {Promise&lt;void>}
+ */
+async function addAccountData() {
+    await setUsersAmount();
+    let nameOfNewUser = document.getElementById("nameInput").value;
+    let mailOfNewUser = document.getElementById("mailInput").value;
+    let passwordOfNewUser = document.getElementById("passwordInput").value;
+    let data = {
+        "name": nameOfNewUser,
+        "mail": mailOfNewUser,
+        "password": passwordOfNewUser
+    };
+    mailIsUsed = false;
+    checkForMailAdress(data);
+}
+
+/**
+ * Retrieves the total number of registered users from the server and updates the `UsersAmountViaId` variable.
+ * @async
+ * @function setUsersAmount
+ * @returns {Promise&lt;number>} - The total number of users.
+ */
+async function setUsersAmount() {
+    let response = await fetch(BASE_URL + "UserAmount.json");
+    let responseToJson = await response.json();
+    UsersAmountViaId = responseToJson;
+    return UsersAmountViaId;
+}
+
+/**
+ * Checks if the provided email address already exists in the user database.
+ * If the email is not in use, proceeds to post the account data.
+ * @async
+ * @function checkForMailAdress
+ * @param {Object} data - The account data to be checked.
+ * @param {string} data.name - The name of the user.
+ * @param {string} data.mail - The email of the user.
+ * @param {string} data.password - The password of the user.
+ * @returns {Promise&lt;void>}
+ */
+async function checkForMailAdress(data) {
+    for (let indexUserCount = 1; indexUserCount &lt;= UsersAmountViaId; indexUserCount++) {
+        let response = await fetch(BASE_URL + `User/${indexUserCount}.json`);
+        let responseToJson = await response.json();
+        if (responseToJson.mail === document.getElementById("mailInput").value) {
+            mailIsUsed = true;
+        }
+    }
+    postAccoundData(data);
+}
+
+/**
+ * Posts the account data to the server if the email is not already in use.
+ * Displays an alert if the email exists, otherwise continues the account creation process.
+ * @async
+ * @function postAccoundData
+ * @param {Object} data - The account data to be posted.
+ * @returns {Promise&lt;void>}
+ */
+async function postAccoundData(data) {
+    if (mailIsUsed === true) {
+        alert("The email already exists.");
+        mailIsUsed = false;
+    } else {
+        checkAndPutToServer(data);
+        mailIsUsed = false;
+    }
+}
+
+/**
+ * Validates the password confirmation and sends the account data to the server.
+ * Redirects to a success page if passwords match, or displays an alert if they do not.
+ * @async
+ * @function checkAndPutToServer
+ * @param {Object} data - The account data to be validated and sent to the server.
+ * @returns {Promise&lt;void>}
+ */
+async function checkAndPutToServer(data) {
+    if (document.getElementById("passwordInput").value === document.getElementById("confirmInput").value) {
+        UsersAmountViaId++;
+        await putToServer(data);
+        await putUserAmountToServer();
+        window.location.href = "succesfulNewAccount.html";
+    } else {
+        alert("Passwords do not match.");
+    }
+}
+
+/**
+ * Sends account data to the server for the newly created user.
+ * @async
+ * @function putToServer
+ * @param {Object} data - The account data to be sent.
+ * @returns {Promise&lt;Object>} - The server's response after storing the account data.
+ */
+async function putToServer(data) {
+    let response = await fetch(BASE_URL + `User/${UsersAmountViaId}.json`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}
+
+/**
+ * Updates the total number of registered users on the server.
+ * @async
+ * @function putUserAmountToServer
+ * @returns {Promise&lt;Object>} - The server's response after updating the user count.
+ */
+async function putUserAmountToServer() {
+    let response = await fetch(BASE_URL + `UserAmount/.json`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(UsersAmountViaId)
+    });
+    return await response.json();
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="window.html#event:onload">onload</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAccountData">addAccountData</a></li><li><a href="global.html#addDNone">addDNone</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTaskInBoard">addTaskInBoard</a></li><li><a href="global.html#addToNewGroup">addToNewGroup</a></li><li><a href="global.html#cancelCreateContact">cancelCreateContact</a></li><li><a href="global.html#cancelEdit">cancelEdit</a></li><li><a href="global.html#changeTaskFields">changeTaskFields</a></li><li><a href="global.html#changeToDropOffJson">changeToDropOffJson</a></li><li><a href="global.html#checkAndPutToServer">checkAndPutToServer</a></li><li><a href="global.html#checkAwait">checkAwait</a></li><li><a href="global.html#checkEverythingInTask">checkEverythingInTask</a></li><li><a href="global.html#checkForAddedUsers">checkForAddedUsers</a></li><li><a href="global.html#checkForCategory">checkForCategory</a></li><li><a href="global.html#checkForExistingAccount">checkForExistingAccount</a></li><li><a href="global.html#checkForGreeting">checkForGreeting</a></li><li><a href="global.html#checkForImportance">checkForImportance</a></li><li><a href="global.html#checkForLoadedPage">checkForLoadedPage</a></li><li><a href="global.html#checkForMailAdress">checkForMailAdress</a></li><li><a href="global.html#checkForSubtasks">checkForSubtasks</a></li><li><a href="global.html#checkForUrgent">checkForUrgent</a></li><li><a href="global.html#checkInProgress">checkInProgress</a></li><li><a href="global.html#checkToDo">checkToDo</a></li><li><a href="global.html#clearInputs">clearInputs</a></li><li><a href="global.html#clearInuptField">clearInuptField</a></li><li><a href="global.html#closeContactInfo">closeContactInfo</a></li><li><a href="global.html#contactSelected">contactSelected</a></li><li><a href="global.html#content">content</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#currentUserName">currentUserName</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTaskFromBoard">deleteTaskFromBoard</a></li><li><a href="global.html#displayContactInfo">displayContactInfo</a></li><li><a href="global.html#displayCounts">displayCounts</a></li><li><a href="global.html#dragoverHandler">dragoverHandler</a></li><li><a href="global.html#dragstartHandler">dragstartHandler</a></li><li><a href="global.html#dropHandler">dropHandler</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTaskInBoard">editTaskInBoard</a></li><li><a href="global.html#fetchContacts">fetchContacts</a></li><li><a href="global.html#fetchUserFromFirebase">fetchUserFromFirebase</a></li><li><a href="global.html#finalizeContactEditing">finalizeContactEditing</a></li><li><a href="global.html#findCurrentLetter">findCurrentLetter</a></li><li><a href="global.html#gatherAllTaskData">gatherAllTaskData</a></li><li><a href="global.html#getAddedContacts">getAddedContacts</a></li><li><a href="global.html#getAndDisplayName">getAndDisplayName</a></li><li><a href="global.html#getCategory">getCategory</a></li><li><a href="global.html#getContactInfoTemplate">getContactInfoTemplate</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getContactsWithThisLetter">getContactsWithThisLetter</a></li><li><a href="global.html#getCurrentMailForButtons">getCurrentMailForButtons</a></li><li><a href="global.html#getCurrentMovedTask">getCurrentMovedTask</a></li><li><a href="global.html#getEditedContactInputs">getEditedContactInputs</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getInitialsOfAddedUser">getInitialsOfAddedUser</a></li><li><a href="global.html#getInitialsOfAddedUsers">getInitialsOfAddedUsers</a></li><li><a href="global.html#getLetterGroups">getLetterGroups</a></li><li><a href="global.html#getLoadContactTemplate">getLoadContactTemplate</a></li><li><a href="global.html#getNewTaskInfo">getNewTaskInfo</a></li><li><a href="global.html#getPriority">getPriority</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getToDoTasks">getToDoTasks</a></li><li><a href="global.html#getUrgentAmount">getUrgentAmount</a></li><li><a href="global.html#getUserCount">getUserCount</a></li><li><a href="global.html#goToSignUp">goToSignUp</a></li><li><a href="global.html#initAddTask">initAddTask</a></li><li><a href="global.html#initBoards">initBoards</a></li><li><a href="global.html#initLogin">initLogin</a></li><li><a href="global.html#initStartPage">initStartPage</a></li><li><a href="global.html#initSummary">initSummary</a></li><li><a href="global.html#loadAll">loadAll</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadContactsSecondFunction">loadContactsSecondFunction</a></li><li><a href="global.html#loadCss">loadCss</a></li><li><a href="global.html#loadHtml">loadHtml</a></li><li><a href="global.html#loadPage">loadPage</a></li><li><a href="global.html#loadScript">loadScript</a></li><li><a href="global.html#loadUserData">loadUserData</a></li><li><a href="global.html#loginWithAccount">loginWithAccount</a></li><li><a href="global.html#logoSlideIn">logoSlideIn</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#modifyContacts">modifyContacts</a></li><li><a href="global.html#navbarLinks">navbarLinks</a></li><li><a href="global.html#pagesWithScripts">pagesWithScripts</a></li><li><a href="global.html#postAccoundData">postAccoundData</a></li><li><a href="global.html#putAllTasksToServer">putAllTasksToServer</a></li><li><a href="global.html#putEditedTaskToServer">putEditedTaskToServer</a></li><li><a href="global.html#putTaskToServer">putTaskToServer</a></li><li><a href="global.html#putToServer">putToServer</a></li><li><a href="global.html#putUserAmountToServer">putUserAmountToServer</a></li><li><a href="global.html#reloadPage">reloadPage</a></li><li><a href="global.html#removeFromOldGroup">removeFromOldGroup</a></li><li><a href="global.html#renderAddContactForm">renderAddContactForm</a></li><li><a href="global.html#renderAllSubtasks">renderAllSubtasks</a></li><li><a href="global.html#renderAllTasks">renderAllTasks</a></li><li><a href="global.html#renderAwaitFeedback">renderAwaitFeedback</a></li><li><a href="global.html#renderCategoryTechnical">renderCategoryTechnical</a></li><li><a href="global.html#renderCategoryUser">renderCategoryUser</a></li><li><a href="global.html#renderClosestDate">renderClosestDate</a></li><li><a href="global.html#renderContact">renderContact</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDone">renderDone</a></li><li><a href="global.html#renderInProgress">renderInProgress</a></li><li><a href="global.html#renderInitials">renderInitials</a></li><li><a href="global.html#renderNoteToEdit">renderNoteToEdit</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderTasksinBoard">renderTasksinBoard</a></li><li><a href="global.html#renderToDo">renderToDo</a></li><li><a href="global.html#renderUrgent">renderUrgent</a></li><li><a href="global.html#resetAllBoards">resetAllBoards</a></li><li><a href="global.html#resetAllVars">resetAllVars</a></li><li><a href="global.html#resetContactList">resetContactList</a></li><li><a href="global.html#saveContacts">saveContacts</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveSubtask">saveSubtask</a></li><li><a href="global.html#searchTasksInBoard">searchTasksInBoard</a></li><li><a href="global.html#setAwaitFeedbackTaskCount">setAwaitFeedbackTaskCount</a></li><li><a href="global.html#setDoneTaskCount">setDoneTaskCount</a></li><li><a href="global.html#setInProgressTaskCount">setInProgressTaskCount</a></li><li><a href="global.html#setToDoTaskCount">setToDoTaskCount</a></li><li><a href="global.html#setUsersAmount">setUsersAmount</a></li><li><a href="global.html#subtaskSelected">subtaskSelected</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleNoteDetails">toggleNoteDetails</a></li><li><a href="global.html#updateAllTaskCounts">updateAllTaskCounts</a></li><li><a href="global.html#updateAndUploadAllTaskCounts">updateAndUploadAllTaskCounts</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#uploadAllTaskCounts">uploadAllTaskCounts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 16 2024 16:12:52 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

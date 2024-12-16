@@ -25,6 +25,11 @@ let newPrio = "";
 let newCategory = "";
 let newTaskData = {};
 
+/**
+ * Initializes the task creation process by clearing the input fields.
+ * @function stopEventBubbling
+ * 
+ */
 function stopEventBubbling(event) {
     event.stopPropagation()
 }
