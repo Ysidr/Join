@@ -1,7 +1,20 @@
+/**
+ * Loads all contacts from the server and displays them on the page.
+ * @async
+ * @function loadAll
+ * @returns {Promise<void>}
+ */
 async function loadAll() {
     await loadContacts();
 }
 
+/**
+ * Fetches the contacts from the server and organizes them by their first letter.
+ * Then, it loads and displays each contact group.
+ * @async
+ * @function loadContacts
+ * @returns {Promise<void>}
+ */
 async function loadContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
@@ -14,6 +27,14 @@ async function loadContacts() {
     }
 }
 
+/**
+ * Generates and appends HTML for each contact group based on the first letter of the contact names.
+ * @function loadContactsSecondFunction
+ * @param {string} letter - The first letter of the contact group.
+ * @param {Array} contactsForLetter - The contacts under the specific letter group.
+ * @param {HTMLElement} contactContainer - The container element where contacts will be displayed.
+ * @returns {void}
+ */
 function loadContactsSecondFunction(letter, contactsForLetter, contactContainer) {
     let letterHTML = `<div class="contact-letter-section"><h2 class="letter-border">${letter}</h2>`;  
     for (let j = 0; j < contactsForLetter.length; j++) {
@@ -25,6 +46,12 @@ function loadContactsSecondFunction(letter, contactsForLetter, contactContainer)
     contactContainer.innerHTML += letterHTML;
 }
 
+/**
+ * Hides the "new contact" and "edit contact" forms.
+ * @async
+ * @function cancelCreateContact
+ * @returns {Promise<void>}
+ */
 async function cancelCreateContact() {
     const newContactForm = document.getElementById("newContactForm");
     const editContactForm = document.getElementById("editContactForm");
@@ -32,12 +59,24 @@ async function cancelCreateContact() {
     if (editContactForm) editContactForm.classList.add("hidden");
 }
 
+/**
+ * Displays the "new contact" form and applies a blur background.
+ * @async
+ * @function renderAddContactForm
+ * @returns {Promise<void>}
+ */
 async function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");
     newContactForm.classList.remove("hidden");
     newContactForm.classList.add("bg-blur");
 }
 
+/**
+ * Creates a new contact and saves it to the server after validation.
+ * @async
+ * @function createContact
+ * @returns {Promise<void>}
+ */
 async function createContact() {
     const nameInput = document.getElementById("newContactName");
     const emailInput = document.getElementById("newContactEmail");
@@ -77,6 +116,12 @@ async function createContact() {
     }
 }
 
+/**
+ * Retrieves the initials of a contact's name.
+ * @function getInitials
+ * @param {string} name - The full name of the contact.
+ * @returns {string} The initials of the contact's name.
+ */
 function getInitials(name) {
     if (currentUserName == "") {
         currentUserName = name;
@@ -89,6 +134,11 @@ function getInitials(name) {
     return initials.toUpperCase();
 }
 
+/**
+ * Generates a random color in hexadecimal format.
+ * @function getRandomColor
+ * @returns {string} A random hex color code.
+ */
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -98,6 +148,17 @@ function getRandomColor() {
     return color;
 }
 
+/**
+ * Displays detailed information of a contact in a modal-like container.
+ * @async
+ * @function displayContactInfo
+ * @param {string} name - The name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone number of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} bgColor - The background color for the contact display.
+ * @returns {Promise<void>}
+ */
 async function displayContactInfo(name, email, phone, initials, bgColor) {
     const contactInfoContainer = document.getElementById("contactInfo");
     const contactContainer = document.getElementById("contactContainer");
@@ -110,12 +171,24 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
     contactContainer.classList.add("show");
 }
 
+/**
+ * Closes the contact information modal.
+ * @function closeContactInfo
+ * @returns {void}
+ */
 function closeContactInfo() {
     const contactContainer = document.getElementById("contactContainer");
     contactContainer.classList.add("sehr-hidden");
     contactContainer.classList.remove("show");
 }
 
+/**
+ * Edits an existing contact's information.
+ * @async
+ * @function editContact
+ * @param {string} contactEmail - The email of the contact to be edited.
+ * @returns {Promise<void>}
+ */
 async function editContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
@@ -154,8 +227,12 @@ async function editContact(contactEmail) {
     getCurrentMailForButtons(contactEmail)
 }
 
-
-
+/**
+ * Saves the edited contact details back to the server.
+ * @async
+ * @function saveEditedContact
+ * @returns {Promise<void>}
+ */
 async function saveEditedContact() {
     const { name, email, phone, currentEmail, bgColor } = getEditedContactInputs();
     if (!name || !email || !phone || !currentEmail) {
@@ -171,6 +248,11 @@ async function saveEditedContact() {
     finalizeContactEditing(updatedContact);
 }
 
+/**
+ * Collects the edited contact data from the form.
+ * @function getEditedContactInputs
+ * @returns {Object} The edited contact's name, email, phone, bgColor, and currentEmail.
+ */
 function getEditedContactInputs() {
     const form = document.getElementById("editContactForm");
     return {
@@ -182,38 +264,92 @@ function getEditedContactInputs() {
     };
 }
 
+/**
+ * Fetches all contacts from the server.
+ * @async
+ * @function fetchContacts
+ * @returns {Promise<Object>} The contacts object from the server.
+ */
 async function fetchContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     return response.json() || {};
 }
 
+/**
+ * Determines the old and new letter groups based on the edited contact's information.
+ * @function getLetterGroups
+ * @param {Object} contacts - The contacts object grouped by letters.
+ * @param {string} newName - The new name of the contact.
+ * @param {string} currentEmail - The current email of the contact.
+ * @returns {Object} An object containing the old and new letter groups.
+ */
 function getLetterGroups(contacts, newName, currentEmail) {
     const oldLetter = findCurrentLetter(contacts, currentEmail);
     const newLetter = newName.charAt(0).toUpperCase();
     return { oldLetter, newLetter };
 }
 
+/**
+ * Finds the current letter group for the contact with the specified email.
+ * @function findCurrentLetter
+ * @param {Object} contacts - The contacts object grouped by letters.
+ * @param {string} currentEmail - The email of the contact.
+ * @returns {string} The letter group where the contact belongs.
+ */
 function findCurrentLetter(contacts, currentEmail) {
     return Object.keys(contacts).find(letter =>
         contacts[letter]?.some(c => c.email === currentEmail)
     );
 }
 
+/**
+ * Modifies the contacts object by removing the old contact and adding the updated contact.
+ * @function modifyContacts
+ * @param {Object} contacts - The contacts object grouped by letters.
+ * @param {Object} updatedContact - The updated contact object.
+ * @param {string} oldLetter - The old letter group of the contact.
+ * @param {string} newLetter - The new letter group of the contact.
+ * @param {string} currentEmail - The current email of the contact.
+ * @returns {void}
+ */
 function modifyContacts(contacts, updatedContact, oldLetter, newLetter, currentEmail) {
     removeFromOldGroup(contacts, oldLetter, currentEmail);
     addToNewGroup(contacts, newLetter, updatedContact);
 }
 
+/**
+ * Removes a contact from its old letter group.
+ * @function removeFromOldGroup
+ * @param {Object} contacts - The contacts object grouped by letters.
+ * @param {string} oldLetter - The old letter group of the contact.
+ * @param {string} currentEmail - The email of the contact to be removed.
+ * @returns {void}
+ */
 function removeFromOldGroup(contacts, oldLetter, currentEmail) {
     contacts[oldLetter] = contacts[oldLetter].filter(c => c.email !== currentEmail);
     if (!contacts[oldLetter].length) delete contacts[oldLetter];
 }
 
+/**
+ * Adds a contact to its new letter group.
+ * @function addToNewGroup
+ * @param {Object} contacts - The contacts object grouped by letters.
+ * @param {string} newLetter - The new letter group of the contact.
+ * @param {Object} updatedContact - The updated contact to be added.
+ * @returns {void}
+ */
 function addToNewGroup(contacts, newLetter, updatedContact) {
     if (!contacts[newLetter]) contacts[newLetter] = [];
     contacts[newLetter].push(updatedContact);
 }
 
+/**
+ * Saves the updated contacts object to the server.
+ * @async
+ * @function saveContacts
+ * @param {Object} contacts - The contacts object to be saved.
+ * @returns {Promise<void>}
+ */
 async function saveContacts(contacts) {
     await fetch(BASE_URL + "Contacts.json", {
         method: "PUT",
@@ -222,6 +358,12 @@ async function saveContacts(contacts) {
     });
 }
 
+/**
+ * Finalizes the contact editing process by hiding the edit form and reloading the contacts.
+ * @function finalizeContactEditing
+ * @param {Object} updatedContact - The updated contact that has been edited.
+ * @returns {void}
+ */
 function finalizeContactEditing(updatedContact) {
     const form = document.getElementById("editContactForm");
     form.classList.add("hidden");
@@ -235,6 +377,13 @@ function finalizeContactEditing(updatedContact) {
     );
 }
 
+/**
+ * Deletes a contact based on the provided email.
+ * @async
+ * @function deleteContact
+ * @param {string} contactEmail - The email of the contact to be deleted.
+ * @returns {Promise<void>}
+ */
 async function deleteContact(contactEmail) {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
@@ -259,7 +408,12 @@ async function deleteContact(contactEmail) {
     loadAll()
 }
 
+/**
+ * The main function that runs when the page is loaded. It initiates the loading of all contacts.
+ * @async
+ * @function main
+ * @returns {Promise<void>}
+ */
 (async function main() {
     await loadAll();
 })();
-

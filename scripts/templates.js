@@ -1,37 +1,63 @@
-//Render Task Counts for Summary functions
-
+/**
+ * Renders the count of tasks in the "To Do" section.
+ */
 function renderToDo() {
     document.getElementById("toDoCount").innerHTML =
         `<h1 class="taskAmount">${toDoTaskCount}</h1>`
 }
+
+/**
+ * Renders the count of tasks in the "Done" section.
+ */
 function renderDone() {
     document.getElementById("doneCount").innerHTML =
         `<h1 class="taskAmount">${doneTaskCount}</h1>`
 }
+
+/**
+ * Renders the count of tasks in the "Urgent" section.
+ */
 function renderUrgent() {
     document.getElementById("urgentTasks").innerHTML =
         `<h1 class="taskAmount">${urgentAmount}</h1>`
 }
+
+/**
+ * Renders the total count of all tasks across different categories.
+ */
 function renderAllTasks() {
     document.getElementById("allTasks").innerHTML =
         `<h1 class="taskAmount">${toDoTaskCount + awaitFeedbackTaskCount + doneTaskCount + inProgressTaskCount}</h1>`
 }
+
+/**
+ * Renders the count of tasks in the "In Progress" section.
+ */
 function renderInProgress() {
     document.getElementById("inProgressTasks").innerHTML =
         `<h1 class="taskAmount">${inProgressTaskCount}</h1>`
 }
+
+/**
+ * Renders the count of tasks awaiting feedback.
+ */
 function renderAwaitFeedback() {
     document.getElementById("awaitFeedbackTasks").innerHTML =
         `<h1 class="taskAmount">${awaitFeedbackTaskCount}</h1>`
 }
+
+/**
+ * Renders the closest deadline date in a formatted way (DD-MM-YYYY).
+ */
 function renderClosestDate() {
     let s = nextDeadline;
     const niceDisplayOfDate = s.split('-').reverse().join('-');
     document.getElementById("Date").innerHTML = `<h2>${niceDisplayOfDate}</h2>`
 }
 
-//Render Contacts in Add Task functions
-
+/**
+ * Resets the contact list in the "Add Task" section to its default state.
+ */
 function resetContactList() {
     document.getElementById("openContactsDiv").innerHTML =
         `<div class="singleContact">
@@ -40,6 +66,11 @@ function resetContactList() {
                 </div>`
 }
 
+/**
+ * Renders individual contacts in the "Add Task" section.
+ * @param {Object} responseToJson - The JSON response containing the contact data.
+ * @param {number} indexContactWithLetter - The index of the contact in the response data.
+ */
 function renderContact(responseToJson, indexContactWithLetter) {
     let name = responseToJson[indexContactWithLetter].name;
     let color = responseToJson[indexContactWithLetter].bgColor;
@@ -58,8 +89,12 @@ function renderContact(responseToJson, indexContactWithLetter) {
     }
 }
 
-//Render tasks in Board functions
-
+/**
+ * Renders a task in the board view.
+ * @param {Object} responseToJson - The JSON response containing the task data.
+ * @param {number} indexTaskFields - The index of the task's field in the response data.
+ * @param {number} indexTaskCount - The index of the task in the response data.
+ */
 function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
     document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
         `<span class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')" ondragstart="dragstartHandler(event)">
@@ -78,6 +113,10 @@ function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
         </span>`;
 }
 
+/**
+ * Renders subtasks for a specific task.
+ * @param {Object} responseToJson - The JSON response containing the task data with subtasks.
+ */
 function renderSubtasks(responseToJson) {
     let doneCount = 0;
     for (let indexSubtasks = 0; indexSubtasks < responseToJson.subtasks.addedTask.length; indexSubtasks++) {
@@ -95,22 +134,42 @@ function renderSubtasks(responseToJson) {
                                 <p class="amountSubtaskSingleCard">${doneCount}/${responseToJson.subtasks.addedTask.length}</p>
                                 <p class="subtaskTextSingleCard">Subtasks</p>
                             </div>`;
-
 }
 
+/**
+ * Renders a "Technical Task" category for a task.
+ * @param {Object} getCurrentTask - The task object.
+ */
 function renderCategoryTechnical(getCurrentTask) {
     document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML =
         `<p class="categorySingleCard" id="category${getCurrentTask.title}">Technical Task</p>`
 }
 
+/**
+ * Renders a "User Story" category for a task.
+ * @param {Object} getCurrentTask - The task object.
+ */
 function renderCategoryUser(getCurrentTask) {
     document.getElementById(`divCategory${getCurrentTask.title}`).innerHTML = `<p class="categorySingleCard" id="category${getCurrentTask.title}">User Story</p>`
 }
 
+/**
+ * Renders the initials of a contact assigned to a task.
+ * @param {string} firstInitial - The first initial of the contact's name.
+ * @param {string} lastInitial - The last initial of the contact's name.
+ * @param {string} title - The task's title.
+ * @param {Object} currentTask - The current task object.
+ * @param {number} index - The index of the assigned contact.
+ */
 function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
     document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}</p>`
 }
 
+/**
+ * Renders task details in the details view.
+ * @param {number} indexTaskFields - The index of the task's field in the task data.
+ * @param {number} indexTaskCount - The index of the task.
+ */
 function renderDetails(indexTaskFields, indexTaskCount) {
     document.getElementById("detailContacts").innerHTML = "";
     document.getElementById("detailSubtasks").innerHTML = "";
@@ -151,6 +210,14 @@ function renderDetails(indexTaskFields, indexTaskCount) {
 }
 
 
+/**
+ * Generates the HTML template for displaying a contact in a contact list.
+ * The contact's initials, name, email, and background color are dynamically inserted into the template.
+ * 
+ * @param {Object} contact - The contact object containing the details (name, email, phone, bgColor).
+ * @param {string} initials - The initials of the contact to be displayed.
+ * @returns {string} The HTML template for a contact item.
+ */
 function getLoadContactTemplate(contact, initials) {
     return `
         <div class="contact-item" onclick="displayContactInfo('${contact.name}', '${contact.email}', '${contact.phone}', '${initials}', '${contact.bgColor}')">
@@ -162,6 +229,17 @@ function getLoadContactTemplate(contact, initials) {
     `;
 }
 
+/**
+ * Generates the HTML template for displaying detailed information of a contact.
+ * This template includes options to edit or delete the contact, as well as the contact's email and phone number.
+ * 
+ * @param {string} name - The name of the contact.
+ * @param {string} email - The email of the contact.
+ * @param {string} phone - The phone number of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} bgColor - The background color of the contact's initials.
+ * @returns {string} The HTML template for contact details.
+ */
 function getContactInfoTemplate(name, email, phone, initials, bgColor) {
     return `
         <div class="contact-info-container">
@@ -185,7 +263,11 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
         </div>`;
 }
 
-
+/**
+ * Updates the UI with buttons for deleting or saving the edited contact.
+ * 
+ * @param {string} contactEmail - The email of the contact being edited.
+ */
 function getCurrentMailForButtons(contactEmail) {
     document.getElementById("new-contact-button-container").innerHTML = ` <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
                             <button>Delete</button>
@@ -196,6 +278,10 @@ function getCurrentMailForButtons(contactEmail) {
                         </div>`
 }
 
+/**
+ * Resets all task boards to their default state with no tasks displayed.
+ * This function clears the contents of all task categories (In Progress, To Do, Done, Await Feedback).
+ */
 function resetAllBoards() {
     document.getElementById("InProgressTasks").innerHTML = `<div class="singleTaskBoard defaultNoTasks">
                 <p class="noCurrentTasksText">No tasks In Progress</p>
@@ -211,6 +297,10 @@ function resetAllBoards() {
             </div>`
 }
 
+/**
+ * Clears the values in all input fields related to task creation.
+ * It also resets various task-related state variables, preparing the UI for a new task.
+ */
 function clearInputs() {
     document.getElementById("titleInput").value = "";
     document.getElementById("descriptionInput").value = "";
@@ -231,6 +321,12 @@ function clearInputs() {
     newTaskData = {};
 }
 
+/**
+ * Adds a new subtask to the task creation UI.
+ * The subtask is displayed with options to delete or edit it.
+ * 
+ * @throws {Error} If the subtask name is empty or only consists of spaces.
+ */
 function addSubtask() {
     let subtaskName = document.getElementById("subtaskInput").value.trim();
     if (subtaskName === "") return;
@@ -264,6 +360,13 @@ function addSubtask() {
     document.getElementById("subtaskInput").value = "";
 }
 
+/**
+ * Saves the updated name for an existing subtask after editing.
+ * 
+ * @param {HTMLElement} subtaskContainer - The container of the subtask to be updated.
+ * @param {string} newName - The new name for the subtask.
+ * @param {string} oldName - The original name of the subtask.
+ */
 function saveSubtask(subtaskContainer, newName, oldName) {
     let index = addedSubtasks.indexOf(oldName);
     if (index !== -1) {
@@ -292,6 +395,10 @@ function saveSubtask(subtaskContainer, newName, oldName) {
     subtaskContainer.appendChild(editImg);
 }
 
+/**
+ * Renders all the added subtasks to the UI for a specific task.
+ * Each subtask is displayed with options to delete or edit it.
+ */
 function renderAllSubtasks() {
     let container = document.getElementById("addedSubtasks");
     container.innerHTML = "";
@@ -324,6 +431,14 @@ function renderAllSubtasks() {
     });
 }
 
+/**
+ * Fills in the task input fields with the details of a specific task that is being edited.
+ * This includes the task's title, description, date, subtasks, and category.
+ * 
+ * @param {Object} specificObject - The task object containing the data to be rendered.
+ * @param {number} indexTaskFields - The index of the task in the list of fields.
+ * @param {number} indexTaskCount - The index of the task in the list of tasks.
+ */
 function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     document.getElementById("titleInput").value = specificObject.title;
     document.getElementById("descriptionInput").value = specificObject.description;
@@ -339,11 +454,9 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     }
     if (specificObject.category = "technical") {
         document.getElementById("categorytSelector").selectedIndex = 1;
-    }else {
+    } else {
         document.getElementById("categorytSelector").selectedIndex = 2;
     }
     document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
     <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
-
 }
-

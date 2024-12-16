@@ -1,7 +1,31 @@
+/** 
+ * An array containing page names that require scripts to be dynamically loaded.
+ * @constant {string[]}
+ */
 const pagesWithScripts = ["summary", "addTask", "board", "contacts"];
+
+/**
+ * Stores the current user's name.
+ * @type {string}
+ */
 let currentUserName = "";
+
+/**
+ * Loads user data when the page is fully loaded.
+ * @event window#onload
+ */
 window.onload = loadUserData;
+
+/**
+ * The main content container for dynamically loaded pages.
+ * @type {HTMLElement}
+ */
 const content = document.getElementById("main-content");
+
+/**
+ * Array of navigation bar link elements for handling page navigation.
+ * @type {HTMLElement[]}
+ */
 const navbarLinks = [
     document.getElementById("summaryLink"),
     document.getElementById("addTaskLink"),
@@ -13,6 +37,12 @@ const navbarLinks = [
     document.getElementById("login")
 ];
 
+/**
+ * Loads user data and displays the user's initials. If no user data is found, defaults to "G".
+ * @async
+ * @function loadUserData
+ * @returns {Promise<void>}
+ */
 async function loadUserData() {
     const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
     if (isGuest) {
@@ -26,20 +56,34 @@ async function loadUserData() {
         const initials = getInitials(userData.name);
         document.getElementById('user-initials').textContent = initials;
     } catch (error) {
-        console.error('Fehler beim Laden der Benutzerdaten:', error);
+        console.error('Error loading user data:', error);
         document.getElementById('user-initials').textContent = 'G';
     }
 }
 
+/**
+ * Fetches user data from Firebase based on the given user ID.
+ * @async
+ * @function fetchUserFromFirebase
+ * @param {string} userId - The ID of the user to fetch data for.
+ * @returns {Promise<Object>} - A promise resolving to the user data.
+ * @throws Will throw an error if the user data cannot be retrieved.
+ */
 async function fetchUserFromFirebase(userId) {
     const response = await fetch(`${BASE_URL}User/${userId}.json`);
     if (!response.ok) {
-        throw new Error('Benutzerdaten konnten nicht abgerufen werden');
+        throw new Error('Failed to fetch user data');
     }
     const userData = await response.json();
     return userData;
 }
 
+/**
+ * Extracts the initials from a user's full name.
+ * @function getInitials
+ * @param {string} name - The full name of the user.
+ * @returns {string} - The initials of the user, or "G" if the name is not provided.
+ */
 function getInitials(name) {
     if (!name) return 'G';
     const nameParts = name.split(' ');
@@ -48,17 +92,29 @@ function getInitials(name) {
     return firstInitial + (lastInitial || '');
 }
 
+/**
+ * Dynamically loads a page, including its HTML, CSS, and optional script.
+ * @async
+ * @function loadPage
+ * @param {string} page - The name of the page to load.
+ * @returns {Promise<void>}
+ */
 async function loadPage(page) {
     try {
         await loadHtml(page);
         await loadCss(page);
         await loadScript(page);
-        checkForLoadedPage(page)
+        checkForLoadedPage(page);
     } catch (error) {
-        content.innerHTML = `<p>Ein Fehler ist aufgetreten: ${error.message}</p>`;
+        content.innerHTML = `<p>An error occurred: ${error.message}</p>`;
     }
 }
 
+/**
+ * Checks the page being loaded and initializes its specific functionality if applicable.
+ * @function checkForLoadedPage
+ * @param {string} page - The name of the page being loaded.
+ */
 function checkForLoadedPage(page) {
     if (page === "summary" && typeof initSummary === "function") {
         initSummary();
@@ -71,16 +127,31 @@ function checkForLoadedPage(page) {
     }
 }
 
+/**
+ * Loads the HTML content of a page into the main content container.
+ * @async
+ * @function loadHtml
+ * @param {string} page - The name of the page whose HTML is to be loaded.
+ * @returns {Promise<void>}
+ * @throws Will throw an error if the HTML file cannot be loaded.
+ */
 async function loadHtml(page) {
     const response = await fetch(`${page}.html`);
     if (response.ok) {
         const html = await response.text();
         content.innerHTML = html;
     } else {
-        throw new Error(`Seite ${page}.html konnte nicht geladen werden.`);
+        throw new Error(`Failed to load page ${page}.html`);
     }
 }
 
+/**
+ * Dynamically loads the CSS file for a specific page.
+ * @async
+ * @function loadCss
+ * @param {string} page - The name of the page whose CSS is to be loaded.
+ * @returns {Promise<void>}
+ */
 async function loadCss(page) {
     const cssResponse = await fetch(`./styles/${page}.css`);
     if (cssResponse.ok) {
@@ -91,10 +162,17 @@ async function loadCss(page) {
             document.head.innerHTML += `<link id="dynamic-css" rel="stylesheet" href="./styles/${page}.css">`;
         }
     } else {
-        console.log(`Keine CSS-Datei für ${page} gefunden.`);
+        console.log(`No CSS file found for ${page}`);
     }
 }
 
+/**
+ * Dynamically loads and executes the JavaScript file for a specific page, if required.
+ * @async
+ * @function loadScript
+ * @param {string} page - The name of the page whose script is to be loaded.
+ * @returns {Promise<void>}
+ */
 async function loadScript(page) {
     try {
         if (!pagesWithScripts.includes(page)) {
@@ -107,10 +185,14 @@ async function loadScript(page) {
             eval(scriptText);
         }
     } catch (error) {
-        console.error(`Fehler beim Laden von JS für ${page}:`, error);
+        console.error(`Error loading JS for ${page}:`, error);
     }
 }
 
+/**
+ * Initializes page navigation by adding event listeners to navigation links.
+ * @function navbarLinks#forEach
+ */
 navbarLinks.forEach((link) => {
     if (link) {
         link.onclick = function (event) {
@@ -121,12 +203,21 @@ navbarLinks.forEach((link) => {
     }
 });
 
+/**
+ * Immediately invoked function expression (IIFE) to load the initial start page.
+ * @async
+ * @function initStartPage
+ * @returns {Promise<void>}
+ */
 (async function initStartPage() {
     await loadPage("summary");
 })();
 
+/**
+ * Toggles the visibility of the menu container by adding or removing a 'hidden' class.
+ * @function toggleMenu
+ */
 function toggleMenu() {
     const menu = document.getElementById('menu-container');
     menu.classList.toggle('hidden');
 }
-
