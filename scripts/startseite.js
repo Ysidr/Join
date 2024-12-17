@@ -99,6 +99,15 @@ function getInitials(name) {
  * @param {string} page - The name of the page to load.
  * @returns {Promise<void>}
  */
+
+function setActiveLink(event, page) {
+    event.preventDefault();
+    const links = document.querySelectorAll('.nav-container a, .flex a');
+    links.forEach(link => link.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    loadPage(page);
+}
+
 async function loadPage(page) {
     try {
         await loadHtml(page);

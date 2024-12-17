@@ -37,16 +37,25 @@
             <img src="assets/icons/Capa 1.png" alt="Kanban Logo" class="kanban-logo">
         </div>
         <div class="nav-container">
-            <a href="#" onclick="loadPage('summary')"><img src="assets/icons/Icons.png" alt="Summary">Summary</a>
-            <a href="#" onclick="loadPage('addTask')"><img src="assets/icons/Icons (1).png" alt="Add Task">Add Task</a>
-            <a href="#" onclick="loadPage('board')"><img src="assets/icons/Icons (2).png" alt="Board">Board</a>
-            <a href="#" onclick="loadPage('contacts')"><img src="assets/icons/Icons (3).png" alt="Contacts">Contacts</a>
+            <a href="#" onclick="setActiveLink(event, 'summary')">
+                <img src="assets/icons/Icons.png" alt="Summary">Summary
+            </a>
+            <a href="#" onclick="setActiveLink(event, 'addTask')">
+                <img src="assets/icons/Icons (1).png" alt="Add Task">Add Task
+            </a>
+            <a href="#" onclick="setActiveLink(event, 'board')">
+                <img src="assets/icons/Icons (2).png" alt="Board">Board
+            </a>
+            <a href="#" onclick="setActiveLink(event, 'contacts')">
+                <img src="assets/icons/Icons (3).png" alt="Contacts">Contacts
+            </a>
         </div>
         <div class="flex flex-col cursor-pointer">
-            <a href="#" id="privacyPolicy" data-page="privacyPolicy">Privacy Policy</a>
-            <a href="#" id="legalNotice" data-page="legalNotice">Legal Notice</a>
+            <a href="#" onclick="setActiveLink(event, 'privacyPolicy')">Privacy Policy</a>
+            <a href="#" onclick="setActiveLink(event, 'legalNotice')">Legal Notice</a>
         </div>
     </nav>
+    
     <div>
         <header>
             <img src="assets/icons/Capa 3.png" alt="">
