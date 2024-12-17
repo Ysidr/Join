@@ -90,6 +90,8 @@
         flex-direction: column !important;
         overflow-y: auto !important;
         height: 60vh;
+        width: 100%;
+        align-items: center;
     }
 
     .sepererator {
@@ -98,6 +100,11 @@
 
     .add-task-container {
         padding: 0 !important;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .addTasksBtn {
@@ -189,5 +196,79 @@
 
     .close-contact-info{
         display: block !important;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .summary-container{
+        font-size: 16px;
+    }
+    
+    .summaryHeader{
+        width: 100% !important;
+    }
+
+    .contentSummary{
+        width: 80%;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .summary-container {
+        display: flex;
+        width: 100%;
+        height: 80vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .summaryRows{
+        width: 100% !important;
+    }
+
+    .summaryRow1{
+        gap: 8px;
+    }
+
+    .summaryRow3{
+        gap: 8px;
+    }
+}
+
+@media (max-width: 550px){
+    .coloumns{
+        padding: 0 16px;
+    }
+
+    .cloumn1 , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label{
+        width: 100% !important;
+    }
+
+    .selectPrio label{
+        padding: 0 !important;
+    }
+
+    .selectPrio form{
+        gap: 4px !important;
+    }
+}
+
+@media (max-width: 400px){
+    .clearBtn{
+        height: 48px !important;
+    }
+
+    .btnGray{
+        padding: 8px;
+    }
+
+    .contentSummary{
+        width: 100%;
+        padding: 8px;
     }
 }
