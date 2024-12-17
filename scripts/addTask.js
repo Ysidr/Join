@@ -1,9 +1,3 @@
-let firstLetters = [];
-let selectedContatct = [];
-let selectedContatctBgColor = [];
-let addedSubtasks = [];
-let addedSubtaskDone = [];
-
 /**
  * Initializes the task creation process by clearing the input fields.
  * @function initAddTask
