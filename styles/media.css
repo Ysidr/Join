@@ -245,16 +245,35 @@
         padding: 0 16px;
     }
 
-    .cloumn1 , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label{
+    .cloumn1 , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch{
         width: 100% !important;
     }
 
-    .selectPrio label{
+    .selectPrio label , .boardHeaderSearch{
         padding: 0 !important;
     }
 
     .selectPrio form{
         gap: 4px !important;
+    }
+
+    .boardHeaderInputs{
+        width: 100% !important;
+        gap: 8px;
+    }
+
+    .initials{
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+    }
+
+    .contacts{
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -270,5 +289,19 @@
     .contentSummary{
         width: 100%;
         padding: 8px;
+    }
+
+    .contacts button{
+        width: 100% !important;
+        padding: 24px !important;
+    }
+
+    .contacts{
+        min-width: none;
+    }
+
+    .showContacts{
+        padding: 0 !important;
+        max-height: 69vh !important;
     }
 }
