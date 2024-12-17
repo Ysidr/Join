@@ -238,6 +238,22 @@
     .summaryRow3{
         gap: 8px;
     }
+
+    .addTasksBtn{
+        padding: 0 !important;
+        height: auto;
+    }
+
+    .btnGray{
+        height: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    .clearBtn{
+        height: auto !important;
+        padding: 0 8px;
+    }
 }
 
 @media (max-width: 550px){
