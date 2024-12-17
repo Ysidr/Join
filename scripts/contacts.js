@@ -55,8 +55,8 @@ function loadContactsSecondFunction(letter, contactsForLetter, contactContainer)
 async function cancelCreateContact() {
     const newContactForm = document.getElementById("newContactForm");
     const editContactForm = document.getElementById("editContactForm");
-    if (newContactForm) newContactForm.classList.add("hidden");
-    if (editContactForm) editContactForm.classList.add("hidden");
+    if (newContactForm) newContactForm.classList.add("d-none");
+    if (editContactForm) editContactForm.classList.add("d-none");
 }
 
 /**
@@ -67,7 +67,7 @@ async function cancelCreateContact() {
  */
 async function renderAddContactForm() {
     const newContactForm = document.getElementById("newContactForm");
-    newContactForm.classList.remove("hidden");
+    newContactForm.classList.remove("d-none");
     newContactForm.classList.add("bg-blur");
 }
 
