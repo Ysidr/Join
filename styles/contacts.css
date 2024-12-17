@@ -7,16 +7,9 @@
     flex-direction: column;
     align-items: center;
     background-color: #F6F7F8;
-    flex: 1; /* Passt sich dynamisch an die Höhe von main an */
     box-sizing: border-box;
     overflow-y: auto; /* Scrollen bei Überlauf ermöglichen */
     height: 100vh;
-    transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-.sehr-hidden {
-    visibility: hidden;
-    transform: translateX(100%);
 }
 
 .contact-container span{
@@ -63,7 +56,7 @@
 .showContacts {
     margin-top: 20px;
     padding: 32px;
-    overflow-y: scroll !important;
+    overflow-y: scroll;
     max-height: 80vh;
     overflow-y: auto;
     box-sizing: border-box;
@@ -293,7 +286,7 @@
 }
 
 .email{
-    text-decoration: dashed !important;
+    text-decoration: dashed;
     color: #3D9AEF;
 }
 

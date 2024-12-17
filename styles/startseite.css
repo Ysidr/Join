@@ -110,10 +110,6 @@ section h1{
     background-color: #2A3D59;
 }
 
-.hidden {
-    display: none;
-}
-
 .container-mini-nav {
     background-color: #2A3647;
     color: white;
@@ -126,18 +122,7 @@ section h1{
     z-index: 2;
 }
 
-h1 {
-    font-size: 61px !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
-}
-h2 {
-    font-size: 27px !important;
-    font-weight: 400px !important;
-}
-h3 {
-    font-size: 20px !important;
-}
+
 
 .privacyPolicy{
     max-height: 80vh;

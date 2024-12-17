@@ -22,7 +22,7 @@
 
 
 .smallInputField {
-    height: 48px !important;
+    height: 48px;
     width: 440px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
@@ -102,7 +102,7 @@ height: 14px;
 }
 
 .selectContacts {
-    margin: 0 !important;
+    margin: 0;
     background-color: white;
     z-index: 1;
 }

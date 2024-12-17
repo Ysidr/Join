@@ -219,5 +219,5 @@ navbarLinks.forEach((link) => {
  */
 function toggleMenu() {
     const menu = document.getElementById('menu-container');
-    menu.classList.toggle('hidden');
+    menu.classList.toggle('d-none');
 }
