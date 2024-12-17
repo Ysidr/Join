@@ -76,13 +76,13 @@ function renderContact(responseToJson, indexContactWithLetter) {
     let color = responseToJson[indexContactWithLetter].bgColor;
     if (selectedContatct.includes(name)) {
         document.getElementById("openContactsDiv").innerHTML +=
-        `<div class="singleContact selectedContact" id="${name}">
+            `<div class="singleContact selectedContact" id="${name}">
             <input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')" checked>
              <label for="ID${name}">${name}</label><br>
         </div>`
     } else {
         document.getElementById("openContactsDiv").innerHTML +=
-        `<div class="singleContact" id="${name}">
+            `<div class="singleContact" id="${name}">
             <input type="checkbox" name="${name}" id="ID${name}" value="${name}" onclick="contactSelected('${name}', '${color}')">
              <label for="ID${name}">${name}</label><br>
         </div>`
@@ -177,7 +177,7 @@ function renderDetails(indexTaskFields, indexTaskCount) {
     let specificObject = Object.values(objectAllTasks)[indexTaskCount];
     if (specificObject.category == "user") {
         document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory" style="background-color: #0038FF">User Story</p>`
-    }else{
+    } else {
         document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory" style="background-color: #1FD7C1">Technical Task</p>`
     }
     document.getElementById("detailHeader").innerHTML = `<h1 class="hTitleCategory">${specificObject.title}</h1>`
@@ -443,8 +443,13 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
     document.getElementById("titleInput").value = specificObject.title;
     document.getElementById("descriptionInput").value = specificObject.description;
     document.getElementById("dateIput").value = specificObject.date;
-    selectedContatct = specificObject.assigned;
-    selectedContatctBgColor = specificObject.assignedBgColor;
+    if (specificObject.assigned.length > 0) {
+        selectedContatct = specificObject.assigned;
+        selectedContatctBgColor = specificObject.assignedBgColor;
+    } else {
+        selectedContatct = []
+        selectedContatctBgColor = [];
+    }
     getInitialsOfAddedUser();
     document.getElementById(`ID${specificObject.priority}`).checked = true;
     if (specificObject.subtasks) {
