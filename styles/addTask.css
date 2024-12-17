@@ -54,6 +54,8 @@
 .selectPrio {
     height: 56px;
     margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
 }
 
 .selectPrio label {
@@ -282,3 +284,6 @@ input[type="radio"]:checked + .prioLabels svg path {
     display: flex;
 }
 
+.star{
+    color: #FF3D00;
+}
