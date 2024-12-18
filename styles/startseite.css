@@ -133,8 +133,6 @@ section h1{
     z-index: 2;
 }
 
-
-
 .privacyPolicy{
     max-height: 80vh;
     overflow-y: auto;
@@ -146,4 +144,8 @@ section h1{
     width: 32px;
     height: 32px;
     margin: 16px;
+}
+
+.d-noneMenuContainer {
+    display: none;
 }

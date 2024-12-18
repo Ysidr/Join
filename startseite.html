@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +32,7 @@
     <script src="scripts/board.js" defer></script>
     <script src="script.js"></script>
 </head>
+
 <body>
     <nav class="navbar">
         <div>
@@ -55,25 +57,31 @@
             <a href="#" onclick="setActiveLink(event, 'legalNotice')">Legal Notice</a>
         </div>
     </nav>
-    
+
     <div>
         <header class="startseite-header">
             <img src="assets/icons/Capa 3.png" alt="">
             <p>Kanban Project Management Tool</p>
             <div id="user-info">
-                <a href="#" id="help" data-page="help"><img src="assets/icons/help.png" alt="" class="help-img"></a>
+                <div class="help">
+                    <a href="#" id="help" data-page="help"><img src="assets/icons/help.png" alt="" class="help-img"></a>
+                </div>
                 <button id="user-initials" onclick="toggleMenu()">Click Me</button>
             </div>
         </header>
-        
+
         <div id="menu-container" class="d-none menu container-mini-nav">
             <a href="#" onclick="loadPage('privacyPolicy')">Privacy Policy</a>
             <a href="#" onclick="loadPage('legalNotice')">Legal Notice</a>
             <a href="#" onclick="window.location.href='login.html'; return false;">Log out</a>
+            <div class="helpMenu d-noneMenuContainer">
+                <a href="#" id="help" data-page="help"><img src="assets/icons/help.png" alt="" class="help-img"></a>
+            </div>
         </div>
-        
+
         <main id="main-content" class="content">
         </main>
     </div>
-    </body>
+</body>
+
 </html>
