@@ -257,6 +257,9 @@
         position: relative;
         top: -40px;
     }
+    .reesponsive-detail-contact-button{
+        display: none !important;
+    }
 }
 
 @media (max-width: 790px){
@@ -400,6 +403,8 @@
         border-radius: 50%;
         width: 48px !important;
     }
+
+
 }
 
 @media (max-width: 550px){

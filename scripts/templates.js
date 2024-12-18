@@ -229,7 +229,7 @@ function getLoadContactTemplate(contact, initials) {
     `;
 }
 
-/**
+/**s
  * Generates the HTML template for displaying detailed information of a contact.
  * This template includes options to edit or delete the contact, as well as the contact's email and phone number.
  * 
@@ -247,7 +247,7 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
                 <div class="initials contact-details-img" style="background-color: ${bgColor};">${initials}</div>
                 <div>
                     <h2>${name}</h2>
-                    <div class="flex gap-8 pt-4">
+                    <div class="reesponsive-detail-contact-button">
                         <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
                         <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
                     </div>

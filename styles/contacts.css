@@ -360,3 +360,9 @@
 .media-contact-div{
     display: none;
 }
+
+.reesponsive-detail-contact-button{
+    display: flex;
+    gap: 36px;
+    padding-top: 8px;
+}
