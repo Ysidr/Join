@@ -69,7 +69,7 @@ header #user-info {
     align-items: center;
 }
 
-header #user-info img {
+help-img {
     width: 56px;
     height: 56px;
     border-radius: 50%; /* Rundes Bild */
