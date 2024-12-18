@@ -34,15 +34,29 @@ function stopEventBubbling(event) {
     event.stopPropagation()
 }
 
-function openAccount(indexAcconts) {
+async function openAccount(indexAcconts, userName) {
     sessionStorage.setItem('loggedInUserId', indexAcconts);
     sessionStorage.setItem('isGuestAccount', 'false');
-    window.location.href = "startseite.html";
+    if (window.innerWidth < 1101) {
+        document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div> <div class="userNamePopUp" id="userNamePopUp">${userName}</div>`;
+        getGreeting(userName)
+        await new Promise(r => setTimeout(r, 2000));
+
+
+    }
+    window.location.href = "startseite.html"; 1100
 }
 
-function openGuestAccount() {
+async function openGuestAccount() {
     isGuestAccount = true;
     sessionStorage.setItem('isGuestAccount', 'true');
+    if (window.innerWidth < 1101) {
+        document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div></div>`;
+        getGreetingGuest()
+        await new Promise(r => setTimeout(r, 2000));
+
+
+    }
     window.location.href = "startseite.html";
 }
 

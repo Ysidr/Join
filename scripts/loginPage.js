@@ -64,7 +64,8 @@ async function checkForExistingAccount() {
             responseToJson.mail == document.getElementById("emailLogin").value &&
             responseToJson.password == document.getElementById("passwordLogin").value
         ) {
-            openAccount(indexAcconts);   
+            let userName = responseToJson.name
+            openAccount(indexAcconts, userName);   
         }
     }
 }
@@ -76,4 +77,66 @@ async function checkForExistingAccount() {
  */
 function goToSignUp() {
     window.location.href = "signUp.html";
+}
+
+function getGreeting(userName) {
+    const now = new Date();
+    const hour = now.getHours();
+    const greetingElement = document.getElementById('greeting');
+    let comma = "";
+
+    if (userName != "") {
+        comma = ",";
+    }
+    if (greetingElement) {
+        checkForGreeting(comma, hour, greetingElement);
+    }
+}
+
+/**
+ * Determines and sets the appropriate greeting message based on the time of day.
+ * @function checkForGreeting
+ * @param {string} comma - A comma separator if the user name exists.
+ * @param {number} hour - The current hour of the day.
+ * @param {HTMLElement} greetingElement - The HTML element where the greeting is displayed.
+ */
+function checkForGreeting(comma, hour, greetingElement) {
+    if (hour >= 6 && hour < 12) {
+        greetingElement.innerHTML = `Good morning${comma}`;
+    } else if (hour >= 12 && hour < 18) {
+        greetingElement.innerHTML = `Good afternoon${comma}`;
+    } else if (hour >= 18 && hour < 24) {
+        greetingElement.innerHTML = `Good evening${comma}`;
+    } else {
+        greetingElement.innerHTML = `Good night${comma}`;
+    }
+}
+
+function getGreetingGuest() {
+    const now = new Date();
+    const hour = now.getHours();
+    const greetingElement = document.getElementById('greeting');
+    let comma = "";
+    if (greetingElement) {
+        checkForGreetingGuest(hour, greetingElement);
+    }
+}
+
+/**
+ * Determines and sets the appropriate greeting message based on the time of day.
+ * @function checkForGreeting
+ * @param {string} comma - A comma separator if the user name exists.
+ * @param {number} hour - The current hour of the day.
+ * @param {HTMLElement} greetingElement - The HTML element where the greeting is displayed.
+ */
+function checkForGreetingGuest(hour, greetingElement) {
+    if (hour >= 6 && hour < 12) {
+        greetingElement.innerHTML = `Good morning`;
+    } else if (hour >= 12 && hour < 18) {
+        greetingElement.innerHTML = `Good afternoon`;
+    } else if (hour >= 18 && hour < 24) {
+        greetingElement.innerHTML = `Good evening`;
+    } else {
+        greetingElement.innerHTML = `Good night`;
+    }
 }

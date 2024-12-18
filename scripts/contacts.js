@@ -219,7 +219,7 @@ async function editContact(contactEmail) {
     }
     const editContactForm = document.getElementById("editContactForm");
     if (editContactForm) {
-        editContactForm.classList.remove("hidden");
+        editContactForm.classList.remove("d-none");
         editContactForm.classList.add("bg-blur");
         editContactForm.dataset.bgColor = foundContact.bgColor;
     }
@@ -366,8 +366,7 @@ async function saveContacts(contacts) {
  * @returns {void}
  */
 function finalizeContactEditing(updatedContact) {
-    const form = document.getElementById("editContactForm");
-    form.classList.add("hidden");
+    document.getElementById("editContactForm").classList.add("d-none");
     loadContacts();
     displayContactInfo(
         updatedContact.name,

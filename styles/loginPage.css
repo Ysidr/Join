@@ -179,3 +179,24 @@ header img {
     display: flex;
     gap: 128px;
 }
+
+.greetingPopUp {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.userNamePopUp {
+    font-weight: 700;
+    font-size: 64px;
+    color: #29ABE2;
+}
+
+.greeting {
+    font-weight: 500;
+    font-size: 47px;
+    color: #2A3647;
+}
