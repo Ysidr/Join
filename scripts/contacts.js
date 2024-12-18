@@ -66,6 +66,13 @@ async function cancelCreateContact() {
  * @returns {Promise<void>}
  */
 async function renderAddContactForm() {
+    if (window.innerWidth < 1351) {
+        document.getElementById("new-contact-container").classList.remove("aninmation");
+        document.getElementById("new-contact-container").classList.add("aninmationTopDow");
+    }else{
+        document.getElementById("new-contact-container").classList.add("aninmation");
+        document.getElementById("new-contact-container").classList.remove("aninmationTopDow");
+    }
     const newContactForm = document.getElementById("newContactForm");
     newContactForm.classList.remove("d-none");
     newContactForm.classList.add("bg-blur");
@@ -192,11 +199,11 @@ function closeContactInfo() {
  */
 async function editContact(contactEmail) {
     if (window.innerWidth < 1351) {
-        document.getElementById("new-contact-container").classList.remove("aninmation");
-        document.getElementById("new-contact-container").classList.add("aninmationTopDow");
+        document.getElementById("new-contact-containerEdit").classList.remove("aninmation");
+        document.getElementById("new-contact-containerEdit").classList.add("aninmationTopDow");
     }else{
-        document.getElementById("new-contact-container").classList.add("aninmation");
-        document.getElementById("new-contact-container").classList.remove("aninmationTopDow");
+        document.getElementById("new-contact-containerEdit").classList.add("aninmation");
+        document.getElementById("new-contact-containerEdit").classList.remove("aninmationTopDow");
     }
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
