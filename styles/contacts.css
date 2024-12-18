@@ -281,6 +281,7 @@
 .create{
     display: flex;
     gap: 8px;
+    height: 57px;
 }
 
 .margin{
