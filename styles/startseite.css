@@ -38,9 +38,6 @@
     background-color: #2A3D59;
 }
 
-header img{
-    display: none;
-}
 /* Header */
 header {
     margin-left: 232px; /* Platz für die fixierte Navbar */
@@ -147,12 +144,16 @@ section h1{
 }
 
 .helpMenu {
-    display: none;
+    display: block;
 }
 
-.startseite-header img {
+.startseite-capa-img-media {
     display: block;
     width: 30px;
     height: 30px;
     margin-right: 16px;
+}
+
+.startseite-capa-img-media{
+    display: none;
 }
