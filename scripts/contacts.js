@@ -106,6 +106,7 @@ async function createContact() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(contacts),
         });
+        addNewContactContainer()
         await loadContacts();
         cancelCreateContact();
         nameInput.value = "";
@@ -406,6 +407,12 @@ async function deleteContact(contactEmail) {
         body: JSON.stringify(contacts),
     });
     loadAll()
+}
+
+async function addNewContactContainer() {
+    document.getElementById("main-content").innerHTML = `<div class="addedContact"><p>Contact succesfully created</p> <img src="./assets/icons/Vector.svg" alt=""></div>`;
+    await new Promise(r => setTimeout(r, 2000));
+    loadPage('contacts');
 }
 
 /**

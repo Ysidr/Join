@@ -300,3 +300,25 @@
     font-size: 47px;
 }
 
+.addedContact {
+    width: 326px;
+    height: 74px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    background-color: #2A3647;
+    border-radius: 10px;
+    margin: 32px;
+    color: white;
+    border: none;
+}
+.addedContact img{
+    width: 25px;
+    height: 25px;
+}
+
+.addedContact p {
+    width: 235px;
+    display: flex;
+    height: 24px;
+}
