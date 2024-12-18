@@ -337,3 +337,16 @@
     display: flex;
     height: 24px;
 }
+
+.editContactsInfo {
+    margin: 96px 0 0 24px;
+    gap: 6rem;
+    align-items: center;
+    display: flex;
+}
+
+.closeBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}

@@ -69,7 +69,37 @@
 
     .showContacts{
         height: 71vh;
+    }  
+    
+    .new-contact-container {
+        flex-direction: column;
+        max-width: 396px;
     }
+
+    .editContactWhiteDiv {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex-direction: column;
+    }
+    .editContactsInfo {
+        margin: 0 !important;
+        flex-direction: column;
+        gap: 8px !important;
+    }
+
+    .editContactsInfoImg {
+        position: relative;
+        top: -65px;
+    }
+
+    .closeBtn {
+        position: relative;
+        top: -80px;
+    }
+
 }
 
 @media (max-width: 1100px) {
