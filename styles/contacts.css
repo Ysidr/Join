@@ -350,3 +350,8 @@
     justify-content: flex-end;
     margin-top: 2rem;
 }
+
+.media-cancel{
+    font-size: 24px;
+    color: #2A3647;
+}

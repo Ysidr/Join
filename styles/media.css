@@ -70,36 +70,7 @@
     .showContacts{
         height: 71vh;
     }  
-    
-    .new-contact-container {
-        flex-direction: column;
-        max-width: 396px;
-    }
 
-    .editContactWhiteDiv {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        flex-direction: column;
-    }
-    .editContactsInfo {
-        margin: 0 !important;
-        flex-direction: column;
-        gap: 8px !important;
-    }
-
-    .editContactsInfoImg {
-        position: relative;
-        top: -100px;
-    }
-
-    .closeBtn {
-        position: relative;
-        top: -80px;
-        z-index: 10;
-    }
 }
 
 @media (max-width: 1100px) {
@@ -209,6 +180,11 @@
     .d-noneMenuContainer {
         display: block;
     }
+    
+    .new-contact-container {
+        flex-direction: column;
+        max-width: 396px;
+    }
 
     .bg-white{
         display: flex;
@@ -223,6 +199,31 @@
         top: 190px;
         gap: 0;
     }
+    
+    .editContactWhiteDiv {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex-direction: column;
+    }
+    .editContactsInfo {
+        margin: 0 !important;
+        flex-direction: column;
+        gap: 8px !important;
+    }
+
+    .editContactsInfoImg {
+        position: relative;
+        top: -60px;
+    }
+
+    .closeBtn {
+        position: relative;
+        top: -80px;
+        z-index: 10;
+    }
 
     .new-contact-container{
         height: 82vh !important;
@@ -235,6 +236,26 @@
     .join-contact-container{
         padding: 0 0 60px;
     
+    }
+
+    .media-cancel{
+        position: fixed;
+        top: 10px;
+        right: 30px;
+        color: white !important;
+    }
+
+    .bg-main{
+        padding: 20px 20px 60px !important;
+    }
+
+    .add-container{
+        margin: 32px;
+    }
+
+    .add-contact-info-img{
+        position: relative;
+        top: -40px;
     }
 }
 
