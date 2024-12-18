@@ -70,23 +70,28 @@ header #user-info {
 }
 
 header #user-info img {
-    width: 32px;
-    height: 32px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%; /* Rundes Bild */
     margin-right: 8px;
 }
 
 header #user-initials {
-    width: 32px;
-    height: 32px;
+    width: 56px;
+    height: 56px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #2A3647;
-    color: white;
-    border-radius: 50%; /* Runde Initialen */
+    background-color: white;
+    color: #29ABE2;
+    border-radius: 50%;
     font-size: 18px;
     font-weight: bold;
+    border: 3px solid #2a3647;
+}
+
+header #user-initials:hover{
+    background-color: #e2e6ec;
 }
 
 section h1{
