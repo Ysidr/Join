@@ -191,6 +191,13 @@ function closeContactInfo() {
  * @returns {Promise<void>}
  */
 async function editContact(contactEmail) {
+    if (window.innerWidth < 1351) {
+        document.getElementById("new-contact-container").classList.remove("aninmation");
+        document.getElementById("new-contact-container").classList.add("aninmationTopDow");
+    }else{
+        document.getElementById("new-contact-container").classList.add("aninmation");
+        document.getElementById("new-contact-container").classList.remove("aninmationTopDow");
+    }
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
     if (!contacts) {

@@ -232,6 +232,21 @@
     }
 }
 
+.aninmationTopDow {
+    animation: slideInFromBottom 1s ease-in-out forwards;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /* Left section */
 .bg-main {
     background-color: #2A3647;
