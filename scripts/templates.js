@@ -319,6 +319,7 @@ function clearInputs() {
     newPrio = "";
     newCategory = "";
     newTaskData = {};
+    document.getElementById("openContactsDiv").classList.add("d-none");
 }
 
 /**
