@@ -92,7 +92,7 @@
 
     .editContactsInfoImg {
         position: relative;
-        top: -65px;
+        top: -100px;
     }
 
     .closeBtn {
@@ -208,6 +208,33 @@
 
     .helpMenu {
         display: block;
+    }
+
+    .bg-white{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .edit-container{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        position: fixed;
+        top: 190px;
+        gap: 0;
+    }
+
+    .new-contact-container{
+        height: 82vh !important;
+    }
+
+    .contact-inuptfield-container{
+        width: 100% !important;
+    }
+
+    .join-contact-container{
+        padding: 0 0 60px;
+    
     }
 }
 
