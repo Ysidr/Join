@@ -336,3 +336,18 @@
 .AssignedTo {
     margin-bottom: 24px;
 }
+
+.aninmation {
+    animation: slideInFromRight 1s ease-in-out forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%); /* Startpunkt: außerhalb des Viewports auf der rechten Seite */
+        opacity: 0; /* Unsichtbar */
+    }
+    to {
+        transform: translateX(0); /* Endpunkt: mittig positioniert */
+        opacity: 1; /* Sichtbar */
+    }
+}

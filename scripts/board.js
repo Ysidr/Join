@@ -418,4 +418,5 @@ async function putEditedTaskToServer(TaskFieldName, indexTaskCount) {
  */
 function cancelEdit() {
     document.getElementById("AddTaskSection").classList.add("d-none");
+    return
 }

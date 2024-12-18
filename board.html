@@ -61,8 +61,8 @@
     
     
     
-    <section id="taskDetailSection" class="taskDetailSection d-none" onclick="addDNone('taskDetailSection')">
-        <div class="taskDetailMain" onclick="stopEventBubbling(event)">
+    <section id="taskDetailSection" class="taskDetailSection aninmation d-none" onclick="addDNone('taskDetailSection')">
+        <div class="taskDetailMain" onclick="event.stopPropagation()">
             <div class="detailCategory" id="detailCategory">
     
             </div>
@@ -100,8 +100,8 @@
         </div>
     
     </section>
-    <section id="AddTaskSection" class="AddTaskSection d-none" onclick="addDNone('AddTaskSection')">
-        <div class="AddTaskInBoardMain" id="AddTaskInBoardMain" onclick="stopEventBubbling(event)">
+    <section id="AddTaskSection" class="AddTaskSection aninmation d-none" onclick="addDNone('AddTaskSection')">
+        <div class="AddTaskInBoardMain" id="AddTaskInBoardMain" onclick="event.stopPropagation()">
     
         </div>
         </section>

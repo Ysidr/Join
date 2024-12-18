@@ -1,6 +1,5 @@
 <div class="add-task-container" onload="clearInputs()">
     <h1 class="h1AddTask">Add Task</h1>
-    <form id="taskForm" onsubmit="event.preventDefault(); createTask()">
         <div class="coloumns">
             <div class="cloumn1">
                 <label for="titleInput">Title<span class="star">*</span></label>
@@ -118,9 +117,8 @@
 
                 <div class="addTasksBtn" id="addTasksBtn">
                     <button type="button" class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
-                    <button type="submit" class="btnGray">Create Task</button>
+                    <button type="submit" class="btnGray" onclick="createTask()">Create Task</button>
                 </div>
             </div>
         </div>
-    </form>
 </div>
