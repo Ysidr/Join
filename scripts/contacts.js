@@ -435,3 +435,7 @@ async function addNewContactContainer() {
 (async function main() {
     await loadAll();
 })();
+
+function showOtherButtons() {
+    document.getElementById("responsive-contact-buttons").classList.toggle("d-none")
+}
