@@ -366,3 +366,7 @@
     gap: 36px;
     padding-top: 8px;
 }
+
+.mobil-hidden{
+    display: none ;
+}

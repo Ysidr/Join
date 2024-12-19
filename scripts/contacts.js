@@ -175,8 +175,7 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
         return;
     }
     contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
-    contactContainer.classList.remove("sehr-hidden");
-    contactContainer.classList.add("show");
+    contactContainer.classList.toggle("mobil-hidden");
 }
 
 /**
@@ -186,8 +185,7 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
  */
 function closeContactInfo() {
     const contactContainer = document.getElementById("contactContainer");
-    contactContainer.classList.add("sehr-hidden");
-    contactContainer.classList.remove("show");
+    contactContainer.classList.toggle("mobil-hidden");
 }
 
 /**

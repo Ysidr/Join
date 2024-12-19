@@ -262,6 +262,12 @@
     }
 }
 
+@media (min-width:790px){
+    .mobil-hidden{
+        display: block !important;
+    }
+}
+
 @media (max-width: 790px){
 
     .contact-container {
@@ -271,12 +277,6 @@
         right: 0;
         bottom: 0;
         z-index: 1000;
-        visibility: hidden;
-        transform: translateX(100%);
-    }
-
-    .contact-container.show {
-        display: none;
     }
 
     .summary-container{
