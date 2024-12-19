@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/assets.css">
     <link rel="stylesheet" href="./styles/standart.css">
     <link rel="stylesheet" href="./styles/loginPage.css">
@@ -34,21 +34,25 @@
                 <div class="underlineBlue"></div>
             </div>
             <div class="loginData">
-                <form onsubmit="event.preventDefault(); loginWithAccount()">
+                <form onsubmit="event.preventDefault(); validateLoginForm()" novalidate>
                     <div class="input-container">
-                        <input type="email" placeholder="Email" name="username" id="emailLogin" required>
+                        <input type="email" placeholder="Email" name="username" id="emailLogin">
                         <img src="assets/icons/mail.svg" alt="">
+                        <div id="emailLoginError" class="error-message"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" placeholder="Password" name="password" id="passwordLogin" required>
-                        <img src="assets/icons/mail.svg" alt="">
-                    </div>
+                        <input type="password" placeholder="Password" name="password" id="passwordLogin">
+                        <img src="assets/icons/lock.svg" alt="">
+                        <div id="passwordLoginError" class="error-message"></div>
+                    </div>                    
                     <div class="loginButtons">
                         <button type="submit" class="btnGray">Log in</button>
                         <button type="button" class="btnClear" onclick="openGuestAccount()">Guest Log in</button>
                     </div>
                 </form>
-            </div>            
+            </div>
+            
+                                                
         </div>
         <div class="responsive-create-acc">
             <p>Not a Join user?</p>

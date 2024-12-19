@@ -85,44 +85,80 @@ async function renderAddContactForm() {
  * @returns {Promise<void>}
  */
 async function createContact() {
-    const nameInput = document.getElementById("newContactName");
-    const emailInput = document.getElementById("newContactEmail");
-    const phoneInput = document.getElementById("newContactPhone");
-    const name = nameInput.value;
-    const email = emailInput.value;
-    const phone = phoneInput.value;
-    const bgColor = getRandomColor();    
-    if (!name || !email || !phone) {
-        alert("Please fill in all fields.");
-        return;
-    }    
-    const contact = { name, email, phone, bgColor};
-    const firstLetter = name.charAt(0).toUpperCase();
+    const name = getName();
+    const email = getEmail();
+    const phone = getPhone();
+    const bgColor = getRandomColor();
+
+    if (!isValidForm(name, email, phone)) return;
+
+    const contact = createContactObject(name, email, phone, bgColor);
+    const firstLetter = getFirstLetter(name);
+
     try {
-        const response = await fetch(BASE_URL + "Contacts.json");
-        const contacts = await response.json();
-        if (!contacts) {
-            contacts = {};
-        }
-        if (!contacts[firstLetter]) {
-            contacts[firstLetter] = [];
-        }
-        contacts[firstLetter].push(contact);
-        await fetch(BASE_URL + "Contacts.json", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(contacts),
-        });
-        addNewContactContainer()
+        const contacts = await fetchContacts();
+        await saveContact(firstLetter, contacts, contact);
+        resetForm();
         await loadContacts();
         cancelCreateContact();
-        nameInput.value = "";
-        emailInput.value = "";
-        phoneInput.value = "";
     } catch (error) {
         console.error("Error while adding the contact:", error);
     }
 }
+
+function getName() {
+    return document.getElementById("newContactName").value;
+}
+
+function getEmail() {
+    return document.getElementById("newContactEmail").value;
+}
+
+function getPhone() {
+    return document.getElementById("newContactPhone").value;
+}
+
+function getFirstLetter(name) {
+    return name.charAt(0).toUpperCase();
+}
+
+function isValidForm(name, email, phone) {
+    if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return false;
+    }
+    return true;
+}
+
+function createContactObject(name, email, phone, bgColor) {
+    return { name, email, phone, bgColor };
+}
+
+async function fetchContacts() {
+    const response = await fetch(BASE_URL + "Contacts.json");
+    const contacts = await response.json();
+    return contacts || {};
+}
+
+async function saveContact(firstLetter, contacts, contact) {
+    if (!contacts[firstLetter]) {
+        contacts[firstLetter] = [];
+    }
+    contacts[firstLetter].push(contact);
+
+    await fetch(BASE_URL + "Contacts.json", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contacts),
+    });
+}
+
+function resetForm() {
+    document.getElementById("newContactName").value = "";
+    document.getElementById("newContactEmail").value = "";
+    document.getElementById("newContactPhone").value = "";
+}
+
 
 /**
  * Retrieves the initials of a contact's name.
@@ -170,11 +206,19 @@ function getRandomColor() {
 async function displayContactInfo(name, email, phone, initials, bgColor) {
     const contactInfoContainer = document.getElementById("contactInfo");
     const contactContainer = document.getElementById("contactContainer");
+    
     if (!contactInfoContainer) {
         console.log("Contact info container not found.");
         return;
     }
-    contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
+
+    // Wenn der Kontakt gelöscht wurde, den Container leeren
+    if (!name) {
+        contactInfoContainer.innerHTML = "<p>Contact has been deleted.</p>";
+    } else {
+        contactInfoContainer.innerHTML = getContactInfoTemplate(name, email, phone, initials, bgColor);
+    }
+    
     contactContainer.classList.toggle("mobil-hidden");
 }
 
@@ -196,31 +240,51 @@ function closeContactInfo() {
  * @returns {Promise<void>}
  */
 async function editContact(contactEmail) {
+    handleEditFormAnimation();
+    const contacts = await fetchContacts();
+    if (!contacts) return;
+
+    const foundContact = findContactByEmail(contacts, contactEmail);
+    if (!foundContact) return;
+
+    populateEditForm(foundContact);
+    setupEditFormOverlay(foundContact, contactEmail);
+}
+
+function handleEditFormAnimation() {
+    const editForm = document.getElementById("new-contact-containerEdit");
     if (window.innerWidth < 1351) {
-        document.getElementById("new-contact-containerEdit").classList.remove("aninmation");
-        document.getElementById("new-contact-containerEdit").classList.add("aninmationTopDow");
-    }else{
-        document.getElementById("new-contact-containerEdit").classList.add("aninmation");
-        document.getElementById("new-contact-containerEdit").classList.remove("aninmationTopDow");
+        editForm.classList.remove("aninmation");
+        editForm.classList.add("aninmationTopDow");
+    } else {
+        editForm.classList.add("aninmation");
+        editForm.classList.remove("aninmationTopDow");
     }
+}
+
+async function fetchContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
     if (!contacts) {
         console.log("No contacts found in Firebase.");
-        return;
+        return null;
     }
+    return contacts;
+}
+
+function findContactByEmail(contacts, contactEmail) {
     const letters = Object.keys(contacts);
-    let foundContact = null;
     for (let i = 0; i < letters.length; i++) {
         const letter = letters[i];
         const contactGroup = contacts[letter];
-        foundContact = contactGroup.find(c => c.email === contactEmail);
-        if (foundContact) break;
+        const foundContact = contactGroup.find(c => c.email === contactEmail);
+        if (foundContact) return foundContact;
     }
-    if (!foundContact) {
-        console.log("Contact not found.");
-        return;
-    }
+    console.log("Contact not found.");
+    return null;
+}
+
+function populateEditForm(foundContact) {
     const nameInput = document.getElementById("editContactName");
     const emailInput = document.getElementById("editContactEmail");
     const phoneInput = document.getElementById("editContactPhone");
@@ -229,16 +293,19 @@ async function editContact(contactEmail) {
         emailInput.value = foundContact.email;
         phoneInput.value = foundContact.phone;
     }
+}
+
+function setupEditFormOverlay(foundContact, contactEmail) {
     const editContactForm = document.getElementById("editContactForm");
     if (editContactForm) {
         editContactForm.classList.remove("d-none");
         editContactForm.classList.add("bg-blur");
         editContactForm.dataset.bgColor = foundContact.bgColor;
     }
-
     editContactForm.dataset.currentEmail = contactEmail;
-    getCurrentMailForButtons(contactEmail)
+    getCurrentMailForButtons(contactEmail);
 }
+
 
 /**
  * Saves the edited contact details back to the server.
@@ -253,12 +320,13 @@ async function saveEditedContact() {
         return;
     }
     const contacts = await fetchContacts();
-    if (!contacts) return console.log("No contacts found in Firebase.");
+    if (!contacts) return console.log("No contacts found in Firebase.");    
     const updatedContact = { name, email, phone, bgColor };
     const { oldLetter, newLetter } = getLetterGroups(contacts, name, currentEmail);
-    modifyContacts(contacts, updatedContact, oldLetter, newLetter, currentEmail);
+    modifyContacts(contacts, updatedContact, oldLetter, newLetter, currentEmail);    
     await saveContacts(contacts);
     finalizeContactEditing(updatedContact);
+    displayContactInfo(name, email, phone, name.charAt(0).toUpperCase(), bgColor);
 }
 
 /**
@@ -285,7 +353,12 @@ function getEditedContactInputs() {
  */
 async function fetchContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
-    return response.json() || {};
+    const contacts = await response.json();
+    if (!contacts) {
+        console.log("No contacts found in Firebase.");
+        return null;
+    }
+    return contacts;
 }
 
 /**
@@ -404,7 +477,7 @@ async function deleteContact(contactEmail) {
         const letter = letters[i];
         const contactGroup = contacts[letter];
         const index = contactGroup.findIndex(contact => contact.email === contactEmail);
-        
+
         if (index !== -1) {
             contactGroup.splice(index, 1);
             break;
@@ -417,7 +490,8 @@ async function deleteContact(contactEmail) {
         },
         body: JSON.stringify(contacts),
     });
-    loadAll()
+    displayContactInfo(null, null, null, null, null);
+    loadAll();
 }
 
 async function addNewContactContainer() {
@@ -438,4 +512,46 @@ async function addNewContactContainer() {
 
 function showOtherButtons() {
     document.getElementById("responsive-contact-buttons").classList.toggle("d-none")
+}
+
+function validateForm() {
+    let isValid = true;
+    if (!validateName()) isValid = false;
+    if (!validateEmail()) isValid = false;
+    if (!validatePhone()) isValid = false;
+    if (isValid) {
+        createContact();
+    }
+}
+
+function validateName() {
+    const nameInput = document.getElementById("newContactName");
+    const isValid = nameInput.value.trim() !== "";
+    markField(nameInput, isValid);
+    return isValid;
+}
+
+function validateEmail() {
+    const emailInput = document.getElementById("newContactEmail");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(emailInput.value.trim());
+    markField(emailInput, isValid);
+    return isValid;
+}
+
+function validatePhone() {
+    const phoneInput = document.getElementById("newContactPhone");
+    const phoneRegex = /^[0-9]+$/;
+    const isValid = phoneRegex.test(phoneInput.value.trim());
+    markField(phoneInput, isValid);
+    return isValid;
+}
+
+function markField(inputElement, isValid) {
+    const container = inputElement.parentElement;
+    if (isValid) {
+        container.classList.remove("invalid");
+    } else {
+        container.classList.add("invalid");
+    }
 }

@@ -140,3 +140,54 @@ function checkForGreetingGuest(hour, greetingElement) {
         greetingElement.innerHTML = `Good night`;
     }
 }
+
+function validateLoginForm() {
+    const emailInput = document.getElementById("emailLogin");
+    const passwordInput = document.getElementById("passwordLogin");
+    let isValid = true;
+    isValid &= validateEmail(emailInput);
+    isValid &= validatePassword(passwordInput);
+    if (isValid) {
+        loginWithAccount();
+    }
+}
+
+function validateEmail(input) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!input.value.trim()) {
+        markInvalid(input, "Email is required");
+        return false;
+    } else if (!emailRegex.test(input.value.trim())) {
+        markInvalid(input, "Email must be in a valid format");
+        return false;
+    } else {
+        markValid(input);
+        return true;
+    }
+}
+
+function validatePassword(input) {
+    if (!input.value.trim()) {
+        markInvalid(input, "Password is required");
+        return false;
+    } else if (input.value.trim().length < 6) {
+        markInvalid(input, "Password must be at least 6 characters long");
+        return false;
+    } else {
+        markValid(input);
+        return true;
+    }
+}
+
+function markInvalid(input, message) {
+    const errorElement = document.getElementById(input.id + "Error");
+    errorElement.textContent = message;
+    input.classList.add("invalid");
+}
+
+function markValid(input) {
+    const errorElement = document.getElementById(input.id + "Error");
+    errorElement.textContent = "";
+    input.classList.remove("invalid");
+}
+

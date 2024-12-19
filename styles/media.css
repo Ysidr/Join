@@ -429,7 +429,7 @@
         padding: 0 16px;
     }
 
-    .cloumn1 , .detailInfos , .taskDetailMain , .detailCategory , .detailBtns , .detailHeader , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv , .dataInput input{
+    .cloumn1 , .detailInfos , .taskDetailMain , .detailCategory , .contacts-container , .showContacts , .detailBtns , .detailHeader , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv , .dataInput input{
         width: 100% !important;
     }
 

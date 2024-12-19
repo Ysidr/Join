@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Inter';
+    src: url("./assets/font/Inter-VariableFont_opsz,wght.ttf");
+
+}
+
 a {
     text-decoration: none;
     color: white;
@@ -25,6 +31,7 @@ html, body {
     display: flex;
     flex-direction: column;
     background-color: #F6F7F8;
+    font-family: Inter;
 }
 
 
@@ -47,4 +54,20 @@ h2 {
 }
 h3 {
     font-size: 20px;
+}
+
+.input-container.invalid input {
+    border: 2px solid red;
+}
+
+.input-container input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-container input:focus {
+    border-color: #007bff;
 }

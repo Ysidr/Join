@@ -52,7 +52,6 @@ header img {
     filter: drop-shadow( 0px 0px 5px rgba(164, 163, 163, 0.265));
 }
 .header1 {
-    height: 89px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +82,6 @@ header img {
     border-radius: 10px;
     border-color: #D1D1D1;
     border-style: solid;
-    margin-bottom: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -100,30 +98,43 @@ header img {
     width: 160px;
 }
 
-
-/* Container für Input und Bild */
+/* Container für das Input-Feld und das Bild */
 .input-container {
     position: relative; /* Relatives Positionieren des Containers */
-    display: flex;
-    align-items: center;
+    width: 100%;        /* Der Container nimmt die volle Breite ein */
+    margin-bottom: 20px; /* Abstand nach unten für den Fehlertext */
 }
 
-/* Styling für das Input-Feld */
+/* Das Eingabefeld */
 .input-container input {
-    width: 100%; /* Input-Feld soll die volle Breite einnehmen */
-    padding-right: 40px; /* Platz für das Icon schaffen */
-    box-sizing: border-box; /* Padding wird innerhalb der Breite gezählt */
-    font-size: 16px; /* Optional: Schriftgröße anpassen */
+    width: 100%;               /* Input-Feld nimmt die gesamte Breite ein */
+    padding-left: 30px;        /* Platz für das Icon auf der linken Seite */
+    padding-right: 30px;       /* Platz für das Icon auf der rechten Seite */
+    box-sizing: border-box;    /* Padding wird innerhalb der Breite gezählt */
+    font-size: 16px;           /* Optional: Schriftgröße anpassen */
+    height: 40px;              /* Optional: Höhe des Input-Feldes anpassen */
 }
 
-/* Styling für das Bild */
+/* Das Bild wird nun innerhalb des Input-Feldes rechts positioniert */
 .input-container img {
-    position: absolute; /* Absolute Positionierung innerhalb des Containers */
-    right: 10px; /* Abstand zum rechten Rand */
-    transform: translateY(-50%); /* Zentrierung korrigieren */
-    height: 20px; /* Größe des Icons anpassen */
-    pointer-events: none; /* Klicks werden nicht auf das Bild übertragen */
+    position: absolute;         /* Absolute Positionierung im Container */
+    right: 10px;                /* Abstand von der rechten Seite des Containers */
+    top: 50%;                   /* Vertikal zentrieren */
+    transform: translateY(-50%); /* Vertikale Ausrichtung korrigieren */
+    height: 20px;               /* Bildhöhe */
+    pointer-events: none;       /* Verhindert, dass das Bild das Klicken blockiert */
 }
+
+/* Styling für den Fehlertext unter dem Input-Feld */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-right: 30px; /* Damit der Text nicht mit dem Bild kollidiert */
+}
+
+
+
 
 /* Startzustand für den Container */
 #logoAnimationContainer {

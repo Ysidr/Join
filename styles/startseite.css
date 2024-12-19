@@ -144,6 +144,10 @@ section h1{
 }
 
 .helpMenu {
+    display: none;
+}
+
+.help{
     display: block;
 }
 
@@ -156,4 +160,18 @@ section h1{
 
 .startseite-capa-img-media{
     display: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2A3647;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
 }
