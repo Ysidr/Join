@@ -1,15 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join</title>
-    <script src="./script.js"></script>
-    <link rel="stylesheet" href="./styles/assets.css">
+    <title>Login Page</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/standart.css">
+    <link rel="stylesheet" href="./styles/loginPage.css">
+    <link rel="stylesheet" href="styles/media.css">
+    <script src="./script.js"></script>
+    <script src="./scripts/signUp.js" defer></script>
+    <script src="./scripts/loginPage.js"></script>
 </head>
-<body>
-    <button class="btnClear"> test test</button>
-    <button class="btnGray">test test</button>
+
+<body onload="initLogin()">
+    <div id="logoAnimationContainer">
+        <img src="./assets/icons/Capa 2.svg" alt="Logo" id="animatedLogo">
+    </div>
+    <header>
+        <img src="./assets/icons/Capa 2.svg" alt="">
+        <div class="createAccountDiv">
+            <p>Not a Join user?</p>
+            <button class="signUpBtn btnGray" onclick="goToSignUp()">Sign up</button>
+        </div>
+
+    </header>
+    <section class="loginBox">
+        <div class="loginDiv">
+            <div class="header1">
+                <h1>Log in</h1>
+                <div class="underlineBlue"></div>
+            </div>
+            <div class="loginData">
+                <form onsubmit="event.preventDefault(); loginWithAccount()">
+                    <div class="input-container">
+                        <input type="email" placeholder="Email" name="username" id="emailLogin" required>
+                        <img src="assets/icons/mail.svg" alt="">
+                    </div>
+                    <div class="input-container">
+                        <input type="password" placeholder="Password" name="password" id="passwordLogin" required>
+                        <img src="assets/icons/mail.svg" alt="">
+                    </div>
+                    <div class="loginButtons">
+                        <button type="submit" class="btnGray">Log in</button>
+                        <button type="button" class="btnClear" onclick="openGuestAccount()">Guest Log in</button>
+                    </div>
+                </form>
+            </div>            
+        </div>
+        <div class="responsive-create-acc">
+            <p>Not a Join user?</p>
+            <button class="signUpBtn btnGray" onclick="goToSignUp()">Sign up</button>
+        </div>
+        <div class="login-links-container">
+            <a href="PrivacyPolicy.html" class="login-links cursor-pointer">Privacy Policy</a>
+            <a href="legalNotice.html" class="login-links cursor-pointer">Legal Notice</a>
+        </div>
+    </section>
+
+
+
 </body>
+
 </html>
