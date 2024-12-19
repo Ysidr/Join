@@ -110,8 +110,16 @@ function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
                 <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
                 <div id="prioImg${responseToJson.title}" class="prioImg"></div>
             </div>
+            <button class="moveTaskButton" onclick="showMoveOptions(event, '${responseToJson.title}')">→</button>
+            <div class="moveOptions d-none" id="moveOptions${responseToJson.title}">
+                <button onclick="moveTask('${responseToJson.title}', 'ToDoTasks')">To Do</button>
+                <button onclick="moveTask('${responseToJson.title}', 'InProgressTasks')">In Progress</button>
+                <button onclick="moveTask('${responseToJson.title}', 'AwaitFeedbackTasks')">Await Feedback</button>
+                <button onclick="moveTask('${responseToJson.title}', 'DoneTasks')">Done</button>
+            </div>
         </span>`;
 }
+
 
 /**
  * Renders subtasks for a specific task.

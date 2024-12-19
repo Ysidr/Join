@@ -351,3 +351,10 @@
         opacity: 1; /* Sichtbar */
     }
 }
+
+.moveTaskButton{
+    display: none;
+}
+
+
+

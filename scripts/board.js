@@ -420,3 +420,32 @@ function cancelEdit() {
     document.getElementById("AddTaskSection").classList.add("d-none");
     return
 }
+
+function showMoveOptions(event, taskId) {
+    event.stopPropagation();
+    const optionsMenu = document.getElementById(`moveOptions${taskId}`);
+    optionsMenu.classList.toggle("d-none");
+    document.addEventListener("click", closeMoveOptions);
+}
+
+function closeMoveOptions() {
+    document.querySelectorAll(".moveOptions").forEach(menu => menu.classList.add("d-none"));
+    document.removeEventListener("click", closeMoveOptions);
+}
+
+function moveTask(taskId, targetContainerId) {
+    const taskElement = document.getElementById(`singleTaskBoard${taskId}`);
+    const targetContainer = document.getElementById(targetContainerId);
+
+    if (taskElement && targetContainer) {
+        // Verschiebe das Element visuell in den Ziel-Container
+        targetContainer.appendChild(taskElement);
+
+        // Nutze bestehende Logik, um die Datenstruktur zu aktualisieren
+        const changedToID = targetContainerId.replace("Tasks", ""); // Entfernt "Tasks" vom Container-ID
+        changeToDropOffJson(taskElement.id, changedToID);
+    }
+
+    closeMoveOptions(); // Schließe das Dropdown-Menü
+}
+
