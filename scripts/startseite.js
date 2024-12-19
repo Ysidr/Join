@@ -34,7 +34,7 @@ const navbarLinks = [
     document.getElementById("privacyPolicy"),
     document.getElementById("legalNotice"),
     document.getElementById("help"),
-    document.getElementById("login")
+    document.getElementById("index")
 ];
 
 /**
