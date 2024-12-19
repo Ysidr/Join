@@ -260,6 +260,12 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
             <a href="mailto:${email}" class="email">${email}</a>
             <h5><strong>Phone</strong></h5>
             <a href="tel:${phone}" class="phone-number">${phone}</a>
+        </div>
+        <div>
+            <div class="responsive-contact-buttons">
+                <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
+                <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
+            </div>
         </div>`;
 }
 

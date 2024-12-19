@@ -203,7 +203,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln */
-    z-index: 100;    
+    z-index: 9999;    
 }
 
 /* Main form container */
@@ -369,4 +369,8 @@
 
 .mobil-hidden{
     display: none ;
+}
+
+.responsive-contact-buttons{
+    display: none;
 }

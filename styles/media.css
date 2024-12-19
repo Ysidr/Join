@@ -257,9 +257,7 @@
         position: relative;
         top: -40px;
     }
-    .reesponsive-detail-contact-button{
-        display: none !important;
-    }
+
 }
 
 @media (min-width:790px){
@@ -269,6 +267,20 @@
 }
 
 @media (max-width: 790px){
+
+    .reesponsive-detail-contact-button{
+        display: none !important;
+    }
+
+    .responsive-contact-buttons{
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
 
     .contact-container {
         position: absolute;
