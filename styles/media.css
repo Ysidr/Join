@@ -300,7 +300,7 @@
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 32px !important;
     }
 
     .summary-container{
@@ -420,11 +420,16 @@
 }
 
 @media (max-width: 550px){
+
+    .taskDetailMain{
+        padding: 0 16px;
+    }
+
     .coloumns{
         padding: 0 16px;
     }
 
-    .cloumn1 , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv , .dataInput input{
+    .cloumn1 , .detailInfos , .taskDetailMain , .detailCategory , .detailBtns , .detailHeader , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv , .dataInput input{
         width: 100% !important;
     }
 
