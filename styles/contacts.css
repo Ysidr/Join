@@ -356,3 +356,13 @@
     font-size: 24px;
     color: #2A3647;
 }
+
+.media-contact-div{
+    display: none;
+}
+
+.reesponsive-detail-contact-button{
+    display: flex;
+    gap: 36px;
+    padding-top: 8px;
+}

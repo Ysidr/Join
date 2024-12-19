@@ -2,9 +2,14 @@
     <div class="flex">
         <div class="contacts">
             <div class="contact-div">
-                <button class="btnGray" onclick="renderAddContactForm()">Add new contact <img src="assets/icons/person_add.png" alt=""></button>
+                <button class="btnGray" onclick="renderAddContactForm()"><p>Add new contact</p> <img src="assets/icons/person_add.png" alt=""></button>
             </div>
-            <div class="showContacts" id="showContacts"></div>
+            <div class="showContacts" id="showContacts">
+
+            </div>
+            <div class="media-contact-div">
+                <button class="btnGray" onclick="renderAddContactForm()"><img src="assets/icons/person_add.png" alt=""></button>
+            </div>
         </div>
         <div class="contact-container sehr-hidden" id="contactContainer">
             <div class="padding">
@@ -27,7 +32,6 @@
                 <img src="assets/icons/arrow-left-line.png" alt="" onclick="closeContactInfo()"  class="img-help cursor-pointer">
             </div>
             <div class="responsive-contact-info-buttons">
-                <button>...</button>
             </div>
         </div>
     </div>    
