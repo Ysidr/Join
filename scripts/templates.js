@@ -202,10 +202,10 @@ function renderDetails(allTasksIndex) {
     if (specificObject.subtasks != null) {
         for (let indexAddedSubtasks = 0; indexAddedSubtasks < specificObject.subtasks.addedTask.length; indexAddedSubtasks++) {
             if (specificObject.subtasks.subtasksDone[indexAddedSubtasks] == true) {
-                document.getElementById("detailSubtasks").innerHTML += `<div class="subtaskDetailDiv"><input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" checked onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+                document.getElementById("detailSubtasks").innerHTML += `<div class="subtaskDetailDiv"><input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" checked onclick="subtaskSelected('${allTasksIndex}' , '${indexAddedSubtasks}')">
             <label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}</label></div>`
             } else {
-                document.getElementById("detailSubtasks").innerHTML += `<div class="subtaskDetailDiv"><input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" onclick="subtaskSelected('${indexTaskFields}', '${indexTaskCount}' , '${indexAddedSubtasks}')">
+                document.getElementById("detailSubtasks").innerHTML += `<div class="subtaskDetailDiv"><input type="checkbox" id="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}" onclick="subtaskSelected('${allTasksIndex}' , '${indexAddedSubtasks}')">
             <label for="checkboxSubtask${specificObject.subtasks.addedTask[indexAddedSubtasks]}">${specificObject.subtasks.addedTask[indexAddedSubtasks]}</label></div>`
             }
         }
@@ -456,7 +456,7 @@ function renderAllSubtasks() {
  * @param {number} indexTaskFields - The index of the task in the list of fields.
  * @param {number} indexTaskCount - The index of the task in the list of tasks.
  */
-function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
+function renderNoteToEdit(specificObject, allTasksIndex) {
     document.getElementById("titleInput").value = specificObject.title;
     document.getElementById("descriptionInput").value = specificObject.description;
     document.getElementById("dateIput").value = specificObject.date;
@@ -480,5 +480,5 @@ function renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount) {
         document.getElementById("categorytSelector").selectedIndex = 2;
     }
     document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
-    <button class="btnGray" onclick="updateTask('${indexTaskFields}', '${indexTaskCount}')">Update Task</button>`
+    <button class="btnGray" onclick="updateTask('${allTasksIndex}')">Update Task</button>`
 }

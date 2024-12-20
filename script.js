@@ -63,23 +63,45 @@ async function openGuestAccount() {
 
 
 async function updateTaskCount() {
+    TaskCount = 0;
     toDoTaskCount = 0;
     awaitFeedbackTaskCount = 0;
     doneTaskCount = 0;
     inProgressTaskCount = 0;
     urgentAmount = 0;
-    let response = await fetch(BASE_URL + `Tasks.json`);
-    responseToJson = await response.json();
-    let localTaskCount = 0;
-    if (responseToJson != null) {
-        for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
-            localTaskCount++;
-            const tasksArray = Object.values(responseToJson);
-            toDoTaskCount = tasksArray.filter(task => task.status === "To-Do").length;
+    let urgentAmountDeadlines = [];
+        
+
+    try {
+        const response = await fetch(`${BASE_URL}Tasks.json`);
+        const tasks = await response.json();
+        if (tasks) {
+            for (const task of Object.values(tasks).slice(1)) {
+                TaskCount++;
+                switch (task.progress) {
+                    case "ToDo":
+                        toDoTaskCount++;
+                        break;
+                    case "InProgress":
+                        inProgressTaskCount++;
+                        break;
+                    case "AwaitFeedback":
+                        awaitFeedbackTaskCount++;
+                        break;
+                    case "Done":
+                        doneTaskCount++;
+                        break;
+                }
+                if (task.priority === "high") {
+                    urgentAmount++;
+                    checkForUrgent(tasks, urgentAmountDeadlines);                }
+            }
         }
+    } catch (error) {
+        console.error("Error updating task count:", error);
     }
-    TaskCount = localTaskCount;
 }
+
 
 async function checkForPage() {
     if (document.getElementById("main-content") != undefined) {

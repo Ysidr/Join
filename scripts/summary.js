@@ -19,7 +19,6 @@ async function initSummary() {
  */
 async function updateAllTaskCounts() {
     await updateTaskCount();
-    await updateToDoTaskCount() 
 }
 
 /**
@@ -34,19 +33,6 @@ function displayCounts() {
     renderInProgress();
     renderAwaitFeedback();
     renderClosestDate();
-}
-
-/**
- * Retrieves and calculates the number of tasks marked as "urgent" across different task categories.
- * @async
- * @function getUrgentAmount
- * @returns {Promise<void>}
- */
-async function getUrgentAmount() {
-    urgentAmount = 0;
-    await checkToDo();
-    await checkAwait();
-    await checkInProgress();
 }
 
 /**

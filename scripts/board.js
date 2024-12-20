@@ -14,6 +14,18 @@ async function initBoards() {
 }
 
 async function getTasks() {
+    if (toDoTaskCount != 0) {
+        document.getElementById("ToDoTasks").innerHTML = "";
+    }
+    if (doneTaskCount != 0) {
+        document.getElementById("DoneTasks").innerHTML = "";
+    }
+    if (inProgressTaskCount != 0) {
+        document.getElementById("InProgressTasks").innerHTML = "";
+    }
+    if (awaitFeedbackTaskCount != 0) {
+        document.getElementById("AwaitFeedbackTasks").innerHTML = "";
+    }
     let response = await fetch(BASE_URL + `Tasks.json`);
     responseToJson = await response.json();
     allCurrentTasksObj = responseToJson;
@@ -77,6 +89,7 @@ function checkEverythingInTask(currentTask, allTasksIndex) {
  */
 function checkForAddedUsers(getCurrentTask) {
     if (getCurrentTask.assigned.length !== 0) {
+        document.getElementById(`contacts${getCurrentTask.title}`).innerHTML ="";
         for (let indexAddedUsers = 0; indexAddedUsers < getCurrentTask.assigned.length; indexAddedUsers++) {
             getInitialsOfAddedUsers(getCurrentTask, indexAddedUsers, getCurrentTask.title);
         }
@@ -151,8 +164,8 @@ function toggleNoteDetails(allTasksIndex) {
  * @param {number} indexTaskCount - The index of the task count.
  * @param {number} indexAddedSubtasks - The index of the subtask.
  */
-function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
-    let responseToJson = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount];
+function subtaskSelected(allTasksIndex, indexAddedSubtasks) {
+    let responseToJson = allCurrentTasksObj[allTasksIndex];
     if (responseToJson.subtasks.subtasksDone[indexAddedSubtasks] == true) {
         responseToJson.subtasks.subtasksDone[indexAddedSubtasks] = false;
         renderSubtasks(responseToJson);
@@ -239,9 +252,10 @@ async function getCurrentMovedTask(titleMoved, changedToID) {
 async function changeTaskFields(currentChangedObject, changedToID) {
     allCurrentTasksObj[taskIndexOfMoved].progress = changedToID;
     await putAllTasksToServer();
+    await updateAndUploadAllTaskCounts();
     resetAllBoards();
     await getTasks();
-    await updateAndUploadAllTaskCounts();
+   
 }
 
 /**
@@ -298,10 +312,44 @@ async function updateAndUploadAllTaskCounts() {
  * @async
  */
 async function uploadAllTaskCounts() {
+    await setTaskCount();
     await setToDoTaskCount();
     await setAwaitFeedbackTaskCount();
     await setDoneTaskCount();
     await setInProgressTaskCount();
+}
+
+/**
+ * Sets the count of tasks in the "Awaiting Feedback" category and uploads it to the server.
+ * @async
+ * @returns {Promise<Object>} The response from the server after the PUT request.
+ */
+async function setTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/TaskCount/.json`, {
+        method: "put",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(TaskCount),
+    });
+    return responseToJson = await response.json();
+}
+
+
+/**
+ * Sets the count of tasks in the "Awaiting Feedback" category and uploads it to the server.
+ * @async
+ * @returns {Promise<Object>} The response from the server after the PUT request.
+ */
+async function setToDoTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/ToDoTaskCount/.json`, {
+        method: "put",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toDoTaskCount),
+    });
+    return responseToJson = await response.json();
 }
 
 /**
@@ -358,12 +406,11 @@ async function setInProgressTaskCount() {
  * @param {number} indexTaskFields - The index of the task category.
  * @param {number} indexTaskCount - The index of the specific task within the category.
  */
-async function editTaskInBoard(indexTaskFields, indexTaskCount) {
+async function editTaskInBoard(allTasksIndex) {
     await addTaskInBoard();
     await new Promise(r => setTimeout(r, 20));
-    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
-    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
-    renderNoteToEdit(specificObject, indexTaskFields, indexTaskCount);
+    let specificObject = allCurrentTasksObj[allTasksIndex];
+    renderNoteToEdit(specificObject, allTasksIndex);
 }
 
 /**
@@ -372,13 +419,12 @@ async function editTaskInBoard(indexTaskFields, indexTaskCount) {
  * @param {number} indexTaskFields - The index of the task category.
  * @param {number} indexTaskCount - The index of the specific task within the category.
  */
-async function updateTask(indexTaskFields, indexTaskCount) {
+async function updateTask(allTasksIndex) {
     getNewTaskInfo();
-    let TaskFieldName = Object.keys(allCurrentTasksObj)[indexTaskFields];
-    await putEditedTaskToServer(TaskFieldName, indexTaskCount);
+    await putEditedTaskToServer(allTasksIndex);
     await getTasks();
     document.getElementById("taskDetailSection").classList.add("d-none");
-    toggleNoteDetails(indexTaskFields, indexTaskCount);
+    toggleNoteDetails(allTasksIndex);
     document.getElementById("AddTaskSection").classList.add("d-none");
 }
 
@@ -389,8 +435,8 @@ async function updateTask(indexTaskFields, indexTaskCount) {
  * @param {number} indexTaskCount - The index of the specific task within the category.
  * @returns {Promise<Object>} The response from the server after the PUT request.
  */
-async function putEditedTaskToServer(TaskFieldName, indexTaskCount) {
-    let response = await fetch(BASE_URL + `Tasks/${TaskFieldName}/${indexTaskCount}.json`, {
+async function putEditedTaskToServer(allTasksIndex) {
+    let response = await fetch(BASE_URL + `Tasks/${allTasksIndex}.json`, {
         method: "put",
         header: {
             "Content-Type": "application/json",
