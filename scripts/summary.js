@@ -18,11 +18,8 @@ async function initSummary() {
  * @returns {Promise<void>}
  */
 async function updateAllTaskCounts() {
-    await updateToDoTaskCount();
-    await updateAwaitFeedbackTaskCount();
-    await updateDoneTaskCount();
-    await updateInProgressTaskCount();
-    await getUrgentAmount();
+    await updateTaskCount();
+    await updateToDoTaskCount() 
 }
 
 /**

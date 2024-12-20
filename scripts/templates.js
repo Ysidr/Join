@@ -27,7 +27,7 @@ function renderUrgent() {
  */
 function renderAllTasks() {
     document.getElementById("allTasks").innerHTML =
-        `<h1 class="taskAmount">${toDoTaskCount + awaitFeedbackTaskCount + doneTaskCount + inProgressTaskCount}</h1>`
+        `<h1 class="taskAmount">${TaskCount}</h1>`
 }
 
 /**
@@ -95,9 +95,9 @@ function renderContact(responseToJson, indexContactWithLetter) {
  * @param {number} indexTaskFields - The index of the task's field in the response data.
  * @param {number} indexTaskCount - The index of the task in the response data.
  */
-function renderTasksinBoard(responseToJson, indexTaskFields, indexTaskCount) {
+function renderTasksinBoard(responseToJson, allTasksIndex) {
     document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
-        `<span class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${indexTaskFields}', '${indexTaskCount}')" ondragstart="dragstartHandler(event)">
+        `<span class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${allTasksIndex}')" ondragstart="dragstartHandler(event)">
             <div class="category" id="divCategory${responseToJson.title}">
             </div>
             <div class="textSingleTask">
@@ -178,11 +178,10 @@ function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
  * @param {number} indexTaskFields - The index of the task's field in the task data.
  * @param {number} indexTaskCount - The index of the task.
  */
-function renderDetails(indexTaskFields, indexTaskCount) {
+function renderDetails(allTasksIndex) {
     document.getElementById("detailContacts").innerHTML = "";
     document.getElementById("detailSubtasks").innerHTML = "";
-    let objectAllTasks = Object.values(allCurrentTasksObj)[indexTaskFields];
-    let specificObject = Object.values(objectAllTasks)[indexTaskCount];
+    let specificObject = allCurrentTasksObj[allTasksIndex];
     if (specificObject.category == "user") {
         document.getElementById("detailCategory").innerHTML = `<p class="pDetailCategory" style="background-color: #0038FF">User Story</p>`
     } else {
@@ -212,9 +211,9 @@ function renderDetails(indexTaskFields, indexTaskCount) {
         }
     }
     document.getElementById("detailBtns").innerHTML = `
-    <button onclick="deleteTaskFromBoard('${indexTaskFields}', '${indexTaskCount}')"> <img src="./assets/icons/delete.svg" alt=""></button>
+    <button onclick="deleteTaskFromBoard('${allTasksIndex}')"> <img src="./assets/icons/delete.svg" alt=""></button>
             <div class="detailBtnSeperator"></div>
-            <button onclick="editTaskInBoard('${indexTaskFields}', '${indexTaskCount}')" ><img src="./assets/icons/pencilSmall.svg" alt=""></button>`
+            <button onclick="editTaskInBoard('${allTasksIndex}')" ><img src="./assets/icons/pencilSmall.svg" alt=""></button>`
 }
 
 

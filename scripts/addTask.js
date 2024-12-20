@@ -48,10 +48,11 @@ async function getContactsWithThisLetter(indexContactLetters) {
  * @returns {Promise<void>}
  */
 async function createTask() {
-    toDoTaskCount++;
+    await updateTaskCount();
+    TaskCount++
     getNewTaskInfo();
     await putTaskToServer();
-    await setToDoTaskCount();
+    await setTaskCount();
     resetAllVars();
     reloadPage();
 }
@@ -145,6 +146,7 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
             "addedTask": addedSubtasks,
             "subtasksDone": addedSubtaskDone,
         },
+        "progress": "ToDo"
     };
     return newTaskData;
 }
@@ -156,7 +158,7 @@ function gatherAllTaskData(newTitle, newDescription, newDate) {
  * @returns {Promise<Object>} The response from the server after storing the task.
  */
 async function putTaskToServer() {
-    let response = await fetch(BASE_URL + `Tasks/ToDo/${toDoTaskCount}.json`, {
+    let response = await fetch(BASE_URL + `Tasks/${TaskCount}.json`, {
         method: "put",
         header: {
             "Content-Type": "application/json",
@@ -172,13 +174,13 @@ async function putTaskToServer() {
  * @function setToDoTaskCount
  * @returns {Promise<Object>} The response from the server after updating the task count.
  */
-async function setToDoTaskCount() {
-    let response = await fetch(BASE_URL + `TaskCounts/ToDoTaskCount/.json`, {
+async function setTaskCount() {
+    let response = await fetch(BASE_URL + `TaskCounts/TaskCount/.json`, {
         method: "put",
         header: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(toDoTaskCount)
+        body: JSON.stringify(TaskCount)
     });
     return responseToJson = await response.json();
 }

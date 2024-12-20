@@ -62,49 +62,23 @@ async function openGuestAccount() {
 
 
 
-async function updateToDoTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks/ToDo.json`);
+async function updateTaskCount() {
+    toDoTaskCount = 0;
+    awaitFeedbackTaskCount = 0;
+    doneTaskCount = 0;
+    inProgressTaskCount = 0;
+    urgentAmount = 0;
+    let response = await fetch(BASE_URL + `Tasks.json`);
     responseToJson = await response.json();
     let localTaskCount = 0;
     if (responseToJson != null) {
         for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
             localTaskCount++;
+            const tasksArray = Object.values(responseToJson);
+            toDoTaskCount = tasksArray.filter(task => task.status === "To-Do").length;
         }
     }
-    toDoTaskCount = localTaskCount;
-}
-async function updateAwaitFeedbackTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks/AwaitFeedback.json`);
-    responseToJson = await response.json();
-    let localTaskCount = 0;
-    if (responseToJson != null) {
-        for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
-            localTaskCount++;
-        }
-    }
-    awaitFeedbackTaskCount = localTaskCount;
-}
-async function updateDoneTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks/Done.json`);
-    responseToJson = await response.json();
-    let localTaskCount = 0;
-    if (responseToJson != null) {
-        for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
-            localTaskCount++;
-        }
-    }
-    doneTaskCount = localTaskCount;
-}
-async function updateInProgressTaskCount() {
-    let response = await fetch(BASE_URL + `Tasks/InProgress.json`);
-    responseToJson = await response.json();
-    let localTaskCount = 0;
-    if (responseToJson != null) {
-        for (let indexUserCount = 1; indexUserCount < responseToJson.length; indexUserCount++) {
-            localTaskCount++;
-        }
-    }
-    inProgressTaskCount = localTaskCount;
+    TaskCount = localTaskCount;
 }
 
 async function checkForPage() {

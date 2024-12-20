@@ -10,7 +10,23 @@ let taskIndexOfMoved = 0;
  * @async
  */
 async function initBoards() {
-    await getToDoTasks();
+    await getTasks();
+}
+
+async function getTasks() {
+    let response = await fetch(BASE_URL + `Tasks.json`);
+    responseToJson = await response.json();
+    allCurrentTasksObj = responseToJson;
+    for (let allTasksIndex = 1; allTasksIndex < responseToJson.length; allTasksIndex++) {
+        currentlyRenderingTasks = responseToJson[allTasksIndex].progress
+        let currentTask = responseToJson[allTasksIndex];
+        let taskTitle = currentTask.title.toLocaleLowerCase();
+        let searchTask = currentSearchInBoard.toLocaleLowerCase();
+        if (currentSearchInBoard === "" || taskTitle.includes(searchTask)) {
+            checkEverythingInTask(currentTask, allTasksIndex);
+        }
+
+    }
 }
 
 /**
@@ -42,35 +58,13 @@ async function putAllTasksToServer() {
 }
 
 /**
- * Fetches the tasks marked as 'To-Do' and renders them on the board.
- * @async
- */
-async function getToDoTasks() {
-    let response = await fetch(BASE_URL + `Tasks.json`);
-    responseToJson = await response.json();
-    allCurrentTasksObj = responseToJson;
-    for (let indexTaskFields = 0; indexTaskFields < Object.keys(responseToJson).length; indexTaskFields++) {
-        currentlyRenderingTasks = Object.keys(responseToJson)[indexTaskFields];
-        document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML = "";
-        for (let indexTaskCount = 1; indexTaskCount < Object.values(responseToJson)[indexTaskFields].length; indexTaskCount++) {
-            let currentTask = Object.values(Object.values(responseToJson)[indexTaskFields])[indexTaskCount];
-            let taskTitle = currentTask.title.toLocaleLowerCase();
-            let searchTask = currentSearchInBoard.toLocaleLowerCase();
-            if (currentSearchInBoard === "" || taskTitle.includes(searchTask)) {
-                checkEverythingInTask(currentTask, indexTaskFields, indexTaskCount);
-            }
-        }
-    }
-}
-
-/**
  * Performs checks on various attributes of a task (subtasks, category, importance, assigned users) and renders them.
  * @param {Object} currentTask - The task object to be checked.
  * @param {number} indexTaskFields - The index of the task field.
  * @param {number} indexTaskCount - The index of the task count.
  */
-function checkEverythingInTask(currentTask, indexTaskFields, indexTaskCount) {
-    renderTasksinBoard(currentTask, indexTaskFields, indexTaskCount);
+function checkEverythingInTask(currentTask, allTasksIndex) {
+    renderTasksinBoard(currentTask, allTasksIndex);
     checkForSubtasks(currentTask);
     checkForCategory(currentTask);
     checkForImportance(currentTask);
@@ -146,9 +140,9 @@ function checkForSubtasks(getCurrentTask) {
  * @param {number} indexTaskFields - The index of the task field.
  * @param {number} indexTaskCount - The index of the task count.
  */
-function toggleNoteDetails(indexTaskFields, indexTaskCount) {
+function toggleNoteDetails(allTasksIndex) {
     document.getElementById("taskDetailSection").classList.toggle("d-none");
-    renderDetails(indexTaskFields, indexTaskCount);
+    renderDetails(allTasksIndex);
 }
 
 /**
@@ -173,7 +167,7 @@ function subtaskSelected(indexTaskFields, indexTaskCount, indexAddedSubtasks) {
  */
 function searchTasksInBoard() {
     currentSearchInBoard = document.getElementById("boardHeaderSearch").value;
-    getToDoTasks();
+    getTasks();
     document.getElementById("boardHeaderSearch").value = "";
 }
 
@@ -227,14 +221,11 @@ async function changeToDropOffJson(data, changedToID) {
  * @param {string} changedToID - The ID of the target section where the task is dropped.
  */
 async function getCurrentMovedTask(titleMoved, changedToID) {
-    for (let indexTaskFields = 0; indexTaskFields < Object.keys(allCurrentTasksObj).length; indexTaskFields++) {
-        for (let indexTaskCount = 1; indexTaskCount < Object.values(allCurrentTasksObj)[indexTaskFields].length; indexTaskCount++) {
-            if (Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount].title == titleMoved) {
-                let currentChangedObject = Object.values(Object.values(allCurrentTasksObj)[indexTaskFields])[indexTaskCount];
-                taskFieldIndexOfMoved = indexTaskFields;
-                taskIndexOfMoved = indexTaskCount;
-                changeTaskFields(currentChangedObject, changedToID);
-            }
+    for (let indexTaskCount = 1; indexTaskCount < allCurrentTasksObj.length; indexTaskCount++) {
+        if (allCurrentTasksObj[indexTaskCount].title == titleMoved) {
+            let currentChangedObject = allCurrentTasksObj[indexTaskCount];
+            taskIndexOfMoved = indexTaskCount;
+            changeTaskFields(currentChangedObject, changedToID);
         }
     }
 }
@@ -246,14 +237,10 @@ async function getCurrentMovedTask(titleMoved, changedToID) {
  * @param {string} changedToID - The target section ID where the task is dropped.
  */
 async function changeTaskFields(currentChangedObject, changedToID) {
-    Object.values(allCurrentTasksObj)[taskFieldIndexOfMoved].splice(taskIndexOfMoved, 1);
-    if (allCurrentTasksObj[changedToID] == undefined) {
-        allCurrentTasksObj[changedToID] = [null];
-    }
-    allCurrentTasksObj[changedToID].push(currentChangedObject);
+    allCurrentTasksObj[taskIndexOfMoved].progress = changedToID;
     await putAllTasksToServer();
     resetAllBoards();
-    await getToDoTasks();
+    await getTasks();
     await updateAndUploadAllTaskCounts();
 }
 
@@ -288,11 +275,11 @@ function addTaskInBoard() {
  * @param {number} indexTaskFields - The index of the task field.
  * @param {number} indexTaskCount - The index of the task count.
  */
-async function deleteTaskFromBoard(indexTaskFields, indexTaskCount) {
-    Object.values(allCurrentTasksObj)[indexTaskFields].splice(indexTaskCount, 1);
+async function deleteTaskFromBoard(allTasksIndex) {
+    allCurrentTasksObj.splice(allTasksIndex, 1);
     await addDNone("taskDetailSection");
     resetAllBoards();
-    await getToDoTasks();
+    await getTasks();
     await updateAndUploadAllTaskCounts()
 
 }
@@ -389,7 +376,7 @@ async function updateTask(indexTaskFields, indexTaskCount) {
     getNewTaskInfo();
     let TaskFieldName = Object.keys(allCurrentTasksObj)[indexTaskFields];
     await putEditedTaskToServer(TaskFieldName, indexTaskCount);
-    await getToDoTasks();
+    await getTasks();
     document.getElementById("taskDetailSection").classList.add("d-none");
     toggleNoteDetails(indexTaskFields, indexTaskCount);
     document.getElementById("AddTaskSection").classList.add("d-none");
