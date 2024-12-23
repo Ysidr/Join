@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="taskRow inProgressRow">
+        <div class="taskRow inProgressRow" class="tasksInRow">
             <div class="rowHeader">
                 <p class="rowHeaderText">In Progress</p>
                 <button class="rowHeaderBtn"><img src="./assets/icons/plus button.svg" alt="addTask" onclick="addTaskInBoard()"></button>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="taskRow doneRow">
+        <div class="taskRow doneRow" >
             <div class="rowHeader">
                 <p class="rowHeaderText">Done</p>
             </div>
@@ -57,7 +57,9 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+    
+    
     
     <section id="taskDetailSection" class="taskDetailSection aninmation d-none" onclick="addDNone('taskDetailSection')">
         <div class="taskDetailMain" onclick="event.stopPropagation()">

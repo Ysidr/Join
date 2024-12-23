@@ -358,26 +358,17 @@ function closeMoveOptions() {
 }
 
 function moveTask(taskId, targetContainerId) {
-    event.stopPropagation();
     const taskElement = document.getElementById(`singleTaskBoard${taskId}`);
     const targetContainer = document.getElementById(targetContainerId);
+
     if (taskElement && targetContainer) {
+        // Verschiebe das Element visuell in den Ziel-Container
         targetContainer.appendChild(taskElement);
-        const changedToID = targetContainerId.replace("Tasks", "");
+
+        // Nutze bestehende Logik, um die Datenstruktur zu aktualisieren
+        const changedToID = targetContainerId.replace("Tasks", ""); // Entfernt "Tasks" vom Container-ID
         changeToDropOffJson(taskElement.id, changedToID);
     }
-    closeMoveOptions();
+
+    closeMoveOptions(); // Schließe das Dropdown-Menü
 }
-
-/**
- * Verhindert das Auslösen des toggleNoteDetails beim Klick auf den Move-Button
- * @param {Event} event - Das Klick-Event
- * @param {string} taskId - Die ID der aktuellen Task
- */
-function moveButtonClick(event, taskId) {
-    event.stopPropagation();
-    showMoveOptions(event, taskId);
-}
-
-
-

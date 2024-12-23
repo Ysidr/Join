@@ -170,6 +170,8 @@ async function loadCss(page) {
         } else {
             document.head.innerHTML += `<link id="dynamic-css" rel="stylesheet" href="./styles/${page}.css">`;
         }
+    } else {
+        console.log(`No CSS file found for ${page}`);
     }
 }
 
@@ -227,22 +229,4 @@ navbarLinks.forEach((link) => {
 function toggleMenu() {
     const menu = document.getElementById('menu-container');
     menu.classList.toggle('d-none');
-}
-
-/**
- * Handles the click event for a menu link.
- * Hides the menu container and loads the corresponding page.
- * @param {string} page - The name of the page to load.
- */
-function handleLinkClick(page) {
-    loadPage(page);
-    toggleMenu();
-}
-
-/**
- * Handles the logout action by redirecting to the index page.
- */
-function handleLogout() {
-    window.location.href = 'index.html';
-    toggleMenu();
 }
