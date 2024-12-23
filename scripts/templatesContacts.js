@@ -100,11 +100,12 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
  * @param {string} contactEmail - The email of the contact being edited.
  */
 function getCurrentMailForButtons(contactEmail) {
-    document.getElementById("new-contact-button-container").innerHTML = ` <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
-                            <button>Delete</button>
-                        </div>
-                        <div class="create btnGray" onclick="saveEditedContact()">
-                        <button>Save</button>
-                            <img src="assets/icons/check.png" alt="">
-                        </div>`
+    document.getElementById("new-contact-button-container").innerHTML = ` 
+        <div class="cancel cursor-pointer" data-email="${contactEmail}" onclick="deleteContact('${contactEmail}')">
+            <button>Delete</button>
+        </div>
+        <div class="create btnGray" onclick="validateEditForm()">
+            <button>Save</button>
+            <img src="assets/icons/check.png" alt="">
+        </div>`;
 }

@@ -147,3 +147,82 @@ function finalizeContactEditing(updatedContact) {
         updatedContact.bgColor
     );
 }
+
+function validateForm() {
+    let isValid = true;
+    if (!validateName("newContactName")) isValid = false;
+    if (!validateEmail("newContactEmail")) isValid = false;
+    if (!validatePhone("newContactPhone")) isValid = false;
+
+    if (isValid) {
+        createContact();
+    }
+}
+
+function validateEditForm() {
+    let isValid = true;
+    if (!validateName("editContactName")) isValid = false;
+    if (!validateEmail("editContactEmail")) isValid = false;
+    if (!validatePhone("editContactPhone")) isValid = false;
+
+    if (isValid) {
+        saveEditedContact();
+    }
+}
+
+function validateName(inputId) {
+    const nameInput = document.getElementById(inputId);
+    const isValid = nameInput.value.trim() !== "";
+    markField(nameInput, isValid);
+    return isValid;
+}
+
+function validateEmail(inputId) {
+    const emailInput = document.getElementById(inputId);
+    const emailValue = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(emailValue);
+
+    if (!isValid) {
+        let errorMessage = "Invalid email: ";
+        if (!emailValue.includes("@")) errorMessage += "missing '@'. ";
+        if (!/\.[a-z]{2,}$/i.test(emailValue)) errorMessage += "missing domain (e.g., .com, .de).";
+        emailInput.setCustomValidity(errorMessage.trim());
+        emailInput.reportValidity();
+    } else {
+        emailInput.setCustomValidity("");
+    }
+
+    markField(emailInput, isValid);
+    return isValid;
+}
+
+function validatePhone(inputId) {
+    const phoneInput = document.getElementById(inputId);
+    const phoneValue = phoneInput.value.trim();
+    const phoneRegex = /^[0-9]+$/;
+    const startsWithValid = phoneValue.startsWith("0") || phoneValue.startsWith("+");
+    const isValid = phoneRegex.test(phoneValue) && startsWithValid;
+
+    if (!isValid) {
+        let errorMessage = "Invalid phone number: ";
+        if (!startsWithValid) errorMessage += "must start with '0' or '+'.";
+        phoneInput.setCustomValidity(errorMessage.trim());
+        phoneInput.reportValidity();
+    } else {
+        phoneInput.setCustomValidity("");
+    }
+
+    markField(phoneInput, isValid);
+    return isValid;
+}
+
+function markField(inputField, isValid) {
+    if (isValid) {
+        inputField.classList.remove("invalid");
+        inputField.classList.add("valid");
+    } else {
+        inputField.classList.remove("valid");
+        inputField.classList.add("invalid");
+    }
+}
