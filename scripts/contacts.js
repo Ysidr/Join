@@ -204,7 +204,6 @@ async function displayContactInfo(name, email, phone, initials, bgColor) {
     const contactInfoContainer = document.getElementById("contactInfo");
     const contactContainer = document.getElementById("contactContainer");    
     if (!contactInfoContainer) {
-        console.log("Contact info container not found.");
         return;
     }
     if (!name) {
@@ -235,7 +234,6 @@ async function fetchContacts() {
     const response = await fetch(BASE_URL + "Contacts.json");
     const contacts = await response.json();
     if (!contacts) {
-        console.log("No contacts found in Firebase.");
         return null;
     }
     return contacts;

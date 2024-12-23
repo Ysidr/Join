@@ -7,19 +7,17 @@
 function renderTasksinBoard(responseToJson, allTasksIndex) {
     document.getElementById(currentlyRenderingTasks + "Tasks").innerHTML +=
         `<span class="singleTaskBoard" id="singleTaskBoard${responseToJson.title}" draggable="true" onclick="toggleNoteDetails('${allTasksIndex}')" ondragstart="dragstartHandler(event)">
-            <div class="category" id="divCategory${responseToJson.title}">
-            </div>
+            <div class="category" id="divCategory${responseToJson.title}"></div>
             <div class="textSingleTask">
                 <p class="titleSingleCard">${responseToJson.title}</p>
                 <p class="descriptionSingleCard">${responseToJson.description}</p>
             </div>
-            <div class="subtasksSingleCard" id="${responseToJson.title}">
-            </div>
+            <div class="subtasksSingleCard" id="${responseToJson.title}"></div>
             <div class="bottomDivSingleCard">
                 <div class="addedContactsSingleCard" id="contacts${responseToJson.title}"></div>
                 <div id="prioImg${responseToJson.title}" class="prioImg"></div>
             </div>
-            <button class="moveTaskButton" onclick="showMoveOptions(event, '${responseToJson.title}')">→</button>
+            <button class="moveTaskButton" onclick="moveButtonClick(event, '${responseToJson.title}')">→</button>
             <div class="moveOptions d-none" id="moveOptions${responseToJson.title}">
                 <button onclick="moveTask('${responseToJson.title}', 'ToDoTasks')">To Do</button>
                 <button onclick="moveTask('${responseToJson.title}', 'InProgressTasks')">In Progress</button>
@@ -28,6 +26,8 @@ function renderTasksinBoard(responseToJson, allTasksIndex) {
             </div>
         </span>`;
 }
+
+
 
 /**
  * Renders subtasks for a specific task.

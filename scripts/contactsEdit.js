@@ -37,7 +37,6 @@ function findContactByEmail(contacts, contactEmail) {
         const foundContact = contactGroup.find(c => c.email === contactEmail);
         if (foundContact) return foundContact;
     }
-    console.log("Contact not found.");
     return null;
 }
 
