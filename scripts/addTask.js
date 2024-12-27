@@ -197,11 +197,9 @@ function contactSelected(name, bgColor) {
         let index = selectedContatct.indexOf(name);
         selectedContatct.splice(index, 1);
         selectedContatctBgColor.splice(index, 1);
-        console.log(selectedContatct);
     } else {
         selectedContatct.push(name);
         selectedContatctBgColor.push(bgColor);
-        console.log(selectedContatct);
     }
     document.getElementById(name).classList.toggle("selectedContact");
     getInitialsOfAddedUser();
@@ -241,7 +239,6 @@ function resetAllVars() {
  */
 async function reloadPage() {
     document.getElementById("main-content").innerHTML = `<div class="addedTaskToBoardBtn"><p>Task added to board</p> <img src="./assets/icons/Vector.svg" alt=""></div>`;
-    console.log(1);
     await new Promise(r => setTimeout(r, 2000));
     loadPage('board');
 }
