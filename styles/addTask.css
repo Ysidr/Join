@@ -287,3 +287,9 @@ input[type="radio"]:checked + .prioLabels svg path {
 .star{
     color: #FF3D00;
 }
+
+.addedSubtasks {
+    max-height: 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
