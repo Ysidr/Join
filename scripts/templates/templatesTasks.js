@@ -27,6 +27,10 @@ function renderTasksinBoard(responseToJson, allTasksIndex) {
         </span>`;
 }
 
+function moveButtonClick (event, title){
+    event.stopPropagation();
+    document.getElementById(`moveOptions${title}`).classList.toggle("d-none");
+}
 
 
 /**

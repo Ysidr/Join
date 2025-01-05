@@ -98,6 +98,7 @@ function cancelEdit() {
  * @returns {Promise<Object>} The server's response.
  */
 async function putAllTasksToServer() {
+    event.stopPropagation();
     let response = await fetch(BASE_URL + `Tasks.json`, {
         method: "put",
         headers: {
