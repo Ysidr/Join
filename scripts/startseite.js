@@ -9,6 +9,7 @@ const pagesWithScripts = ["summary", "addTask", "board", "contacts"];
  * @type {string}
  */
 let currentUserName = "";
+let currentAccountName =  "";
 
 window.onload = checkUserAuthentication;
 

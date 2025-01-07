@@ -40,7 +40,7 @@ function displayCounts() {
  * @function getAndDisplayName
  */
 function getAndDisplayName() {
-    document.getElementById("userNameSummary").innerHTML = `${currentUserName}`;
+    document.getElementById("userNameSummary").innerHTML = `${currentAccountName}`;
 }
 
 /**
@@ -53,7 +53,7 @@ function getGreeting() {
     const greetingElement = document.getElementById('greeting');
     let comma = "";
 
-    if (currentUserName != "") {
+    if (currentAccountName != "") {
         comma = ",";
     }
     if (greetingElement) {
