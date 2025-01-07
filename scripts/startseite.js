@@ -10,11 +10,22 @@ const pagesWithScripts = ["summary", "addTask", "board", "contacts"];
  */
 let currentUserName = "";
 
+window.onload = checkUserAuthentication;
+
 /**
- * Loads user data when the page is fully loaded.
- * @event window#onload
+ * Checks if the user is authenticated, redirects to index.html if not.
+ * @function checkUserAuthentication
  */
-window.onload = loadUserData;
+function checkUserAuthentication() {
+    const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
+    const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+
+    if (!isGuest && !loggedInUserId) {
+        window.location.href = "index.html";
+    } else {
+        loadUserData();
+    }
+}
 
 /**
  * The main content container for dynamically loaded pages.
