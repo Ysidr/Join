@@ -90,7 +90,7 @@ header img {
     margin-top: 24px;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 21px;
 }
 .loginButtons button {
