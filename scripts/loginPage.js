@@ -179,15 +179,6 @@ function validatePassword(input) {
     }
 }
 
-function markInvalid(input, message) {
-    const errorElement = document.getElementById(input.id + "Error");
-    errorElement.textContent = message;
-    input.classList.add("invalid");
-}
 
-function markValid(input) {
-    const errorElement = document.getElementById(input.id + "Error");
-    errorElement.textContent = "";
-    input.classList.remove("invalid");
-}
+
 

@@ -125,17 +125,6 @@ header img {
     pointer-events: none;       /* Verhindert, dass das Bild das Klicken blockiert */
 }
 
-/* Styling für den Fehlertext unter dem Input-Feld */
-.error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    padding-right: 30px; /* Damit der Text nicht mit dem Bild kollidiert */
-}
-
-
-
-
 /* Startzustand für den Container */
 #logoAnimationContainer {
     position: fixed;

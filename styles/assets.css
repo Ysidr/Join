@@ -49,3 +49,11 @@
 .selectPrio [type="radio"]:checked +label {
     background-color: #FFA800;
 }
+
+/* Styling für den Fehlertext unter dem Input-Feld */
+.error-message::placeholder {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-right: 30px; /* Damit der Text nicht mit dem Bild kollidiert */
+}

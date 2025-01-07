@@ -17,6 +17,8 @@ async function addAccountData() {
     };
     mailIsUsed = false;
     checkForMailAdress(data);
+
+    
 }
 
 /**

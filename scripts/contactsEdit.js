@@ -1,4 +1,3 @@
-
 /**
  * Edits an existing contact's information.
  * @async
@@ -149,9 +148,9 @@ function finalizeContactEditing(updatedContact) {
 
 function validateForm() {
     let isValid = true;
-    if (!validateName("newContactName")) isValid = false;
-    if (!validateEmail("newContactEmail")) isValid = false;
-    if (!validatePhone("newContactPhone")) isValid = false;
+    isValid &= validateName("newContactName");
+    isValid &= validateEmail("newContactEmail");
+    isValid &= validatePhone("newContactPhone");
 
     if (isValid) {
         createContact();
@@ -160,9 +159,9 @@ function validateForm() {
 
 function validateEditForm() {
     let isValid = true;
-    if (!validateName("editContactName")) isValid = false;
-    if (!validateEmail("editContactEmail")) isValid = false;
-    if (!validatePhone("editContactPhone")) isValid = false;
+    isValid &= validateName("editContactName");
+    isValid &= validateEmail("editContactEmail");
+    isValid &= validatePhone("editContactPhone");
 
     if (isValid) {
         saveEditedContact();
@@ -171,29 +170,29 @@ function validateEditForm() {
 
 function validateName(inputId) {
     const nameInput = document.getElementById(inputId);
-    const isValid = nameInput.value.trim() !== "";
-    markField(nameInput, isValid);
-    return isValid;
+    if (!nameInput.value.trim()) {
+        markInvalid(nameInput, "Name is required");
+        return false;
+    } else {
+        markValid(nameInput);
+        return true;
+    }
 }
 
 function validateEmail(inputId) {
     const emailInput = document.getElementById(inputId);
     const emailValue = emailInput.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(emailValue);
-
-    if (!isValid) {
-        let errorMessage = "Invalid email: ";
-        if (!emailValue.includes("@")) errorMessage += "missing '@'. ";
-        if (!/\.[a-z]{2,}$/i.test(emailValue)) errorMessage += "missing domain (e.g., .com, .de).";
-        emailInput.setCustomValidity(errorMessage.trim());
-        emailInput.reportValidity();
+    if (!emailValue) {
+        markInvalid(emailInput, "Email is required");
+        return false;
+    } else if (!emailRegex.test(emailValue)) {
+        markInvalid(emailInput, "Email must be in a valid format");
+        return false;
     } else {
-        emailInput.setCustomValidity("");
+        markValid(emailInput);
+        return true;
     }
-
-    markField(emailInput, isValid);
-    return isValid;
 }
 
 function validatePhone(inputId) {
@@ -201,27 +200,25 @@ function validatePhone(inputId) {
     const phoneValue = phoneInput.value.trim();
     const phoneRegex = /^[0-9]+$/;
     const startsWithValid = phoneValue.startsWith("0") || phoneValue.startsWith("+");
-    const isValid = phoneRegex.test(phoneValue) && startsWithValid;
-
-    if (!isValid) {
-        let errorMessage = "Invalid phone number: ";
-        if (!startsWithValid) errorMessage += "must start with '0' or '+'.";
-        phoneInput.setCustomValidity(errorMessage.trim());
-        phoneInput.reportValidity();
+    if (!phoneValue) {
+        markInvalid(phoneInput, "Phone number is required");
+        return false;
+    } else if (!phoneRegex.test(phoneValue) || !startsWithValid) {
+        markInvalid(phoneInput, "Phone number must start with '0' or '+' and contain only numbers");
+        return false;
     } else {
-        phoneInput.setCustomValidity("");
+        markValid(phoneInput);
+        return true;
     }
-
-    markField(phoneInput, isValid);
-    return isValid;
 }
 
-function markField(inputField, isValid) {
-    if (isValid) {
-        inputField.classList.remove("invalid");
-        inputField.classList.add("valid");
-    } else {
-        inputField.classList.remove("valid");
-        inputField.classList.add("invalid");
-    }
+function markInvalid(input, message) {
+    input.value = "";
+    input.placeholder = message;
+    input.classList.add("invalid", "error-message");
+}
+
+function markValid(input) {
+    input.placeholder = "";
+    input.classList.remove("invalid", "error-message");
 }
