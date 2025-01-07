@@ -1,3 +1,6 @@
+let addedSubtasks = [];
+let addedSubtaskDone = [];
+
 /**
  * Initializes the task creation process by clearing the input fields.
  * @function initAddTask
