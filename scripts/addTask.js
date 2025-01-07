@@ -1,5 +1,5 @@
-let addedSubtasks = [];
-let addedSubtaskDone = [];
+addedSubtasks = [];
+addedSubtaskDone = [];
 
 /**
  * Initializes the task creation process by clearing the input fields.
