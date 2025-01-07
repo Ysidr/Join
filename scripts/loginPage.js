@@ -1,3 +1,4 @@
+currentAccountName = "";
 /**
  * Initializes the login page by starting the logo animation and retrieving the user count from the server.
  * @async
@@ -79,11 +80,19 @@ function goToSignUp() {
     window.location.href = "signUp.html";
 }
 
+
+/**
+ * Displays a greeting message based on the current time of day.
+ * @function getGreeting
+ */
 function getGreeting(userName) {
     const now = new Date();
     const hour = now.getHours();
     const greetingElement = document.getElementById('greeting');
     let comma = "";
+    if (userName!= undefined) {
+        currentAccountName = userName;
+    }
 
     if (userName != "") {
         comma = ",";

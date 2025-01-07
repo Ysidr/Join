@@ -44,24 +44,6 @@ function getAndDisplayName() {
 }
 
 /**
- * Displays a greeting message based on the current time of day.
- * @function getGreeting
- */
-function getGreeting() {
-    const now = new Date();
-    const hour = now.getHours();
-    const greetingElement = document.getElementById('greeting');
-    let comma = "";
-
-    if (currentAccountName != "") {
-        comma = ",";
-    }
-    if (greetingElement) {
-        checkForGreeting(comma, hour, greetingElement);
-    }
-}
-
-/**
  * Determines and sets the appropriate greeting message based on the time of day.
  * @function checkForGreeting
  * @param {string} comma - A comma separator if the user name exists.
