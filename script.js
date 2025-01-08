@@ -36,31 +36,26 @@ function stopEventBubbling(event) {
 
 async function openAccount(indexAcconts, userName) {
     sessionStorage.setItem('loggedInUserId', indexAcconts);
+    sessionStorage.setItem('currentAccountName', userName); // Hier auch speichern
     sessionStorage.setItem('isGuestAccount', 'false');
     if (window.innerWidth < 1101) {
         document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div> <div class="userNamePopUp" id="userNamePopUp">${userName}</div>`;
         getGreeting(userName)
         await new Promise(r => setTimeout(r, 2000));
-
-
     }
-    window.location.href = "startseite.html"; 1100
+    window.location.href = "startseite.html";
 }
 
 async function openGuestAccount() {
     isGuestAccount = true;
     sessionStorage.setItem('isGuestAccount', 'true');
     if (window.innerWidth < 1101) {
-        document.body.innerHTML = `<div class="greetingPopUp">Du Hund, mach dir nen Account<div class="greeting" id="greeting"></div></div>`;
-        getGreetingGuest()
+        document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div></div>`;
+        getGreetingGuest();
         await new Promise(r => setTimeout(r, 2000));
-
-
     }
     window.location.href = "startseite.html";
 }
-
-
 
 async function updateTaskCount() {
     TaskCount = 0;

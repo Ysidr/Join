@@ -242,3 +242,12 @@ function toggleMenu() {
     const menu = document.getElementById('menu-container');
     menu.classList.toggle('d-none');
 }
+
+/**
+ * Logs the user out by clearing session storage and redirecting to the index page.
+ * @function logout
+ */
+function logout() {
+    sessionStorage.clear();  // Löscht alle gespeicherten Daten aus dem sessionStorage
+    window.location.href = 'index.html';  // Weiterleitung zur Startseite
+}

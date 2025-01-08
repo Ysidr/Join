@@ -39,8 +39,43 @@ function displayCounts() {
  * Displays the current user's name in the summary section.
  * @function getAndDisplayName
  */
-function getAndDisplayName() {
-    document.getElementById("userNameSummary").innerHTML = `${currentAccountName}`;
+async function getAndDisplayName() {
+    const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
+    const userNameElement = document.getElementById("userNameSummary");
+    
+    if (isGuest) {
+        userNameElement.innerHTML = '';
+    } else {
+        try {
+            const userId = sessionStorage.getItem('loggedInUserId');
+            const response = await fetch(`${BASE_URL}User/${userId}.json`);
+            const userData = await response.json();
+            const userName = userData.name;
+            userNameElement.innerHTML = userName;
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    }
+}
+
+/**
+ * Displays a greeting message based on the current time of day.
+ * @function getGreeting
+ */
+function getGreeting() {
+    const now = new Date();
+    const hour = now.getHours();
+    const greetingElement = document.getElementById('greeting');
+    const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
+    let comma = "";
+
+    if (!isGuest && currentAccountName) {
+        comma = ",";
+    }
+
+    if (greetingElement) {
+        checkForGreeting(comma, hour, greetingElement);
+    }
 }
 
 /**
@@ -59,6 +94,38 @@ function checkForGreeting(comma, hour, greetingElement) {
         greetingElement.innerHTML = `Good evening${comma}`;
     } else {
         greetingElement.innerHTML = `Good night${comma}`;
+    }
+}
+
+/**
+ * Displays a time-based greeting message without a user name for guest accounts.
+ * @function getGreetingGuest
+ */
+function getGreetingGuest() {
+    const now = new Date();
+    const hour = now.getHours();
+    const greetingElement = document.getElementById('greeting');
+    if (greetingElement) {
+        checkForGreetingGuest(hour, greetingElement);
+    }
+}
+
+/**
+ * Determines and sets the appropriate greeting message based on the time of day.
+ * @function checkForGreeting
+ * @param {string} comma - A comma separator if the user name exists.
+ * @param {number} hour - The current hour of the day.
+ * @param {HTMLElement} greetingElement - The HTML element where the greeting is displayed.
+ */
+function checkForGreetingGuest(hour, greetingElement) {
+    if (hour >= 6 && hour < 12) {
+        greetingElement.innerHTML = `Good morning`;
+    } else if (hour >= 12 && hour < 18) {
+        greetingElement.innerHTML = `Good afternoon`;
+    } else if (hour >= 18 && hour < 24) {
+        greetingElement.innerHTML = `Good evening`;
+    } else {
+        greetingElement.innerHTML = `Good night`;
     }
 }
 
