@@ -211,14 +211,3 @@ function validatePhone(inputId) {
         return true;
     }
 }
-
-function markInvalid(input, message) {
-    input.value = "";
-    input.placeholder = message;
-    input.classList.add("invalid", "error-message");
-}
-
-function markValid(input) {
-    input.placeholder = "";
-    input.classList.remove("invalid", "error-message");
-}

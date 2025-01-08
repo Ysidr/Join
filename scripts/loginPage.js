@@ -85,14 +85,14 @@ function validateLoginForm() {
     const emailInput = document.getElementById("emailLogin");
     const passwordInput = document.getElementById("passwordLogin");
     let isValid = true;
-    isValid &= validateEmail(emailInput);
+    isValid &= validateEmailLogin(emailInput);
     isValid &= validatePassword(passwordInput);
     if (isValid) {
         loginWithAccount();
     }
 }
 
-function validateEmail(input) {
+function validateEmailLogin(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!input.value.trim()) {
         markInvalid(input, "Email is required");
