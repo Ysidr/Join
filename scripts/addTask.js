@@ -8,6 +8,17 @@ addedSubtaskDone = [];
  */
 function initAddTask() {
     clearInputs();
+    setMinDate(); // Set the minimum date when initializing the task creation
+}
+
+/**
+ * Sets the minimum date for the date input field to today's date.
+ * @function setMinDate
+ * @returns {void}
+ */
+function setMinDate() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("dateIput").setAttribute('min', today);
 }
 
 /**
