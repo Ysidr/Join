@@ -298,3 +298,83 @@ function editSubtask(subtaskContainer, oldName) {
 function clearInuptField() {
     document.getElementById("subtaskInput").value = "";
 }
+
+/**
+ * Validates the task form fields before creating a new task.
+ * @function validateTask
+ * @returns {void}
+ */
+function validateTask() {
+    let isValid = true;
+    isValid &= validateTitle("titleInput");
+    isValid &= validateDate("dateIput");
+    isValid &= validateCategory("categorytSelector");
+
+    if (isValid) {
+        createTask();
+    }
+}
+
+/**
+ * Validates the title input field.
+ * @function validateTitle
+ * @param {string} inputId - The ID of the title input field.
+ * @returns {boolean} True if the title is valid, false otherwise.
+ */
+function validateTitle(inputId) {
+    const titleInput = document.getElementById(inputId);
+    const titleValidation = document.getElementById("titleValidationMessage");
+    if (!titleInput.value.trim()) {
+        titleValidation.textContent = "* Please enter a title";
+        titleValidation.style.color = "red";
+        return false;
+    } else {
+        titleValidation.textContent = "*";
+        titleValidation.style.color = ""; // zurück zur ursprünglichen Farbe
+        return true;
+    }
+}
+
+/**
+ * Validates the date input field.
+ * @function validateDate
+ * @param {string} inputId - The ID of the date input field.
+ * @returns {boolean} True if the date is valid, false otherwise.
+ */
+function validateDate(inputId) {
+    const dateInput = document.getElementById(inputId);
+    const dateValidation = document.getElementById("dateValidationMessage");
+    const today = new Date().toISOString().split('T')[0];
+    
+    if (!dateInput.value || dateInput.value < today) {
+        dateValidation.textContent = "* Please select a future date";
+        dateValidation.style.color = "red";
+        return false;
+    } else {
+        dateValidation.textContent = "*";
+        dateValidation.style.color = "";
+        return true;
+    }
+}
+
+/**
+ * Validates the category input field.
+ * @function validateCategory
+ * @param {string} inputId - The ID of the category input field.
+ * @returns {boolean} True if the category is valid, false otherwise.
+ */
+function validateCategory(inputId) {
+    const categoryInput = document.getElementById(inputId);
+    const categoryValidation = document.getElementById("categoryValidationMessage");
+    
+    // Prüft ob entweder "technicalTask" oder "userStory" ausgewählt wurde
+    if (categoryInput.value !== "technicalTask" && categoryInput.value !== "userStory") {
+        categoryValidation.textContent = "* Please select Technical Task or User Story";
+        categoryValidation.style.color = "red";
+        return false;
+    } else {
+        categoryValidation.textContent = "*";
+        categoryValidation.style.color = "";
+        return true;
+    }
+}

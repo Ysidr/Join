@@ -2,7 +2,7 @@
     <h1 class="h1AddTask">Add Task</h1>
         <div class="coloumns">
             <div class="cloumn1">
-                <label for="titleInput">Title<span class="star">*</span></label>
+                <label for="titleInput">Title<span class="star" id="titleValidationMessage">*</span></label>
                 <input id="titleInput" class="smallInputField" type="text" placeholder="Enter a title" required>
 
                 <label for="descriptionInput">Description</label>
@@ -20,8 +20,8 @@
             <div class="sepererator"></div>
             <div class="coloumn2NoSubtasks">
                 <div class="cloumn2">
-                    <label for="dateIput">Due date<span class="star">*</span></label>
-                    <input id="dateIput" class="smallInputField" type="date" required>
+                    <label for="dateIput">Due date<span class="star" id="dateValidationMessage">*</span></label>
+                    <input id="dateIput" class="smallInputField" type="date" placeholder="tt.mm.jjjj" required>
 
                     
                     <p>Priority</p>
@@ -41,7 +41,7 @@
                                             fill="#FF3D00" />
                                     </g>
                                     <defs>
-                                        <clipPath id="clip0_259389_4839">
+                                        <clipPath id="clip0_259389_4839)">
                                             <rect width="17" height="12" fill="white"
                                                 transform="translate(24.5 22) rotate(-180)" />
                                         </clipPath>
@@ -63,7 +63,7 @@
                                             fill="#FFA800" />
                                     </g>
                                     <defs>
-                                        <clipPath id="clip0_259389_4871">
+                                        <clipPath id="clip0_259389_4871)">
                                             <rect width="17" height="6.33333" fill="white"
                                                 transform="translate(7.5 12.8333)" />
                                         </clipPath>
@@ -84,7 +84,7 @@
                                             fill="#7AE229" />
                                     </g>
                                     <defs>
-                                        <clipPath id="clip0_259389_4899">
+                                        <clipPath id="clip0_259389_4899)">
                                             <rect width="17" height="12" fill="white" transform="translate(7.5 10)" />
                                         </clipPath>
                                     </defs>
@@ -92,8 +92,8 @@
                         </form>
                     </div>
                     <form>
-                        <label for="categorytSelector" >Category<span class="star">*</span></label>
-                        <select name="selectCategory" class="smallInputField selectCategory"  id="categorytSelector">
+                        <label for="categorytSelector">Category<span class="star" id="categoryValidationMessage">*</span></label>
+                        <select name="selectCategory" class="smallInputField selectCategory" id="categorytSelector">
                             <option value="basicText">Select task category</option>
                             <option value="technicalTask">Technical Task</option>
                             <option value="userStory">User Story</option>
@@ -116,7 +116,7 @@
 
                 <div class="addTasksBtn" id="addTasksBtn">
                     <button type="button" class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
-                    <button type="submit" class="btnGray" onclick="createTask()">Create Task</button>
+                    <button type="submit" class="btnGray" onclick="validateTask()">Create Task</button>
                 </div>
             </div>
         </div>
