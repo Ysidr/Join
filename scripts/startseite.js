@@ -155,27 +155,6 @@ function getInitials(name) {
  * @param {string} page - The name of the page to load.
  * @returns {Promise<void>}
  */
-
-/**
- * Sets the active navigation link and loads the corresponding page.
- * @param {Event} event - The click event object
- * @param {string} page - The name of the page to load
- */
-function setActiveLink(event, page) {
-    event.preventDefault();
-    const links = document.querySelectorAll('.nav-container a, .flex a');
-    links.forEach(link => link.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    loadPage(page);
-}
-
-/**
- * Loads a specified page including its HTML, CSS, and JavaScript
- * @async
- * @function loadPage
- * @param {string} page - The name of the page to load
- * @returns {Promise<void>}
- */
 async function loadPage(page) {
     try {
         await loadHtml(page);
@@ -188,20 +167,16 @@ async function loadPage(page) {
 }
 
 /**
- * Checks the page being loaded and initializes its specific functionality if applicable.
- * @function checkForLoadedPage
- * @param {string} page - The name of the page being loaded.
+ * Sets the active navigation link and loads the corresponding page.
+ * @param {Event} event - The click event object
+ * @param {string} page - The name of the page to load
  */
-function checkForLoadedPage(page) {
-    if (page === "summary" && typeof initSummary === "function") {
-        initSummary();
-    }
-    if (page === "board" && typeof initBoards === "function") {
-        initBoards();
-    }
-    if (page === "addTask" && typeof initAddTask === "function") {
-        initAddTask();
-    }
+function setActiveLink(event, page) {
+    event.preventDefault();
+    const links = document.querySelectorAll('.nav-container a, .flex a');
+    links.forEach(link => link.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    loadPage(page);
 }
 
 /**
@@ -219,6 +194,23 @@ async function loadHtml(page) {
         content.innerHTML = html;
     } else {
         throw new Error(`Failed to load page ${page}.html`);
+    }
+}
+
+/**
+ * Checks the page being loaded and initializes its specific functionality if applicable.
+ * @function checkForLoadedPage
+ * @param {string} page - The name of the page being loaded.
+ */
+function checkForLoadedPage(page) {
+    if (page === "summary" && typeof initSummary === "function") {
+        initSummary();
+    }
+    if (page === "board" && typeof initBoards === "function") {
+        initBoards();
+    }
+    if (page === "addTask" && typeof initAddTask === "function") {
+        initAddTask();
     }
 }
 
