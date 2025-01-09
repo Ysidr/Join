@@ -59,17 +59,22 @@ async function loadUserData() {
     const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
     if (isGuest) {
         document.getElementById('user-initials').textContent = 'G';
+        currentAccountName = '';
         return;
     }
+
     const userId = sessionStorage.getItem('loggedInUserId');
     if (!userId) return;
+
     try {
         const userData = await fetchUserFromFirebase(userId);
+        currentAccountName = userData.name; // Setze den currentAccountName
         const initials = getInitials(userData.name);
         document.getElementById('user-initials').textContent = initials;
     } catch (error) {
         console.error('Error loading user data:', error);
         document.getElementById('user-initials').textContent = 'G';
+        currentAccountName = '';
     }
 }
 

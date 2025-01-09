@@ -36,23 +36,54 @@ function stopEventBubbling(event) {
 
 async function openAccount(indexAcconts, userName) {
     sessionStorage.setItem('loggedInUserId', indexAcconts);
-    sessionStorage.setItem('currentAccountName', userName); // Hier auch speichern
+    sessionStorage.setItem('currentAccountName', userName);
     sessionStorage.setItem('isGuestAccount', 'false');
+    
     if (window.innerWidth < 1101) {
-        document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div> <div class="userNamePopUp" id="userNamePopUp">${userName}</div>`;
-        getGreeting(userName)
-        await new Promise(r => setTimeout(r, 2000));
+        try {
+            document.body.innerHTML = `
+                <div class="greetingPopUp">
+                    <div class="greeting" id="greeting"></div>
+                    <div class="userNamePopUp">${userName}</div>
+                </div>`;
+            const greetingElement = document.getElementById('greeting');
+            setGreetingMessage(greetingElement);
+            await new Promise(r => setTimeout(r, 2000));
+        } catch (error) {
+            console.error('Error in greeting:', error);
+        }
     }
     window.location.href = "startseite.html";
 }
 
+function setGreetingMessage(greetingElement) {
+    const hour = new Date().getHours();
+    let greeting = '';
+    
+    if (hour >= 6 && hour < 12) greeting = 'Good morning';
+    else if (hour >= 12 && hour < 18) greeting = 'Good afternoon';
+    else if (hour >= 18 && hour < 24) greeting = 'Good evening';
+    else greeting = 'Good night';
+    
+    greetingElement.textContent = greeting;
+}
+
 async function openGuestAccount() {
-    isGuestAccount = true;
     sessionStorage.setItem('isGuestAccount', 'true');
+    sessionStorage.removeItem('currentAccountName');
+    
     if (window.innerWidth < 1101) {
-        document.body.innerHTML = `<div class="greetingPopUp"><div class="greeting" id="greeting"></div></div>`;
-        getGreetingGuest();
-        await new Promise(r => setTimeout(r, 2000));
+        try {
+            document.body.innerHTML = `
+                <div class="greetingPopUp">
+                    <div class="greeting" id="greeting"></div>
+                </div>`;
+            const greetingElement = document.getElementById('greeting');
+            setGreetingMessage(greetingElement);
+            await new Promise(r => setTimeout(r, 2000));
+        } catch (error) {
+            console.error('Error in greeting:', error);
+        }
     }
     window.location.href = "startseite.html";
 }
