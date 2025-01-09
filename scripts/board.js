@@ -344,7 +344,6 @@ async function setInProgressTaskCount() {
     return responseToJson = await response.json();
 }
 
-
 function showMoveOptions(event, taskId) {
     event.stopPropagation();
     const optionsMenu = document.getElementById(`moveOptions${taskId}`);
@@ -360,15 +359,11 @@ function closeMoveOptions() {
 function moveTask(taskId, targetContainerId) {
     const taskElement = document.getElementById(`singleTaskBoard${taskId}`);
     const targetContainer = document.getElementById(targetContainerId);
-
     if (taskElement && targetContainer) {
-        // Verschiebe das Element visuell in den Ziel-Container
         targetContainer.appendChild(taskElement);
-
-        // Nutze bestehende Logik, um die Datenstruktur zu aktualisieren
-        const changedToID = targetContainerId.replace("Tasks", ""); // Entfernt "Tasks" vom Container-ID
+        const changedToID = targetContainerId.replace("Tasks", ""); 
         changeToDropOffJson(taskElement.id, changedToID);
     }
 
-    closeMoveOptions(); // Schließe das Dropdown-Menü
+    closeMoveOptions();
 }

@@ -366,8 +366,6 @@ function validateDate(inputId) {
 function validateCategory(inputId) {
     const categoryInput = document.getElementById(inputId);
     const categoryValidation = document.getElementById("categoryValidationMessage");
-    
-    // Prüft ob entweder "technicalTask" oder "userStory" ausgewählt wurde
     if (categoryInput.value !== "technicalTask" && categoryInput.value !== "userStory") {
         categoryValidation.textContent = "* Please select Technical Task or User Story";
         categoryValidation.style.color = "red";

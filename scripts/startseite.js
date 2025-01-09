@@ -58,24 +58,63 @@ const navbarLinks = [
 async function loadUserData() {
     const isGuest = sessionStorage.getItem('isGuestAccount') === 'true';
     if (isGuest) {
-        document.getElementById('user-initials').textContent = 'G';
-        currentAccountName = '';
+        handleGuestUser();
         return;
     }
+    await handleRegisteredUser();
+}
 
+/**
+ * Handles guest user login by setting default values
+ * @function handleGuestUser
+ * @returns {void}
+ */
+function handleGuestUser() {
+    document.getElementById('user-initials').textContent = 'G';
+    currentAccountName = '';
+}
+
+/**
+ * Handles registered user authentication and data loading
+ * @async
+ * @function handleRegisteredUser
+ * @returns {Promise<void>}
+ */
+async function handleRegisteredUser() {
     const userId = sessionStorage.getItem('loggedInUserId');
     if (!userId) return;
 
     try {
-        const userData = await fetchUserFromFirebase(userId);
-        currentAccountName = userData.name; // Setze den currentAccountName
-        const initials = getInitials(userData.name);
-        document.getElementById('user-initials').textContent = initials;
+        await loadAndDisplayUserData(userId);
     } catch (error) {
-        console.error('Error loading user data:', error);
-        document.getElementById('user-initials').textContent = 'G';
-        currentAccountName = '';
+        handleUserDataError(error);
     }
+}
+
+/**
+ * Loads and displays user data for a specific user ID
+ * @async
+ * @function loadAndDisplayUserData
+ * @param {string} userId - The ID of the user to load data for
+ * @returns {Promise<void>}
+ */
+async function loadAndDisplayUserData(userId) {
+    const userData = await fetchUserFromFirebase(userId);
+    currentAccountName = userData.name;
+    const initials = getInitials(userData.name);
+    document.getElementById('user-initials').textContent = initials;
+}
+
+/**
+ * Handles errors that occur during user data loading
+ * @function handleUserDataError
+ * @param {Error} error - The error that occurred
+ * @returns {void}
+ */
+function handleUserDataError(error) {
+    console.error('Error loading user data:', error);
+    document.getElementById('user-initials').textContent = 'G';
+    currentAccountName = '';
 }
 
 /**
@@ -117,6 +156,11 @@ function getInitials(name) {
  * @returns {Promise<void>}
  */
 
+/**
+ * Sets the active navigation link and loads the corresponding page.
+ * @param {Event} event - The click event object
+ * @param {string} page - The name of the page to load
+ */
 function setActiveLink(event, page) {
     event.preventDefault();
     const links = document.querySelectorAll('.nav-container a, .flex a');
@@ -125,6 +169,13 @@ function setActiveLink(event, page) {
     loadPage(page);
 }
 
+/**
+ * Loads a specified page including its HTML, CSS, and JavaScript
+ * @async
+ * @function loadPage
+ * @param {string} page - The name of the page to load
+ * @returns {Promise<void>}
+ */
 async function loadPage(page) {
     try {
         await loadHtml(page);

@@ -308,7 +308,6 @@ async function deleteContact(contactEmail) {
         const letter = letters[i];
         const contactGroup = contacts[letter];
         const index = contactGroup.findIndex(contact => contact.email === contactEmail);
-
         if (index !== -1) {
             contactGroup.splice(index, 1);
             break;
@@ -343,72 +342,4 @@ async function addNewContactContainer() {
 
 function showOtherButtons() {
     document.getElementById("responsive-contact-buttons").classList.toggle("d-none")
-}
-
-// ...existing code...
-
-function validateForm() {
-    let isValid = true;
-    isValid &= validateName("newContactName");
-    isValid &= validateEmail("newContactEmail");
-    isValid &= validatePhone("newContactPhone");
-
-    if (isValid) {
-        createContact();
-    }
-}
-
-function validateEditForm() {
-    let isValid = true;
-    isValid &= validateName("editContactName");
-    isValid &= validateEmail("editContactEmail");
-    isValid &= validatePhone("editContactPhone");
-
-    if (isValid) {
-        saveEditedContact();
-    }
-}
-
-function validateName(inputId) {
-    const nameInput = document.getElementById(inputId);
-    if (!nameInput.value.trim()) {
-        markInvalid(nameInput, "Name is required");
-        return false;
-    } else {
-        markValid(nameInput);
-        return true;
-    }
-}
-
-function validateEmail(inputId) {
-    const emailInput = document.getElementById(inputId);
-    const emailValue = emailInput.value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailValue) {
-        markInvalid(emailInput, "Email is required");
-        return false;
-    } else if (!emailRegex.test(emailValue)) {
-        markInvalid(emailInput, "Email must be in a valid format");
-        return false;
-    } else {
-        markValid(emailInput);
-        return true;
-    }
-}
-
-function validatePhone(inputId) {
-    const phoneInput = document.getElementById(inputId);
-    const phoneValue = phoneInput.value.trim();
-    const phoneRegex = /^[0-9]+$/;
-    const startsWithValid = phoneValue.startsWith("0") || phoneValue.startsWith("+");
-    if (!phoneValue) {
-        markInvalid(phoneInput, "Phone number is required");
-        return false;
-    } else if (!phoneRegex.test(phoneValue) || !startsWithValid) {
-        markInvalid(phoneInput, "Phone number must start with '0' or '+' and contain only numbers");
-        return false;
-    } else {
-        markValid(phoneInput);
-        return true;
-    }
 }

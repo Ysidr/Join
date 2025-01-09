@@ -1,4 +1,3 @@
-
 /**
  * Initializes the login page by starting the logo animation and retrieving the user count from the server.
  * @async
@@ -81,6 +80,11 @@ function goToSignUp() {
     window.location.href = "signUp.html";
 }
 
+/**
+ * Validates the entire login form by checking email and password fields.
+ * @function validateLoginForm
+ * @returns {void}
+ */
 function validateLoginForm() {
     const emailInput = document.getElementById("emailLogin");
     const passwordInput = document.getElementById("passwordLogin");
@@ -92,6 +96,12 @@ function validateLoginForm() {
     }
 }
 
+/**
+ * Validates the email input field for the login form.
+ * @function validateEmailLogin
+ * @param {HTMLInputElement} input - The email input element to validate
+ * @returns {boolean} True if email is valid, false otherwise
+ */
 function validateEmailLogin(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!input.value.trim()) {
@@ -106,6 +116,12 @@ function validateEmailLogin(input) {
     }
 }
 
+/**
+ * Validates the password input field.
+ * @function validatePassword
+ * @param {HTMLInputElement} input - The password input element to validate
+ * @returns {boolean} True if password is valid, false otherwise
+ */
 function validatePassword(input) {
     if (!input.value.trim()) {
         markInvalid(input, "Password is required");
