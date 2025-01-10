@@ -41,14 +41,30 @@ async function deleteTaskFromBoard(allTasksIndex) {
 /**
  * Opens the task editor to edit the details of a specific task.
  * @async
- * @param {number} indexTaskFields - The index of the task category.
- * @param {number} indexTaskCount - The index of the specific task within the category.
+ * @param {number} allTasksIndex - The index of the specific task within the category.
  */
 async function editTaskInBoard(allTasksIndex) {
     await addTaskInBoard();
-    await new Promise(r => setTimeout(r, 20));
+    await waitForElement("#titleInput");
     let specificObject = allCurrentTasksObj[allTasksIndex];
     renderNoteToEdit(specificObject, allTasksIndex);
+}
+
+/**
+ * Waits for an element to be available in the DOM.
+ * @param {string} selector - The CSS selector of the element to wait for.
+ * @returns {Promise<void>} A promise that resolves when the element is available.
+ */
+function waitForElement(selector) {
+    return new Promise((resolve) => {
+        const observer = new MutationObserver((mutations) => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve();
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
 }
 
 /**
