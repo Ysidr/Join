@@ -291,7 +291,10 @@ function renderAllSubtasks() {
  * @param {number} indexTaskFields - The index of the task in the list of fields.
  * @param {number} indexTaskCount - The index of the task in the list of tasks.
  */
-function renderNoteToEdit(specificObject, allTasksIndex) {
+async function renderNoteToEdit(specificObject, allTasksIndex) {
+    // Ensure the div is rendered first
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     document.getElementById("titleInput").value = specificObject.title;
     document.getElementById("descriptionInput").value = specificObject.description;
     document.getElementById("dateIput").value = specificObject.date;
