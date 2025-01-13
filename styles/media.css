@@ -118,7 +118,7 @@
     }
 
     .loginData form{
-        width: 60%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -126,7 +126,9 @@
     }
 
     .loginButtons{
-        gap: 32px;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
         height: 48px;
         margin: 0;
     }
@@ -136,6 +138,7 @@
         display: flex;
         justify-content: center;
         font-size: small;
+        width: 100%;
     }
 
     .backBtn{
@@ -166,17 +169,37 @@
 
 }
 
+/* Höhenanpassungen für mobile Geräte */
+@media (max-width: 790px) and (max-height: 700px) {
+    .contentSummary {
+        height: 70vh;
+    }
+
+    .summary-container {
+        height: 70vh;
+    }
+
+    .showContacts {
+        max-height: 60vh !important;
+    }
+}
+
 @media (max-width: 550px){
 
     .taskDetailMain{
         padding: 0 16px;
     }
 
+    .dataInput input{
+        padding: 0;
+        width: 100%;
+    }
+
     .coloumns{
         padding: 0 16px;
     }
 
-    .cloumn1 , .detailInfos , .taskDetailMain , .detailCategory , .contacts-container , .showContacts , .detailBtns , .detailHeader , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv , .dataInput input{
+    .cloumn1 ,.input-container, .detailInfos , .taskDetailMain , .detailCategory , .contacts-container , .showContacts , .detailBtns , .detailHeader , .smallInputField , .descriptionInput , .cloumn2 , .coloumn2NoSubtasks , .selectPrio , .selectPrio form , .selectPrio label , .boardHeaderSearch , .signUpDiv {
         width: 100% !important;
     }
 
@@ -209,21 +232,38 @@
 
     .dataInput{
         align-items: center;
+        width: 100%;
     }
 
     .signUpDiv{
         margin: 16px;
     }
 
-    .accept{
-        flex-direction: column;
-    }
-
     .contacts{
         min-width: 100% !important;
     }
 
-    
+    header img{
+        width: 80px;
+        height: 80px;
+        margin: 16px;
+    }
+
+    .signUpDiv {
+        height: 100%;
+    }
+}
+
+/* Höhenanpassungen für mobile Geräte */
+@media (max-width: 550px) and (max-height: 800px) {
+    .taskDetailMain {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .coloumns {
+        max-height: 65vh;
+    }
 }
 
 @media (max-width: 400px){
@@ -232,7 +272,7 @@
     }
 
     .btnGray{
-        padding: 8px;
+        padding: 16px;
     }
 
     .contentSummary{

@@ -301,3 +301,58 @@
 
 
 }
+
+/* Neue Höhen-bezogene Media Queries */
+@media (max-height: 800px) {
+    .taskRows {
+        height: 55vh !important;
+    }
+
+    .showContacts {
+        height: 65vh;
+    }
+
+    .board-container {
+        height: 70vh;
+    }
+}
+
+@media (max-height: 600px) {
+    .taskRows {
+        height: 45vh !important;
+    }
+
+    .nav-container {
+        height: 60px;
+    }
+
+    .nav-container a img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Dynamische Höhen-Anpassungen */
+:root {
+    --vh: 1vh;
+}
+
+.board-container,
+.taskRows,
+.showContacts {
+    height: calc(var(--vh, 1vh) * 85);
+    max-height: 900px;
+    min-height: 400px;
+    overflow-y: auto;
+}
+
+@media (max-width: 1100px) {
+    .coloumns {
+        height: calc(var(--vh, 1vh) * 75);
+        min-height: 300px;
+    }
+    
+    .taskRows {
+        height: calc(var(--vh, 1vh) * 70) !important;
+    }
+}
