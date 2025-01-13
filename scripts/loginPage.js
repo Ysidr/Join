@@ -39,36 +39,64 @@ async function getUserCount() {
 }
 
 /**
- * Initiates the login process by retrieving the user count and checking for an existing account.
+ * Fetches the total number of users from the server.
  * @async
- * @function loginWithAccount
- * @returns {Promise<void>}
+ * @function setUsersAmount
+ * @returns {Promise<number>}
  */
-async function loginWithAccount() {
-    await setUsersAmount();
-    checkForExistingAccount();
+async function setUsersAmount() {
+    try {
+        let response = await fetch(BASE_URL + "UserAmount.json");
+        let responseToJson = await response.json();
+        UsersAmountViaId = responseToJson;
+        return UsersAmountViaId;
+    } catch (error) {
+        console.error('Error fetching user amount:', error);
+        return 0;
+    }
 }
 
 /**
- * Checks the login credentials against the registered accounts on the server.
- * If a match is found, the corresponding account is opened.
+ * Initiates the login process
+ * @async
+ * @function loginWithAccount
+ */
+async function loginWithAccount() {
+    try {
+        await setUsersAmount();
+        let accountFound = await checkForExistingAccount();
+        if (!accountFound) {
+            alert('Invalid email or password');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed. Please try again.');
+    }
+}
+
+/**
+ * Checks the login credentials
  * @async
  * @function checkForExistingAccount
- * @returns {Promise<void>}
+ * @returns {Promise<boolean>} - True if account was found
  */
 async function checkForExistingAccount() {
+    let found = false;
     for (let indexAcconts = 1; indexAcconts <= UsersAmountViaId; indexAcconts++) {
         let response = await fetch(BASE_URL + `User/${indexAcconts}.json`);
-        responseToJson = await response.json();
+        let responseToJson = await response.json();
         if (
             responseToJson.mail == document.getElementById("emailLogin").value &&
             responseToJson.password == document.getElementById("passwordLogin").value
         ) {
             let userName = responseToJson.name;
-            sessionStorage.setItem('currentAccountName', userName); // Speichern des Benutzernamens
+            sessionStorage.setItem('currentAccountName', userName);
             openAccount(indexAcconts, userName);
+            found = true;
+            break;
         }
     }
+    return found;
 }
 
 /**
