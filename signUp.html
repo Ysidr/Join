@@ -29,16 +29,27 @@
                 <h1>Sign up</h1>
                 <div class="underlineBlue"></div>
             </div>
-            <form class="dataInput" id="signUpForm" onsubmit="event.preventDefault(); addAccountData();" novalidate>
-                <input type="text" required placeholder="Name" id="nameInput">
-                <input type="email" required placeholder="Email" id="mailInput">
-                <input type="password" required placeholder="Password" id="passwordInput">
-                <input type="password" required placeholder="Confirm Password" id="confirmInput">
+            <form class="dataInput" id="signUpForm" onsubmit="event.preventDefault(); validateSignUpForm();" novalidate>
+                <div class="input-container">
+                    <input type="text" placeholder="Name" id="nameInput">
+                    <div id="nameError" class="error-message"></div>
+                </div>
+                <div class="input-container">
+                    <input type="email" placeholder="Email" id="mailInput">
+                    <div id="emailError" class="error-message"></div>
+                </div>
+                <div class="input-container">
+                    <input type="password" placeholder="Password" id="passwordInput">
+                    <div id="passwordError" class="error-message"></div>
+                </div>
+                <div class="input-container">
+                    <input type="password" placeholder="Confirm Password" id="confirmInput">
+                    <div id="confirmError" class="error-message"></div>
+                </div>
                 <div class="accept">
                     <input type="checkbox" class="checkbox" required id="checkbox">
                     <label for="checkbox"><p>I accept the <a href="PrivacyPolicy.html" class="link">Privacy policy</a></p></label>
                 </div>
-                <!-- Button zum Absenden -->
                 <button type="submit" class="btnGray">Sign Up</button>
             </form>
         </div>

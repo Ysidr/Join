@@ -84,3 +84,34 @@ header img {
     height: 20px !important;
     width: 20px !important;
 }
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+input.invalid {
+    border-color: red !important;
+}
+
+input.invalid::placeholder {
+    color: red;
+}
+
+.checkbox.invalid {
+    outline: 2px solid red;
+}
+
+input.match {
+    border-color: #28a745 !important;
+}
+
+input.mismatch {
+    border-color: #dc3545 !important;
+}
