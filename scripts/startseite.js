@@ -289,17 +289,25 @@ navbarLinks.forEach((link) => {
 function toggleMenu() {
     const menu = document.getElementById('menu-container');
     menu.classList.toggle('d-none');
+    if (!menu.classList.contains('d-none')) {
+        document.addEventListener('click', handleClickOutsideMenu);
+    } else {
+        document.removeEventListener('click', handleClickOutsideMenu);
+    }
 }
 
 /**
- * Logs the user out by clearing session storage and redirecting to the index page.
- * @function logout
+ * Handles clicks outside the menu container to hide it.
+ * @function handleClickOutsideMenu
+ * @param {Event} event - The click event object
  */
-function logout() {
-    sessionStorage.clear();  // Löscht alle gespeicherten Daten aus dem sessionStorage
-    window.location.href = 'index.html';  // Weiterleitung zur Startseite
+function handleClickOutsideMenu(event) {
+    const menu = document.getElementById('menu-container');
+    if (!menu.contains(event.target) && event.target.id !== 'user-initials') {
+        menu.classList.add('d-none');
+        document.removeEventListener('click', handleClickOutsideMenu);
+    }
 }
-
 
 /**
  * Logs the user out by clearing session storage and redirecting to the index page.
