@@ -105,7 +105,7 @@
     }
 
     .loginDiv{
-        width: 80% !important;
+        width: 100% !important;
         margin: 0 0 30px;
     }
 
@@ -147,7 +147,8 @@
     }
 
     .signUpDiv{
-        width: 80%;
+        width: 100%;
+        margin: 0 !important;
     }
 
     .contact-div{
