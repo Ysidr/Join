@@ -82,11 +82,12 @@
     .btnGray{
         display: flex;
         align-items: center;
+        width: 125px;
     }
 
     .clearBtn{
-        height: auto !important;
         padding: 0 8px;
+        width: 125px;
     }
 
     .responsive-create-acc{
@@ -262,9 +263,6 @@
 }
 
 @media (max-width: 400px){
-    .clearBtn{
-        height: 48px !important;
-    }
 
     .btnGray{
         padding: 16px;
