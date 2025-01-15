@@ -1,0 +1,51 @@
+
+@media (max-width: 790px) and (max-height: 700px) {
+    .contentSummary {
+        height: 70vh;
+    }
+
+    .summary-container {
+        height: 70vh;
+    }
+
+    .showContacts {
+        max-height: 60vh !important;
+    }
+}
+
+/* Höhenanpassungen für mobile Geräte */
+@media (max-width: 550px) and (max-height: 800px) {
+    .taskDetailMain {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .coloumns {
+        max-height: 65vh;
+    }
+
+    .divRow1{
+        height: 104px !important;
+    }
+
+    .divRow1 svg{
+        width: 40px !important;
+        height: 40px !important;    
+    }
+
+    .summaryRows{
+        width: 90% !important;
+        height: auto !important;
+        gap: 16px;
+    }
+
+    .summaryRow2{
+        height: auto !important;
+        padding: 8px;
+    }
+
+    .SummaryRow3Style{
+        height: auto !important;
+        padding: 8px;
+    }
+}
