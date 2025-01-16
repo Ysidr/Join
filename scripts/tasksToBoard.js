@@ -19,6 +19,9 @@ function addTaskInBoard() {
             script.src = './scripts/addTask.js';
             document.body.appendChild(script);
             document.getElementById("AddTaskSection").classList.remove("d-none");
+
+            // Update the buttons to use cancelEdit instead of clearInputs
+            document.querySelector(".btnClear.clearBtn").setAttribute("onclick", "cancelEdit()");
         })
         .catch(err => console.error('Error loading addTask.html:', err));
 }

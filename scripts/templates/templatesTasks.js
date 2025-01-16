@@ -181,7 +181,6 @@ function clearInputs() {
     newCategory = "";
     newTaskData = {};
     document.getElementById("openContactsDiv").classList.add("d-none");
-    document.getElementById("AddTaskSection").classList.add("d-none");
 }
 
 /**
@@ -330,4 +329,13 @@ async function renderNoteToEdit(specificObject, allTasksIndex) {
     }
     document.getElementById("addTasksBtn").innerHTML = `<button class="btnClear clearBtn" onclick="cancelEdit()">Cancel</button>
     <button class="btnGray" onclick="updateTask('${allTasksIndex}')">Update Task</button>`
+}
+
+/**
+ * Cancels the task edit and closes the task editor section.
+ */
+function cancelEdit() {
+    document.getElementById("AddTaskSection").classList.add("d-none");
+    document.getElementById("taskDetailSection").classList.add("d-none");
+    return;
 }

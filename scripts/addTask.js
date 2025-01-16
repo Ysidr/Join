@@ -34,7 +34,10 @@ function getContacts() {
         .then(responseToJson => {
             firstLetters = Object.keys(responseToJson);
             firstLetters.forEach((letter, index) => getContactsWithThisLetter(index));
-            document.getElementById("openContactsDiv").classList.toggle("d-none");
+            const openContactsDiv = document.getElementById("openContactsDiv");
+            if (openContactsDiv) {
+                openContactsDiv.classList.toggle("d-none");
+            }
         });
 }
 
@@ -399,7 +402,7 @@ function toggleClearButton() {
 document.addEventListener('click', function(event) {
     const openContactsDiv = document.getElementById('openContactsDiv');
     const contactSelector = document.getElementById('contactSelector');
-    if (!contactSelector.contains(event.target) && !openContactsDiv.contains(event.target)) {
+    if (openContactsDiv && contactSelector && !contactSelector.contains(event.target) && !openContactsDiv.contains(event.target)) {
         openContactsDiv.classList.add('d-none');
     }
 });
