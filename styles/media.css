@@ -161,11 +161,12 @@
         align-items: center;
         justify-content: end;
         width: 100%;
+        padding: 0 16px;
     }
 
     .media-contact-div button{
         border-radius: 50%;
-        width: 48px !important;
+        width: 56px !important;
     }
 
 
@@ -215,6 +216,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 81vh;
     }
 
     .dataInput{

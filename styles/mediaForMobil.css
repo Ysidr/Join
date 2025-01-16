@@ -79,4 +79,64 @@
         width: 100%;
         max-width: 100%;
     }
+
+    .contacts{
+        height: auto !important;
+    }
+    
+    .headline-container{
+        width: 100% !important;
+    }
+
+    .width{
+        width: 100% !important;
+    }
+
+    .newContactForm {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1100;
+    }
+
+    .new-contact-container {
+        height: 100vh !important;
+        max-width: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: unset !important;
+    }
+
+    .bg-main {
+        height: 40vh; /* Reduzierte Höhe */
+        min-height: 160px;
+        padding: 16px !important;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    .join-contact-container {
+        padding: 0;
+    }
+
+    .bg-white {
+        flex: 1; /* Nimmt den restlichen Platz ein */
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .editContactsInfoImg, .add-contact-info-img{
+        display: none;
+    }
+
+    .add-container, .margin{
+        margin: 0 !important;
+    }
+
+    .edit-container{
+        position: unset !important;
+    }
 }
