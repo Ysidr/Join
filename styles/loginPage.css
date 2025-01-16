@@ -10,7 +10,9 @@ header {
 }
 header img {
     width: 100px;
-    margin: 80px 0 0 77px;
+    margin: 40px 0 0 77px;
+    animation: logoMoveToHeader 1500ms ease-in-out forwards;
+    opacity: 0.1; /* Start mit sehr transparenter Farbe */
 }
 .signUpBtn {
     width: 91px;
@@ -125,51 +127,21 @@ header img {
     pointer-events: none;       /* Verhindert, dass das Bild das Klicken blockiert */
 }
 
-/* Startzustand für den Container */
-#logoAnimationContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    animation: fadeOutContainer 3s ease-in-out forwards; /* Verblasst während der Logo-Animation */
-}
-
-/* Startzustand für das Logo */
-#animatedLogo {
-    width: 150px; /* Startgröße */
-    animation: moveLogoToCorner 3s ease-in-out forwards;
-}
-
-/* Keyframe-Animation: Logo-Bewegung */
-@keyframes moveLogoToCorner {
+/* Keyframe-Animation: Logo-Bewegung und Transparenzänderung */
+@keyframes logoMoveToHeader {
     0% {
         transform: translate(-50%, -50%) scale(1); /* Mitte, Originalgröße */
         top: 50%;
         left: 50%;
-        position: absolute;
+        position: fixed;
+        opacity: 0.1; /* Sehr transparent */
     }
     100% {
-        transform: translate(0, 0) scale(0.7); /* Zielposition und Skalierung */
-        top: 80px;
-        left: 77px;
-        position: absolute;
-    }
-}
-
-/* Keyframe-Animation: Container-Verblassen */
-@keyframes fadeOutContainer {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
+        transform: translate(0, 0) scale(1); /* Zielposition */
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        opacity: 1; /* Volle Farbe */
     }
 }
 

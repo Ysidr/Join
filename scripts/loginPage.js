@@ -10,15 +10,14 @@ async function initLogin() {
 }
 
 /**
- * Animates the logo on the login page and fades out the container after the animation ends.
+ * Animates the logo on the login page.
  * @function logoSlideIn
  * @returns {void}
  */
 function logoSlideIn() {
-    const logoContainer = document.getElementById('logoAnimationContainer');
     const animatedLogo = document.getElementById('animatedLogo');
     animatedLogo.addEventListener('animationend', () => {
-        logoContainer.classList.add('fade-out');
+        animatedLogo.style.opacity = '1';
     });
 }
 
