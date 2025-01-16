@@ -367,3 +367,12 @@ function moveTask(taskId, targetContainerId) {
 
     closeMoveOptions();
 }
+
+/**
+ * Cancels the task edit and closes the task editor section.
+ */
+function cancelEdit() {
+    document.getElementById("AddTaskSection").classList.add("d-none");
+    document.getElementById("taskDetailSection").classList.add("d-none");
+    return;
+}

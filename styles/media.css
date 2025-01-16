@@ -350,6 +350,7 @@
     .addTasksBtn {
         order: 2;
         margin-left: auto;
+        justify-content: space-between !important;
     }
 
     .required {
