@@ -181,6 +181,7 @@ function clearInputs() {
     newCategory = "";
     newTaskData = {};
     document.getElementById("openContactsDiv").classList.add("d-none");
+    document.getElementById("AddTaskSection").classList.add("d-none");
 }
 
 /**
