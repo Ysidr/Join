@@ -283,10 +283,46 @@
 
 .boardHeader {
     display: flex;
-    position: relative;
     align-items: center;
-    justify-content: space-between;
+    width: 100%;
+    padding: 0 0 30px;
+    gap: 16px;
+}
 
+.boardHeaderTitle {
+    flex-shrink: 0;
+}
+
+.boardHeaderInputs {
+    margin: 0 16px;
+}
+
+.boardHeaderAddTaskContainer {
+    flex-shrink: 0;
+}
+
+.boardHeaderTitle {
+    margin-right: auto;
+}
+
+.boardHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.boardHeaderSearch {
+    width: 312px;
+}
+
+.boardHeaderTitle {
+    margin-right: auto; /* Drückt die nachfolgenden Elemente nach rechts */
+}
+
+.boardHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 64px; /* Der gewünschte Abstand zwischen Input und Button */
 }
 
 .boardHeaderDevider {

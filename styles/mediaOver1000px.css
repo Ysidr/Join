@@ -71,6 +71,10 @@
     .showContacts{
         height: 71vh !important;
     }  
+    
+    h1 {
+        font-size: 32px !important;
+    }
 
 }
 
@@ -310,10 +314,6 @@
     
     .moveOptions button:hover {
         background-color: #f0f0f0;
-    }
-    
-    h1 {
-        font-size: 32px !important;
     }
 
     .boardHeaderTitle{
