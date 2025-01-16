@@ -37,6 +37,7 @@ html, body {
     flex-direction: column;
     background-color: #F6F7F8;
     font-family: Inter;
+    max-width: 1970px;
 }
 
 
