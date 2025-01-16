@@ -72,14 +72,14 @@
             <p>Kanban Project Management Tool</p>
             <div id="user-info">
                 <div class="help">
-                    <a href="#" id="help" data-page="help" class="help"><img src="assets/icons/help.png" alt="" class="help-img" class="startseite-help-img-media"></a>
+                    <a href="#" onclick="loadPage('help')" class="help"><img src="assets/icons/help.png" alt="" class="help-img" class="startseite-help-img-media"></a>
                 </div>
                 <button id="user-initials" onclick="toggleMenu()">Click Me</button>
             </div>
         </header>
 
         <div id="menu-container" class="d-none menu container-mini-nav">            
-            <a href="#" id="help" data-page="help" class="helpMenu">Help</a>
+            <a href="#" onclick="loadPage('help')" class="helpMenu">Help</a>
             <a href="#" onclick="loadPage('privacyPolicy')">Privacy Policy</a>
             <a href="#" onclick="loadPage('legalNotice')">Legal Notice</a>
             <a href="#" onclick="logout(); return false;">Log out</a>

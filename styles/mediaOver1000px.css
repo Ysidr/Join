@@ -57,7 +57,7 @@
 
     main {
         margin-bottom: 70px;
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 
     .kanban-logo {
@@ -139,8 +139,9 @@
     }
 
     .boardHeader{
-        flex-direction: column;
-        margin: 8px 0;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 16px;
         gap: 16px;
     }
 
@@ -306,9 +307,138 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        width: auto;
+        margin-right: 0;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     .boardHeaderAddTaskBtn p{
+        display: none;
+    }
+
+    .boardHeaderRight {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .boardHeaderInputs {
+        order: 2;
+        width: 100%;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: stretch;
+    }
+
+    .boardHeaderAddTaskContainer {
+        margin-left: auto; /* Schiebt den Button nach rechts */
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    /* Neue Container für die erste Zeile */
+    .boardHeaderTopRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .boardHeaderTitle, .boardHeaderAddTaskContainer {
+        margin: 0; /* Reset der margins */
+    }
+
+    .boardHeaderSearch {
+        width: 100% !important; /* Volle Breite im Mobile */
+        max-width: none;
+    }
+
+    .boardHeader {
+        grid-template-columns: auto auto; /* Ändert sich zu 2 Spalten */
+        padding: 16px;
+    }
+
+    .boardHeaderTitle {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .boardHeaderAddTaskContainer {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .boardHeaderInputs {
+        grid-column: 1 / span 2; /* Geht über beide Spalten */
+        grid-row: 2;
+        width: 100%;
+    }
+
+    .boardHeaderSearch {
+        max-width: none; /* Entfernt die maximale Breite */
+        width: 100%;
+    }
+
+    .boardHeader {
+        flex-wrap: wrap;
+        padding: 16px;
+    }
+
+    .boardHeaderTitle {
+        flex: 1;
+    }
+
+    .boardHeaderInputs {
+        order: 2;
+        width: 100%;
+        margin: 16px 0 0;
+    }
+
+    .boardHeaderSearch {
+        width: 100%;
+    }
+
+    .boardHeaderAddTaskBtn {
+        width: 48px !important;
+    }
+
+    .boardHeaderAddTaskBtn p {
+        display: none;
+    }
+
+    .boardHeader {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .boardHeaderTitle {
+        flex: 1;
+        margin: 0;
+    }
+
+    .boardHeaderAddTaskContainer {
+        flex-shrink: 0;
+    }
+
+    .boardHeaderInputs {
+        width: 100%;
+        order: 1;
+        margin: 16px 0 0;
+    }
+
+    .boardHeaderSearch {
+        width: 100%;
+        max-width: none;
+    }
+
+    .boardHeaderAddTaskBtn {
+        width: 48px !important;
+    }
+
+    .boardHeaderAddTaskBtn p {
         display: none;
     }
 

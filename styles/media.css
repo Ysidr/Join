@@ -268,9 +268,12 @@
     }
 
     .boardHeader{
-        flex-direction: column;
         margin: 8px 0;
         gap: 16px;
+    }
+
+    .legalNotice, .privacyPolicy{
+        padding: 0 0 16px!important;
     }
 
 }
