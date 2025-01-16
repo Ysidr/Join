@@ -110,16 +110,14 @@ function getAddedContacts() {
  * @returns {string} The priority of the task, which could be 'high', 'medium', or 'low'.
  */
 function getPriority() {
-    if (document.getElementById("IDhigh")) {
+    if (document.getElementById("IDhigh").checked) {
         newPrio = "high";
-        return newPrio;
-    } else if (document.getElementById("IDmedium")) {
+    } else if (document.getElementById("IDmedium").checked) {
         newPrio = "medium";
-        return newPrio;
     } else {
         newPrio = "low";
-        return newPrio;
     }
+    return newPrio;
 }
 
 /**
