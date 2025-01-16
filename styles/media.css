@@ -173,6 +173,17 @@
 
 @media (max-width: 550px){
 
+    .tasksInRow{
+        justify-content: center;
+    }
+
+    .taskRow{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .taskDetailMain{
         padding: 0 16px;
     }

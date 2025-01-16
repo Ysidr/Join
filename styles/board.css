@@ -70,6 +70,7 @@
     gap: 24px;
     cursor: pointer;
     max-height: 500px;
+    width: 240px;
 }
 
 .categorySingleCard {
@@ -99,7 +100,8 @@
 .addedContactsSingleCard {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .prioImg {
@@ -134,7 +136,8 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Erhöht für Overlay über Navbar/Header */
+    /* Hintergrund abdunkeln */
+    z-index: 100;
 }
 
 .AddTaskSection {
@@ -174,7 +177,6 @@
 
 .detailCategory {
     width: 445px;
-    margin-top: 32px;
 }
 
 .detailHeader {
@@ -276,50 +278,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 504px;
 }
 
 .boardHeader {
     display: flex;
+    position: relative;
     align-items: center;
-    width: 100%;
-    padding: 0 0 30px;
-    gap: 16px;
-}
+    justify-content: space-between;
 
-.boardHeaderTitle {
-    flex-shrink: 0;
-}
-
-.boardHeaderInputs {
-    margin: 0 16px;
-}
-
-.boardHeaderAddTaskContainer {
-    flex-shrink: 0;
-}
-
-.boardHeaderTitle {
-    margin-right: auto;
-}
-
-.boardHeaderRight {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.boardHeaderSearch {
-    width: 312px;
-}
-
-.boardHeaderTitle {
-    margin-right: auto; /* Drückt die nachfolgenden Elemente nach rechts */
-}
-
-.boardHeaderRight {
-    display: flex;
-    align-items: center;
-    gap: 64px; /* Der gewünschte Abstand zwischen Input und Button */
 }
 
 .boardHeaderDevider {
@@ -375,6 +342,14 @@
     animation: slideInFromRight 0.25s ease-in-out forwards;
 }
 
+.detailCategoryContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 80px 0 0 0;
+}
+
 @keyframes slideInFromRight {
     from {
         transform: translateX(100%); /* Startpunkt: außerhalb des Viewports auf der rechten Seite */
@@ -394,22 +369,4 @@
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
-}
-
-.closeDetailBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-}
-
-.closeDetailBtn img {
-    width: 24px;
-    height: 24px;
-}
-
-.detailCategoryContainer{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
 }

@@ -62,9 +62,6 @@
     }
 
     .closeDetailBtn {
-        position: fixed; /* Fixed position für konstante Position beim Scrollen */
-        top: 16px;
-        right: 16px;
         z-index: 1001;
         background: white;
         border-radius: 50%;
@@ -139,4 +136,6 @@
     .edit-container{
         position: unset !important;
     }
+
+
 }
