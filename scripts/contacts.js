@@ -341,5 +341,24 @@ async function addNewContactContainer() {
 })();
 
 function showOtherButtons() {
-    document.getElementById("responsive-contact-buttons").classList.toggle("d-none")
+    const buttonDiv = document.getElementById("responsive-contact-buttons");
+    if (buttonDiv.classList.contains("d-none")) {
+        buttonDiv.classList.remove("d-none");
+        buttonDiv.classList.add("responsive-contact-buttons");
+    } else {
+        buttonDiv.classList.add("d-none");
+        buttonDiv.classList.remove("responsive-contact-buttons");
+    }
+}
+
+function hideOtherButtons() {
+    const buttonDiv = document.getElementById("responsive-contact-buttons");
+    if (!buttonDiv.classList.contains("d-none") && !buttonDiv.contains(event.target)) {
+        buttonDiv.classList.add("d-none");
+        buttonDiv.classList.remove("responsive-contact-buttons");
+    }
+}
+
+function stopBubbling(event) {
+    event.stopPropagation();
 }

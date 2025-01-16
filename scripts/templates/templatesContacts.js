@@ -85,10 +85,10 @@ function getContactInfoTemplate(name, email, phone, initials, bgColor) {
         </div>
         <div>
             <div class="responsive-contact-buttons">
-               <button class="flex" onclick="showOtherButtons()"><img src="./assets/icons/Menu Contact options.svg" alt=""></button>
-            <div class="responsive-contact-button-Div d-none" id="responsive-contact-buttons">
-                <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
-                <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
+                <button class="flex" onclick="showOtherButtons(),stopBubbling(event)"><img src="./assets/icons/Menu Contact options.svg" alt=""></button>
+                <div class="responsive-contact-button-Div d-none" id="responsive-contact-buttons">
+                    <button class="flex" onclick="editContact('${email}')"><img src="assets/icons/edit.png" alt=""> Edit</button>
+                    <button class="flex" onclick="deleteContact('${email}')"><img src="assets/icons/delete.png" alt=""> Delete</button>
                 </div>
             </div>
         </div>`;
