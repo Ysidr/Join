@@ -86,7 +86,7 @@
         display: none !important;
     }
 
-    .coloumns {
+    .coloumContainer {
         display: flex !important;
         flex-direction: column !important;
         overflow-y: auto !important;
@@ -106,6 +106,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 100vh;
+    }
+
+    .addTasksBtnRequired{
+        padding: 16px 0;
+    }
+
+    .required{
+        padding: unset !important;
     }
 
     .h1AddTask{
@@ -458,7 +467,7 @@
 }
 
 @media (max-width: 1100px) {
-    .coloumns {
+    .colouvmns {
         height: calc(var(--vh, 1vh) * 75);
         min-height: 300px;
     }

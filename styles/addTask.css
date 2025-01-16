@@ -42,6 +42,12 @@
 
 .coloumns {
     display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+}
+
+.coloumContainer{
+    display: flex;
 }
 
 .sepererator {
@@ -95,7 +101,6 @@ height: 14px;
 }
 
 .addTasksBtn {
-    margin-top: 80px;
     height: 56px;
     display: flex;
     align-items: center;
@@ -301,4 +306,10 @@ input[type="radio"]:checked + .prioLabels svg path {
 
 .selectContactsDiv{
     height: 200px;
+}
+
+.required{
+    padding: 0 0 0 64px;
+    display: flex;
+    gap: 8px;
 }

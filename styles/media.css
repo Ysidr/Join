@@ -82,7 +82,7 @@
     .btnGray{
         display: flex;
         align-items: center;
-        width: 125px;
+        min-width: 125px;
     }
 
     .clearBtn{
@@ -183,7 +183,7 @@
         width: 100%;
     }
 
-    .coloumns{
+    .coloumContainer{
         padding: 0 16px;
     }
 
@@ -333,5 +333,24 @@
     .nav-container a img {
         width: 24px;
         height: 24px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .addTasksBtn {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .required {
+        order: 1;
+        margin-top: auto;
+    }
+
+    .coloumn2NoSubtasks {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
 }
