@@ -73,7 +73,7 @@ function checkEverythingInTask(currentTask, allTasksIndex) {
  */
 function checkForAddedUsers(getCurrentTask) {
     if (getCurrentTask.assigned.length !== 0) {
-        document.getElementById(`contacts${getCurrentTask.title}`).innerHTML ="";
+        document.getElementById(`contacts${getCurrentTask.title}`).innerHTML = "";
         for (let indexAddedUsers = 0; indexAddedUsers < getCurrentTask.assigned.length; indexAddedUsers++) {
             getInitialsOfAddedUsers(getCurrentTask, indexAddedUsers, getCurrentTask.title);
         }

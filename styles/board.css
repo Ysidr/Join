@@ -99,8 +99,7 @@
 .addedContactsSingleCard {
     display: flex;
     flex: 1;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .prioImg {

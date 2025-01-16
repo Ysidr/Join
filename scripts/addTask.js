@@ -225,12 +225,20 @@ function contactSelected(name, bgColor) {
  * @returns {void}
  */
 function getInitialsOfAddedUser() {
-    document.getElementById("showAddedContacts").innerHTML = "";
-    for (let index = 0; index < selectedContatct.length; index++) {
+    const container = document.getElementById("showAddedContacts");
+    container.innerHTML = "";
+    const maxVisibleContacts = 4;
+    const extraContacts = selectedContatct.length - maxVisibleContacts;
+
+    for (let index = 0; index < Math.min(selectedContatct.length, maxVisibleContacts); index++) {
         const nameParts = selectedContatct[index].split(' ');
         const firstInitial = nameParts[0]?.charAt(0).toUpperCase();
         const lastInitial = nameParts[1]?.charAt(0).toUpperCase();
-        document.getElementById("showAddedContacts").innerHTML += `<p class= "addedUserInitials" style="background-color: ${selectedContatctBgColor[index]};" >${firstInitial}${lastInitial}</p>`;
+        container.innerHTML += `<p class="addedUserInitials" style="background-color: ${selectedContatctBgColor[index]};">${firstInitial}${lastInitial}</p>`;
+    }
+
+    if (extraContacts > 0) {
+        container.innerHTML += `<p class="addedUserInitials">+${extraContacts}</p>`;
     }
 }
 
@@ -387,7 +395,6 @@ function toggleAddSubtaskButton() {
 
 function toggleClearButton() {
     const input = document.getElementById('subtaskInput');
-    const clearButton = document.getElementById('clearSubtaskBtn');
-    
+    const clearButton = document.getElementById('clearSubtaskBtn');    
     clearButton.classList.toggle('d-none', !input.value.trim());
 }

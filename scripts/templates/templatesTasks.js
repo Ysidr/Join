@@ -82,7 +82,17 @@ function renderCategoryUser(getCurrentTask) {
  * @param {number} index - The index of the assigned contact.
  */
 function renderInitials(firstInitial, lastInitial, title, currentTask, index) {
-    document.getElementById(`contacts${title}`).innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};" >${firstInitial}${lastInitial}</p>`
+    const container = document.getElementById(`contacts${title}`);
+    const maxVisibleContacts = 3; // Ändere die Anzahl der sichtbaren Kontakte auf 3
+    const extraContacts = currentTask.assigned.length - maxVisibleContacts;
+
+    if (index < maxVisibleContacts) {
+        container.innerHTML += `<p class="addedUserInitials" style="background-color: ${currentTask.assignedBgColor[index]};">${firstInitial}${lastInitial}</p>`;
+    }
+
+    if (index === maxVisibleContacts && extraContacts > 0) {
+        container.innerHTML += `<p class="addedUserInitials">+${extraContacts}</p>`;
+    }
 }
 
 /**
