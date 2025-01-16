@@ -48,6 +48,7 @@ async function editTaskInBoard(allTasksIndex) {
     await waitForElement("#titleInput");
     let specificObject = allCurrentTasksObj[allTasksIndex];
     renderNoteToEdit(specificObject, allTasksIndex);
+    document.getElementById("taskDetailSection").classList.add("d-none");
 }
 
 /**
