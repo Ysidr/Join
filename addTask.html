@@ -102,11 +102,11 @@
 
                     <p>Subtasks</p>
                     <div class="smallInputField subtaskDiv" id="subtaskDiv">
-                        <input id="subtaskInput" class="subtaskInput" type="text" onselect="showAllButtons()">
+                        <input id="subtaskInput" class="subtaskInput" type="text" oninput="toggleClearButton()">
                         <div class="btnSubtasks">
-                            <button class="clear" onclick="clearInuptField()"><img src="./assets/icons/Subtasks icons11.svg"
+                            <button class="clear d-none" id="clearSubtaskBtn" onclick="clearInuptField()">X</button>
+                            <button type="button" class="add" onclick="addSubtask()"><img src="./assets/icons/Subtasks icons11.svg"
                                     alt=""></button>
-                            <button type="button" class="add" onclick="addSubtask()">Y</button>
                         </div>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                 </div>
 
                 <div class="addTasksBtn" id="addTasksBtn">
-                    <button type="button" class="btnClear clearBtn" onclick="clearInputs()">Cancel</button>
-                    <button type="submit" class="btnGray" onclick="validateTask()">Create Task</button>
+                    <button type="button" class="btnClear clearBtn" onclick="clearInputs()">Cancel X</button>
+                    <button type="submit" class="btnGray" onclick="validateTask()">Create Task <img src="assets/icons/check.png" alt=""></button>
                 </div>
             </div>
         </div>

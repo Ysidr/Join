@@ -19,6 +19,9 @@
     color: white;
     border: none;
     padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .btnGray:hover{

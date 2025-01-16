@@ -297,6 +297,7 @@ function editSubtask(subtaskContainer, oldName) {
  */
 function clearInuptField() {
     document.getElementById("subtaskInput").value = "";
+    document.getElementById("clearSubtaskBtn").classList.add('d-none');
 }
 
 /**
@@ -375,4 +376,18 @@ function validateCategory(inputId) {
         categoryValidation.style.color = "";
         return true;
     }
+}
+
+function toggleAddSubtaskButton() {
+    const input = document.getElementById('subtaskInput');
+    const addButton = document.getElementById('addSubtaskButton');
+    
+    addButton.classList.toggle('d-none', !input.value.trim());
+}
+
+function toggleClearButton() {
+    const input = document.getElementById('subtaskInput');
+    const clearButton = document.getElementById('clearSubtaskBtn');
+    
+    clearButton.classList.toggle('d-none', !input.value.trim());
 }
