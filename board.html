@@ -67,8 +67,12 @@
     
     <section id="taskDetailSection" class="taskDetailSection aninmation d-none" onclick="addDNone('taskDetailSection')">
         <div class="taskDetailMain" onclick="event.stopPropagation()">
-            <div class="detailCategory" id="detailCategory">
-    
+
+            <div class="detailCategoryContainer">
+                <div class="detailCategory" id="detailCategory"></div>
+                <button class="closeDetailBtn" onclick="addDNone('taskDetailSection')">
+                    <p>X</p>
+                </button>
             </div>
             <div class="detailHeader" id="detailHeader">
             </div>

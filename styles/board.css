@@ -135,8 +135,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Hintergrund abdunkeln */
-    z-index: 100;
+    z-index: 1000; /* Erhöht für Overlay über Navbar/Header */
 }
 
 .AddTaskSection {
@@ -396,4 +395,20 @@
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
+}
+
+.closeDetailBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.closeDetailBtn img {
+    width: 24px;
+    height: 24px;
+}
+
+.detailCategoryContainer{
+    display: flex;
 }
