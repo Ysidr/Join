@@ -309,7 +309,6 @@ input[type="radio"]:checked + .prioLabels svg path {
 }
 
 .required{
-    padding: 0 0 0 64px;
     display: flex;
     gap: 8px;
 }
