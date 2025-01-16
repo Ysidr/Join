@@ -24,19 +24,18 @@ function setMinDate() {
 /**
  * Fetches the contacts from the server and organizes them by their first letter.
  * Resets the contact list before fetching.
- * @async
  * @function getContacts
- * @returns {Promise<void>}
+ * @returns {void}
  */
-async function getContacts() {
+function getContacts() {
     resetContactList();
-    let response = await fetch(BASE_URL + "Contacts.json");
-    responseToJson = await response.json();
-    firstLetters = Object.keys(responseToJson);
-    for (let indexContactLetters = 0; indexContactLetters < firstLetters.length; indexContactLetters++) {
-        await getContactsWithThisLetter(indexContactLetters);
-    }
-    document.getElementById("openContactsDiv").classList.toggle("d-none");
+    fetch(BASE_URL + "Contacts.json")
+        .then(response => response.json())
+        .then(responseToJson => {
+            firstLetters = Object.keys(responseToJson);
+            firstLetters.forEach((letter, index) => getContactsWithThisLetter(index));
+            document.getElementById("openContactsDiv").classList.toggle("d-none");
+        });
 }
 
 /**
@@ -396,3 +395,11 @@ function toggleClearButton() {
     const clearButton = document.getElementById('clearSubtaskBtn');    
     clearButton.classList.toggle('d-none', !input.value.trim());
 }
+
+document.addEventListener('click', function(event) {
+    const openContactsDiv = document.getElementById('openContactsDiv');
+    const contactSelector = document.getElementById('contactSelector');
+    if (!contactSelector.contains(event.target) && !openContactsDiv.contains(event.target)) {
+        openContactsDiv.classList.add('d-none');
+    }
+});

@@ -104,7 +104,7 @@ height: 14px;
     height: 56px;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
     gap: 16px;
 }
 
@@ -302,10 +302,6 @@ input[type="radio"]:checked + .prioLabels svg path {
     max-height: 50px;
     overflow-y: scroll;
     overflow-x: hidden;
-}
-
-.selectContactsDiv{
-    height: 200px;
 }
 
 .required{

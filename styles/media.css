@@ -110,7 +110,7 @@
     }
 
     .loginData{
-        width: 100%;
+        width: 90%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -220,7 +220,7 @@
 
     .dataInput{
         align-items: center;
-        width: 100%;
+        width: 90%;
     }
 
     .signUpDiv{
