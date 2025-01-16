@@ -1,7 +1,10 @@
 <div class="board-container">
     <link rel="stylesheet" href="./styles/addTask.css">
     <div class="boardHeader">
-        <h1>Board</h1>
+        <div class="boardHeaderTitle">
+            <h1>Board</h1>
+            <button class="btnGray boardHeaderAddTaskBtn" onclick="addTaskInBoard()"><p> Add task </p><img src="./assets/icons/add.svg" alt=""></button>
+        </div>
         <div class="boardHeaderInputs">
             <div class="boardHeaderSearch">
                 <input type="search" placeholder="Find Task" id="boardHeaderSearch">
@@ -10,8 +13,7 @@
                     <img src="./assets/icons/search.svg" alt="" onclick="searchTasksInBoard()" >
                 </button>
             </div>
-            <button class="btnGray boardHeaderAddTaskBtn" onclick="addTaskInBoard()"><p> Add task </p><img src="./assets/icons/add.svg" alt=""></button>
-        </div>
+            </div>
     </div>
     <div class="taskRows">
         <div class="taskRow toDoRow">
@@ -93,9 +95,9 @@
     
             </div>
             <div class="detailBtns" id="detailBtns">
-                <button> <img src="./assets/icons/delete.svg" alt=""></button>
+                <button> <img src="./assets/icons/delete.svg" alt="">Delete</button>
                 <div class="detailBtnSeperator"></div>
-                <button onclick="editTaskInBoard()"><img src="./assets/icons/pencilSmall.svg" alt=""></button>
+                <button onclick="editTaskInBoard()"><img src="./assets/icons/pencilSmall.svg" alt="">Edit</button>
             </div>
         </div>
     

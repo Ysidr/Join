@@ -196,6 +196,7 @@
     justify-content: end;
     align-items: center;
     margin-bottom: 24px;
+    gap: 8px;
 }
 
 .detailBtns img {
@@ -356,4 +357,8 @@
     display: none;
 }
 
-
+.detailBtnSeperator{
+    width: 1px;
+    height: 24px;
+    background-color: #D1D1D1;
+}

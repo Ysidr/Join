@@ -123,9 +123,9 @@ function renderDetails(allTasksIndex) {
         }
     }
     document.getElementById("detailBtns").innerHTML = `
-    <button onclick="deleteTaskFromBoard('${allTasksIndex}')"> <img src="./assets/icons/delete.svg" alt=""></button>
+    <button onclick="deleteTaskFromBoard('${allTasksIndex}')" class="flex"> <img src="./assets/icons/delete.svg" alt="">Delete</button>
             <div class="detailBtnSeperator"></div>
-            <button onclick="editTaskInBoard('${allTasksIndex}')" ><img src="./assets/icons/pencilSmall.svg" alt=""></button>`
+            <button onclick="editTaskInBoard('${allTasksIndex}')" class="flex"><img src="./assets/icons/pencilSmall.svg" alt="">Edit</button>`
 }
 
 

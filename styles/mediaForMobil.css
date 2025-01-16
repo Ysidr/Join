@@ -15,6 +15,11 @@
 
 /* Höhenanpassungen für mobile Geräte */
 @media (max-width: 550px) and (max-height: 800px) {
+
+    .taskRows{
+        height: 55vh !important;
+    }
+
     .taskDetailMain {
         max-height: 80vh;
         overflow-y: auto;
