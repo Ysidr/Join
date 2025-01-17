@@ -137,6 +137,14 @@
         position: unset !important;
     }
 
+    .loginDiv{
+        filter: none !important;
+    }
+
+    .loginBox{
+        background-color: white;
+    }
+
     @keyframes logoMoveToHeader {
         0% {
             transform: translate(-50%, -50%) scale(1);
@@ -147,7 +155,7 @@
         }
         100% {
             transform: translate(0, 0) scale(1);
-            top: 40px;
+            top: 0px;
             left: 0px;
             position: fixed;
             opacity: 1;
