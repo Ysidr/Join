@@ -63,16 +63,39 @@ header img {
     flex-direction: column;
     gap: 16px;
 }
-.dataInput input {
-    width: 422px;
-    height: 48px;
-    border-radius: 10px;
-    border-color: #D1D1D1;
-    border-style: solid;
+
+.signUpButton{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
 }
+
+.signUpData{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Container für das Input-Feld und das Bild */
+.input-container {
+    position: relative; /* Relatives Positionieren des Containers */
+    width: 100%;        /* Der Container nimmt die volle Breite ein */
+    margin-bottom: 20px; /* Abstand nach unten für den Fehlertext */
+    display: flex;
+    justify-content: center;
+}
+
+/* Das Eingabefeld */
+.input-container input {
+    width: 90%;               /* Input-Feld nimmt die gesamte Breite ein */
+    padding-left: 30px;        /* Platz für das Icon auf der linken Seite */
+    padding-right: 30px;       /* Platz für das Icon auf der rechten Seite */
+    box-sizing: border-box;    /* Padding wird innerhalb der Breite gezählt */
+    font-size: 16px;           /* Optional: Schriftgröße anpassen */
+    height: 40px;              /* Optional: Höhe des Input-Feldes anpassen */
+    border-radius: 10px;
+}
+
 .accept {
     display: flex;
     align-items: center;
