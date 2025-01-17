@@ -137,5 +137,20 @@
         position: unset !important;
     }
 
-
+    @keyframes logoMoveToHeader {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            opacity: 0.1;
+        }
+        100% {
+            transform: translate(0, 0) scale(1);
+            top: 40px;
+            left: 0px;
+            position: fixed;
+            opacity: 1;
+        }
+    }
 }

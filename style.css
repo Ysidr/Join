@@ -32,12 +32,10 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%; /* Volle Höhe der Ansicht */
-    overflow: hidden; /* Keine Scrollleisten für das gesamte Dokument */
     display: flex;
     flex-direction: column;
     background-color: #F6F7F8;
     font-family: Inter;
-    max-width: 1970px;
 }
 
 
