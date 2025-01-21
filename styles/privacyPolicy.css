@@ -1,7 +1,8 @@
 .privacyPolicy{
     padding: 64px;
-    overflow: auto;
 }
+
+
 
 .header-privacy-policy{
     display: flex;

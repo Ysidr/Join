@@ -11,7 +11,6 @@
 
 .taskRows {
     display: flex;
-    overflow-y: auto;
     width: 100%;
     justify-content: space-evenly;
     height: 70vh;
